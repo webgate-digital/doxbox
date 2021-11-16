@@ -298,6 +298,12 @@ iframe {
     @apply opacity-100;
 }
 
+.main-nav--mobile li a {
+    @apply text-white;
+    @apply uppercase;
+    @apply text-medium;
+}
+
 /*flash news*/
 .flash-news {
     @apply bg-secondary;
@@ -311,6 +317,8 @@ iframe {
 
 .big-banner {
     @apply bg-secondary;
+    @apply bg-cover;
+    @apply bg-center;
     @apply py-32;
 }
 

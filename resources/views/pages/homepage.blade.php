@@ -4,7 +4,7 @@
     <main>
         @isset($pageContent['big-banner'])
             {!! $pageContent['big-banner']['_editable'] !!}
-            <section class="big-banner">
+            <section class="big-banner" @if($pageContent['big-banner']['block']['background_image']['filename']) style="background-image: url({{$pageContent['big-banner']['block']['background_image']['filename']}})" @endif>
                 <div class="container">
                     <div class="flex flex-wrap items-center">
                         <div class="w-full lg:w-1/2">
@@ -12,7 +12,7 @@
                                 <p class="h2">{{$pageContent['big-banner']['block']['subheadline']}}</p>
                             @endif
                             <h1 class="h1">
-                                {{$pageContent['big-banner']['block']['headline']}}
+                                {{ Illuminate\Mail\Markdown::parse($pageContent['big-banner']['block']['headline']) }}
                             </h1>
                             <a href="{{$pageContent['big-banner']['block']['cta_url']}}"
                                class="button button--primary button--inline">{{$pageContent['big-banner']['block']['cta_text']}}</a>
