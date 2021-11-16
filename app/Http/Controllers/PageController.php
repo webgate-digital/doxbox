@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Theshop\Frontstore\Base\Exceptions\NotFoundException;
 use Theshop\Frontstore\Base\Exceptions\ValidationException;
 use Theshop\Frontstore\Base\Repositories\SettingRepository;
+use Theshop\Frontstore\Storyblok\Services\StoryblokService;
 use Theshop\Frontstore\Cart\Repositories\CartRepository;
 use Theshop\Frontstore\Pages\Repositories\PageRepository;
 use Theshop\Frontstore\Products\Repositories\ProductRepository;
@@ -24,21 +25,7 @@ class PageController extends Controller
 
     public function homepage()
     {
-        $slug = 'home';
-        $storyblok = new \Storyblok\Client('ZFOjHEESu53ElJ7WBmEq4wtt');
-        $storyblok->editMode(); // always enable draft mode
-        $data = $storyblok->getStoryBySlug($slug)->getBody();
-        $content = (object)$data['story']['content']['body'];
-        $pageContent = [];
-
-        foreach ($content as $item) {
-            $pageContent[$item['component']] = [
-                '_editable' => $item['_editable'],
-                'type' => isset($item['columns']) ? 'columns' : 'block',
-                'columns' => $item['columns'] ?? [],
-                'block' => isset($item['columns']) ? null : $item
-            ];
-        }
+        $pageContent = StoryblokService::getContent('home');
 
         $products = Cache::rememberForever('homepage_products_list', function () {
             return $this->_productRepository->list(locale(), session()->get('currency'), 8)['items'];

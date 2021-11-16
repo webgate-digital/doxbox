@@ -170,6 +170,7 @@ return [
         \Theshop\Frontstore\Pages\PageServiceProvider::class,
         \Theshop\Frontstore\Products\ProductServiceProvider::class,
         \Theshop\Frontstore\Cart\CartServiceProvider::class,
+        \Theshop\Frontstore\Storyblok\StoryblokServiceProvider::class,
 
         /*
          * Application Service Providers...

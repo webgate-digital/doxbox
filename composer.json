@@ -22,7 +22,8 @@
         "theshop/frontstore-base": "dev-master",
         "theshop/frontstore-cart": "dev-master",
         "theshop/frontstore-pages": "dev-master",
-        "theshop/frontstore-products": "dev-master"
+        "theshop/frontstore-products": "dev-master",
+        "theshop/frontstore-storyblok": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
@@ -88,6 +89,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:themktg/frontstore-cart.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:themktg/frontstore-storyblok.git"
         }
     ]
 }
