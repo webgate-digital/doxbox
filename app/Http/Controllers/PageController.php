@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Theshop\Frontstore\Base\Exceptions\NotFoundException;
 use Theshop\Frontstore\Base\Exceptions\ValidationException;
 use Theshop\Frontstore\Base\Repositories\SettingRepository;
+use Theshop\Frontstore\Storyblok\Client;
 use Theshop\Frontstore\Storyblok\Services\StoryblokService;
 use Theshop\Frontstore\Cart\Repositories\CartRepository;
 use Theshop\Frontstore\Pages\Repositories\PageRepository;
@@ -25,7 +26,7 @@ class PageController extends Controller
 
     public function homepage()
     {
-        $pageContent = StoryblokService::getContent('home');
+        $pageContent = StoryblokService::getContent('home', locale());
 
         $products = Cache::rememberForever('homepage_products_list', function () {
             return $this->_productRepository->list(locale(), session()->get('currency'), 8)['items'];

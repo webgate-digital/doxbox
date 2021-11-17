@@ -3187,16 +3187,16 @@
         },
         {
             "name": "spatie/laravel-googletagmanager",
-            "version": "2.6.2",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-googletagmanager.git",
-                "reference": "aadef9d3fc9ced1a8ab03a91ddab59979644182c"
+                "reference": "d28e9b979c5959cf7cae78306b61a0386072dd97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-googletagmanager/zipball/aadef9d3fc9ced1a8ab03a91ddab59979644182c",
-                "reference": "aadef9d3fc9ced1a8ab03a91ddab59979644182c",
+                "url": "https://api.github.com/repos/spatie/laravel-googletagmanager/zipball/d28e9b979c5959cf7cae78306b61a0386072dd97",
+                "reference": "d28e9b979c5959cf7cae78306b61a0386072dd97",
                 "shasum": ""
             },
             "require": {
@@ -3243,9 +3243,15 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-googletagmanager/issues",
-                "source": "https://github.com/spatie/laravel-googletagmanager/tree/master"
+                "source": "https://github.com/spatie/laravel-googletagmanager/tree/2.6.3"
             },
-            "time": "2019-09-13T09:03:47+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-11-17T09:42:01+00:00"
         },
         {
             "name": "storyblok/php-client",
@@ -5631,12 +5637,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:themktg/frontstore-base.git",
-                "reference": "90190ffb44a72953b1fcdec4ab9387b2e702fab1"
+                "reference": "79f274148195c6125a974bb963c25833c2499cd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/themktg/frontstore-base/zipball/90190ffb44a72953b1fcdec4ab9387b2e702fab1",
-                "reference": "90190ffb44a72953b1fcdec4ab9387b2e702fab1",
+                "url": "https://api.github.com/repos/themktg/frontstore-base/zipball/79f274148195c6125a974bb963c25833c2499cd8",
+                "reference": "79f274148195c6125a974bb963c25833c2499cd8",
                 "shasum": ""
             },
             "default-branch": true,
@@ -5664,7 +5670,7 @@
                 "source": "https://github.com/themktg/frontstore-base/tree/master",
                 "issues": "https://github.com/themktg/frontstore-base/issues"
             },
-            "time": "2021-11-06T20:23:50+00:00"
+            "time": "2021-11-16T20:47:58+00:00"
         },
         {
             "name": "theshop/frontstore-cart",
@@ -5795,12 +5801,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:themktg/frontstore-storyblok.git",
-                "reference": "ecfa65e56bef8797b265abb96385803c26da4f93"
+                "reference": "a269613b878f9ca6053cadb4d819a00a08064848"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/themktg/frontstore-storyblok/zipball/ecfa65e56bef8797b265abb96385803c26da4f93",
-                "reference": "ecfa65e56bef8797b265abb96385803c26da4f93",
+                "url": "https://api.github.com/repos/themktg/frontstore-storyblok/zipball/a269613b878f9ca6053cadb4d819a00a08064848",
+                "reference": "a269613b878f9ca6053cadb4d819a00a08064848",
                 "shasum": ""
             },
             "require": {
@@ -5831,7 +5837,7 @@
                 "source": "https://github.com/themktg/frontstore-storyblok/tree/master",
                 "issues": "https://github.com/themktg/frontstore-storyblok/issues"
             },
-            "time": "2021-11-16T20:43:25+00:00"
+            "time": "2021-11-17T11:14:05+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
