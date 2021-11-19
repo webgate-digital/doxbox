@@ -25,14 +25,17 @@ Route::group(['middleware' => ['empty.cart']], function () {
 
     Route::multilingual('/voucher/remove', [CartController::class, 'removeVoucher'])->name('remove_voucher')->method('delete');
     Route::multilingual('/voucher/apply', [CartController::class, 'applyVoucher'])->name('apply_voucher')->method('post');
-    Route::multilingual('/shipping-and-payment', [CartController::class, 'shippingAndPayment'])->name('cart.shipping_and_payment');
+
+    Route::multilingual('/shipping/init', [CartController::class, 'initShipping'])->name('cart.shipping.init');
+    Route::multilingual('/shipping-and-payment', [CartController::class, 'shippingAndPayment'])->name('cart.shipping');
+
     Route::multilingual('/select-payment', [CartController::class, 'selectPayment'])->name('cart.select_payment')->method('post');
     Route::multilingual('/select-shipping', [CartController::class, 'selectShipping'])->name('cart.select_shipping')->method('post');
     Route::multilingual('/select-shipping-country', [CartController::class, 'selectShippingCountry'])->name('cart.select_shipping_country')->method('post');
+    Route::multilingual('/continue-to-checkout', [CartController::class, 'continueToCheckout'])->name('cart.continue_to_checkout')->method('post');
 
     Route::group(['middleware' => ['empty.shipping']], function () {
 
-        Route::multilingual('/continue-to-checkout', [CartController::class, 'continueToCheckout'])->name('cart.continue_to_checkout')->method('post');
         Route::multilingual('/order', [CartController::class, 'order'])->name('cart.order')->method('post');
         Route::multilingual('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 

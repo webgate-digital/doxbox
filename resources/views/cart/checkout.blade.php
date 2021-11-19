@@ -131,7 +131,7 @@
                                    readonly
                                    value="{{old('country', $user ? $user->country : $shippingCountry['name'])}}">
                             <small class="">{{$translations['cart.country_change']['text']}}
-                                <a href="{{route(locale() . '.cart.shipping_and_payment')}}"
+                                <a href="{{route(locale() . '.cart.shipping')}}"
                                    class="text-secondary">{{$translations['cart.shipping_and_payment_title']['text']}}</a></small>
                             @error('country')
                             <small class="text-danger">{{$message}}</small>
@@ -326,7 +326,7 @@
                                        readonly
                                        value="{{old('shipping_country', $user ? $user->shipping_country : $shippingCountry['name'])}}">
                                 <small class="">{{$translations['cart.country_change']['text']}}
-                                    <a href="{{route(locale() . '.cart.shipping_and_payment')}}"
+                                    <a href="{{route(locale() . '.cart.shipping')}}"
                                        class="text-secondary">{{$translations['cart.shipping_and_payment_title']['text']}}</a></small>
                                 @error('country')
                                 <small class="text-danger">{{$message}}</small>
@@ -341,7 +341,7 @@
                                       rows="4">{{old('notes')}}</textarea>
                         </div>
                         <div class="hidden lg:block mt-4">
-                            <a href="{{route(locale() . '.cart.shipping_and_payment')}}"
+                            <a href="{{route(locale() . '.cart.shipping')}}"
                                class="button button--ghost button--inline">{{$translations['cart.shipping_and_payment_title']['text']}}</a>
                         </div>
                     </div>

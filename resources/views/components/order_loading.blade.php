@@ -3,6 +3,6 @@
         {{$text}}
     </div>
     <div>
-        <img src="{{asset('images/icons/sync_black_24dp.svg')}}" class="animate-spin mx-auto" alt="{{$text}}">
+        <img src="{{asset('images/icons/sync_white_24dp.svg')}}" class="animate-spin mx-auto" alt="{{$text}}">
     </div>
 </div>

@@ -1,19 +1,24 @@
 <div class="cart-steps">
     <div class="container">
         <div class="flex -mx-8">
-            <a href="{{route(locale() . '.cart')}}" class="cart-step @if(Route::currentRouteName() === locale() . '.cart') cart-step--active @endif">
+            <a href="{{route(locale() . '.cart')}}"
+               class="cart-step">
                 <div class="cart-step--number">
-                    1
+                    @if(Route::currentRouteName() === locale() . '.cart.shipping' || Route::currentRouteName() === locale() . '.cart.checkout') @include('components.icons.done', ['colorClass' => 'text-primary']) @else
+                        1 @endif
                 </div>
                 <div class="">{{$translations['cart.title']['text']}}</div>
             </a>
-            <a href="{{route(locale() . '.cart.shipping_and_payment')}}" class="cart-step @if(Route::currentRouteName() === locale() . '.cart.shipping_and_payment') cart-step--active @endif">
+            <a href="{{route(locale() . '.cart.shipping')}}"
+               class="cart-step">
                 <div class="cart-step--number">
-                    2
+                    @if(Route::currentRouteName() === locale() . '.cart.checkout') @include('components.icons.done', ['colorClass' => 'text-primary']) @else
+                        2 @endif
                 </div>
                 <div class="">{{$translations['cart.shipping_and_payment_title']['text']}}</div>
             </a>
-            <a href="{{route(locale() . '.cart.checkout')}}" class="cart-step @if(Route::currentRouteName() === locale() . '.cart.checkout') cart-step--active @endif">
+            <a href="{{route(locale() . '.cart.checkout')}}"
+               class="cart-step">
                 <div class="cart-step--number">
                     3
                 </div>

@@ -95,18 +95,11 @@ class CartController extends Controller
         }
     }
 
-    public function shippingAndPayment()
+    public function initShipping()
     {
-        $voucher = session()->get('voucher', null);
         $shippingCountries = Cache::rememberForever('shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
-        $shippingCountry = $shippingCountries[session()->get('shipping_country')];
-
-        $checkoutSupportValue = session()->get('checkout_support_value', 0);
-        $checkoutSupportName = session()->get('checkout_support_name', null);
-
-        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName]);
 
         $shippingTypes = $this->_setupRepository->getShippingTypes(locale(), session()->get('currency'), session()->get('shipping_country'))['items'];
 
@@ -121,7 +114,29 @@ class CartController extends Controller
             return $_settingRepository->packeta()['items'];
         });
 
-        return view('cart.shipping_and_payment', compact('shippingCountries', 'shippingCountry', 'shippingTypes', 'paymentTypes', 'cart', 'packetaSettings'));
+        return [
+            'shippingCountries' => $shippingCountries,
+            'shippingCountry' => session()->get('shipping_country'),
+            'shippingTypes' => $shippingTypes,
+            'shippingType' => session()->get('shipping_type'),
+            'packetaSelectorBranchName' => session()->get('packeta-selector-branch-name'),
+            'packetaSelectorBranchId' => session()->get('packeta-selector-branch-id'),
+            'ulozenkaBranch' => session()->get('ulozenka-branch'),
+            'paymentTypes' => $paymentTypes,
+            'paymentType' => session()->get('payment_type'),
+            'packetaApiKey' => $packetaSettings['api_key']['value']
+        ];
+    }
+
+    public function shippingAndPayment()
+    {
+        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+            return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
+        });
+
+        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), session()->get('voucher', null)['code'] ?? null, $shippingCountries[session()->get('shipping_country')]['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => session()->get('checkout_support_value', 0), 'name' => session()->get('checkout_support_name', null)]);
+
+        return view('cart.shipping_and_payment', compact('cart'));
     }
 
     public function selectShippingCountry(Request $request)
@@ -142,8 +157,6 @@ class CartController extends Controller
         session()->forget('packeta-selector-branch-id');
         session()->forget('checkout_support_value');
         session()->forget('checkout_support_name');
-
-        return redirect()->back();
     }
 
     public function selectShipping(Request $request)
@@ -184,8 +197,6 @@ class CartController extends Controller
         } else {
             session()->forget('ulozenka-branch');
         }
-
-        return redirect()->to(url()->previous());
     }
 
     public function selectPayment(Request $request)
@@ -197,8 +208,6 @@ class CartController extends Controller
         session()->put('payment_type', $request->get('payment_type'));
         session()->forget('checkout_support_value');
         session()->forget('checkout_support_name');
-
-        return redirect()->back();
     }
 
     public function continueToCheckout(Request $request)
@@ -207,7 +216,9 @@ class CartController extends Controller
             'toc' => 'accepted',
         ]);
 
-        return redirect()->route(locale() . '.cart.checkout');
+        session()->put('toc_accepted', true);
+
+        return route(locale() . '.cart.checkout');
     }
 
     public function checkout()
@@ -269,7 +280,8 @@ class CartController extends Controller
                 'voucher',
                 'checkout_support_value',
                 'checkout_support_name',
-                'multipack'
+                'multipack',
+                'toc_accepted'
             ]);
             session()->forget('ulozenka-branch');
             session()->forget('packeta-selector-branch-name');

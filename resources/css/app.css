@@ -184,7 +184,7 @@ iframe {
     @apply text-center;
     @apply px-8;
     @apply w-full;
-    @apply text-secondary;
+    @apply text-primary;
     @apply text-small;
     @apply font-bold;
 }
@@ -194,10 +194,6 @@ iframe {
         @apply w-1/3;
         @apply text-medium;
     }
-}
-
-.cart-step--active {
-    @apply text-primary;
 }
 
 .cart-step--number {

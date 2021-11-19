@@ -25,6 +25,14 @@ export default {
         return this.price_formatted;
     },
 
+    getFreeShipping() {
+        return this.free_shipping
+    },
+
+    getFreeShippingAllowed() {
+        return this.free_shipping_allowed
+    },
+
     async addItem(uuid, quantity) {
         await axios.post('/cart/add', {uuid: uuid, quantity: quantity})
             .then(response => {

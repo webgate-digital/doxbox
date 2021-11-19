@@ -71,7 +71,7 @@
                     <div class="w-full lg:w-1/2 flex flex-col items-end">
                         <h4 class="h4 mt-16 lg:mt-0">{{$translations['cart.total']['text']}}: <span
                                 id="total-price-cart-formatted">{{$cart['price_formatted']}}</span></h4>
-                        <a href="{{route(locale() . '.cart.shipping_and_payment')}}"
+                        <a href="{{route(locale() . '.cart.shipping')}}"
                            class="button button--primary button--inline">
                             <span>{{$translations['cart.shipping_and_payment_title']['text']}}</span></a>
                     </div>
