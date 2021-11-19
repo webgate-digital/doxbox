@@ -622,6 +622,7 @@ iframe {
     @apply text-white;
     @apply text-h1;
     @apply flex-col;
+    @apply text-center;
 }
 
 .list-item {
