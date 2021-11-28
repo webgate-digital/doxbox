@@ -386,7 +386,7 @@
                                     {{$cart['payment']['name']}}
                                 </div>
                                 <div class="w-1/2 flex flex-col items-end">
-                                    <b>{{$cart['payment']['price'] && ($cart['free_shipping'] >= 0  || !$cart['free_shipping_allowed']) ? $cart['payment']['price_formatted'] : $translations['cart.free_price']['text']}}</b>
+                                    <b>{{$cart['payment']['price'] ? $cart['payment']['price_formatted'] : $translations['cart.free_price']['text']}}</b>
                                 </div>
                             </div>
                             @if($cart['voucher'])

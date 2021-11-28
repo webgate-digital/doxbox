@@ -100,7 +100,7 @@
                                         </span>
                         <b class="list-item--label---column">
                                     <template
-                                        v-if="item.price && (cart.getFreeShipping() >= 0 || !cart.getFreeShippingAllowed())">{{
+                                        v-if="item.price">{{
                                             item.price_formatted
                                         }}</template>
                                     <template v-else>{{ translations['cart.free_price'] }}</template>
