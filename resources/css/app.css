@@ -320,8 +320,7 @@ iframe {
     @apply bg-white;
     @apply bg-cover;
     @apply bg-center;
-    @apply py-32;
-    @apply shadow-lg;
+    @apply py-64;
 }
 
 /*shop*/

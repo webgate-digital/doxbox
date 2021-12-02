@@ -9,9 +9,9 @@
                     <div class="flex flex-wrap items-center">
                         <div class="w-full lg:w-1/2">
                             @if($pageContent['big-banner']['block']['subheadline'])
-                                <p class="h2">{{$pageContent['big-banner']['block']['subheadline']}}</p>
+                                <p class="h2 leading-none">{{$pageContent['big-banner']['block']['subheadline']}}</p>
                             @endif
-                            <h1 class="h1">
+                            <h1 class="h1 !text-[160px] leading-none text-secondary">
                                 {{ Illuminate\Mail\Markdown::parse($pageContent['big-banner']['block']['headline']) }}
                             </h1>
                             <a href="{{$pageContent['big-banner']['block']['cta_url']}}"

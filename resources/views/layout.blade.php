@@ -80,7 +80,7 @@
                 <div class="w-1/2 lg:w-2/3">
                     <div class="flex items-center">
                         <a href="{{route(locale() . '.homepage')}}" class="mr-16">
-                            <img src="{{asset('images/logo.svg')}}" width="100" alt="{{config('app.name')}}">
+                            <img src="{{asset('images/logo.svg')}}" width="120" alt="{{config('app.name')}}">
                         </a>
                         @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
                             <ul class="main-nav--menu hidden lg:block">
@@ -144,11 +144,9 @@
                             {{$supplierSettings['address']['value']}}<br>
                             {{$supplierSettings['zip']['value']}} {{$supplierSettings['city']['value']}}<br>
                             {{$translations['general.company_id']['text']}}: {{$supplierSettings['id']['value']}}<br>
-                            {{$translations['general.company_tax_id']['text']}}
-                            : {{$supplierSettings['tax_id']['value']}}
-                            <br>
-                            {{$translations['general.company_vat_id']['text']}}
-                            : {{$supplierSettings['vat_id']['value']}}
+                            {{$translations['general.company_tax_id']['text']}}: {{$supplierSettings['tax_id']['value']}}
+{{--                            {{$translations['general.company_vat_id']['text']}}--}}
+{{--                            : {{$supplierSettings['vat_id']['value']}}--}}
                         </p>
                     @endif
                 </div>
