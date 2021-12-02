@@ -29,7 +29,7 @@
 
     @yield('json-ld')
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
     @yield('css')
 
@@ -54,24 +54,24 @@
 <div id="app">
 
     @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-    <div class="top-nav">
-        <div class="container">
-            <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
-                    src="{{asset('images/icons/email_black_24dp.svg')}}"
-                    alt="{{$catalogSettings['email']['value']}}" width="15"
-                    class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
-            <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline"><img
-                    src="{{asset('images/icons/call_black_24dp.svg')}}"
-                    alt="{{$catalogSettings['phone']['value']}}" width="15"
-                    class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
-            @foreach(config('locales.supported') as $locale)
-                <a href="{{route($locale . '.homepage')}}" class="top-nav--item"><img
-                        src="{{asset('images/flags/'.$locale.'.svg')}}" class="top-nav--flag"
-                        width="15"
-                        alt="{{$locale}}"></a>
-            @endforeach
+        <div class="top-nav">
+            <div class="container">
+                <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
+                        src="{{asset('images/icons/email_black_24dp.svg')}}"
+                        alt="{{$catalogSettings['email']['value']}}" width="15"
+                        class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
+                <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline"><img
+                        src="{{asset('images/icons/call_black_24dp.svg')}}"
+                        alt="{{$catalogSettings['phone']['value']}}" width="15"
+                        class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
+                @foreach(config('locales.supported') as $locale)
+                    <a href="{{route($locale . '.homepage')}}" class="top-nav--item"><img
+                            src="{{asset('images/flags/'.$locale.'.svg')}}" class="top-nav--flag"
+                            width="15"
+                            alt="{{$locale}}"></a>
+                @endforeach
+            </div>
         </div>
-    </div>
     @endif
 
     <nav class="main-nav">
@@ -83,37 +83,38 @@
                             <img src="{{asset('images/logo.svg')}}" width="100" alt="{{config('app.name')}}">
                         </a>
                         @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                        <ul class="main-nav--menu hidden lg:block">
-                            @include('components.main_nav')
-                        </ul>
-                            @endif
+                            <ul class="main-nav--menu hidden lg:block">
+                                @include('components.main_nav')
+                            </ul>
+                        @endif
                     </div>
                 </div>
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                <div class="w-1/2 lg:w-1/3">
-                    <div class="flex items-center justify-end relative">
-                        <button type="button"
-                                onclick="document.getElementById('search-wrapper').classList.add('opened');">
-                            <img src="{{asset('images/icons/search_white_24dp.svg')}}"
-                                 alt="{{$translations['search.title']['text']}}">
-                        </button>
-                        <a href="{{route(locale() . '.cart')}}" class="ml-8 flex items-center">
-                            <img src="{{asset('images/icons/shopping_cart_white_24dp.svg')}}" class="mr-2"
-                                 alt="{{$translations['cart.title']['text']}}">
-                            <div class="text-small text-white">
-                                <cart-icon></cart-icon>
-                            </div>
-                        </a>
-                        <button type="button" onclick="document.getElementById('main-nav--mobile').classList.toggle('is-open');">
-                            <img src="{{asset('images/icons/menu_white_24dp.svg')}}" class="ml-8 lg:hidden"
-                                 alt="{{$translations['cart.title']['text']}}">
-                        </button>
-                        <ul class="main-nav--mobile" id="main-nav--mobile">
-                            @include('components.main_nav')
-                        </ul>
+                    <div class="w-1/2 lg:w-1/3">
+                        <div class="flex items-center justify-end relative">
+                            <button type="button"
+                                    onclick="document.getElementById('search-wrapper').classList.add('opened');">
+                                <img src="{{asset('images/icons/search_black_24dp.svg')}}"
+                                     alt="{{$translations['search.title']['text']}}">
+                            </button>
+                            <a href="{{route(locale() . '.cart')}}" class="ml-8 flex items-center">
+                                <img src="{{asset('images/icons/shopping_cart_black_24dp.svg')}}" class="mr-2"
+                                     alt="{{$translations['cart.title']['text']}}">
+                                <div class="text-small text-white">
+                                    <cart-icon></cart-icon>
+                                </div>
+                            </a>
+                            <button type="button"
+                                    onclick="document.getElementById('main-nav--mobile').classList.toggle('is-open');">
+                                <img src="{{asset('images/icons/menu_black_24dp.svg')}}" class="ml-8 lg:hidden"
+                                     alt="{{$translations['cart.title']['text']}}">
+                            </button>
+                            <ul class="main-nav--mobile" id="main-nav--mobile">
+                                @include('components.main_nav')
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                    @endif
+                @endif
             </div>
         </div>
     </nav>
@@ -139,29 +140,31 @@
                         <img src="{{asset('images/logo.svg')}}" width="125" alt="{{config('app.name')}}">
                     </a>
                     @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                    <p><b>{{$supplierSettings['name']['value']}}</b><br>
-                        {{$supplierSettings['address']['value']}}<br>
-                        {{$supplierSettings['zip']['value']}} {{$supplierSettings['city']['value']}}<br>
-                        {{$translations['general.company_id']['text']}}: {{$supplierSettings['id']['value']}}<br>
-                        {{$translations['general.company_tax_id']['text']}}: {{$supplierSettings['tax_id']['value']}}
-                        <br>
-                        {{$translations['general.company_vat_id']['text']}}: {{$supplierSettings['vat_id']['value']}}
-                    </p>
-                        @endif
+                        <p><b>{{$supplierSettings['name']['value']}}</b><br>
+                            {{$supplierSettings['address']['value']}}<br>
+                            {{$supplierSettings['zip']['value']}} {{$supplierSettings['city']['value']}}<br>
+                            {{$translations['general.company_id']['text']}}: {{$supplierSettings['id']['value']}}<br>
+                            {{$translations['general.company_tax_id']['text']}}
+                            : {{$supplierSettings['tax_id']['value']}}
+                            <br>
+                            {{$translations['general.company_vat_id']['text']}}
+                            : {{$supplierSettings['vat_id']['value']}}
+                        </p>
+                    @endif
                 </div>
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                <div class="w-full lg:w-1/2">
-                    <p><b>{{$translations['footer.useful_links_title']['text']}}</b></p>
-                    <ul>
-                        @foreach($footerPages as $footerPage)
-                            <li>
-                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                    @endif
+                    <div class="w-full lg:w-1/2">
+                        <p><b>{{$translations['footer.useful_links_title']['text']}}</b></p>
+                        <ul>
+                            @foreach($footerPages as $footerPage)
+                                <li>
+                                    <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <div class="footer-bottom">
                 <div class="flex flex-wrap items-center">
