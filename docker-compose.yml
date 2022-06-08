@@ -3,11 +3,11 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.1
+            context: ./vendor/laravel/sail/runtimes/8.0
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.1/app
+        image: sail-8.0/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -27,7 +27,7 @@ services:
             - meilisearch
             - selenium
     mysql:
-        image: 'mysql/mysql-server:8.0'
+        image: 'mysql:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3311}:3311'
         environment:
