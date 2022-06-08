@@ -33,8 +33,7 @@ class AppServiceProvider extends ServiceProvider
             GoogleTagManager::disable();
         }
 
-        view()->composer('*', function ($view)
-        {
+        view()->composer('*', function ($view) {
             $catalogSettings = Cache::rememberForever('catalog_settings', function () {
                 $_settingRepository = new SettingRepository();
                 return $_settingRepository->catalog()['items'];
@@ -72,7 +71,14 @@ class AppServiceProvider extends ServiceProvider
 
             $gdprPage = Cache::rememberForever('gdpr_page', function () {
                 $_pageRepository = new PageRepository();
-                return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', false, false, false, true)['items'][0];
+                $list = $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', false, false, false, true)['items'];
+                if (isset($list[0])) {
+                    return $list[0];
+                }
+
+                return [
+                    'slug' => 'gdpr',
+                ];
             });
 
             $view->with('catalogSettings', $catalogSettings);
