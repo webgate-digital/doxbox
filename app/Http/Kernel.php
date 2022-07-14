@@ -2,11 +2,11 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Currency;
+use App\Http\Middleware\EmptyCart;
+use App\Http\Middleware\EmptyShipping;
+use App\Http\Middleware\ShippingCountry;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Theshop\Frontstore\Base\Middleware\Currency;
-use Theshop\Frontstore\Base\Middleware\EmptyCart;
-use Theshop\Frontstore\Base\Middleware\EmptyShipping;
-use Theshop\Frontstore\Base\Middleware\ShippingCountry;
 
 class Kernel extends HttpKernel
 {

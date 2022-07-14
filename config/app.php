@@ -166,11 +166,6 @@ return [
          * Package Service Providers...
          */
         Spatie\GoogleTagManager\GoogleTagManagerServiceProvider::class,
-        \Theshop\Frontstore\Base\BaseServiceProvider::class,
-        \Theshop\Frontstore\Pages\PageServiceProvider::class,
-        \Theshop\Frontstore\Products\ProductServiceProvider::class,
-        \Theshop\Frontstore\Cart\CartServiceProvider::class,
-        \Theshop\Frontstore\Storyblok\StoryblokServiceProvider::class,
 
         /*
          * Application Service Providers...

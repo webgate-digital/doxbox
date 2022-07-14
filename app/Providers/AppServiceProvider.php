@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\PageRepository;
+use App\Repositories\SettingRepository;
+use App\Repositories\SetupRepository;
+use App\Repositories\TranslationRepository;
 use Cache;
 use Illuminate\Support\ServiceProvider;
 use GoogleTagManager;
-use Theshop\Frontstore\Base\Repositories\SettingRepository;
-use Theshop\Frontstore\Base\Repositories\SetupRepository;
-use Theshop\Frontstore\Base\Repositories\TranslationRepository;
-use Theshop\Frontstore\Pages\Repositories\PageRepository;
 
 class AppServiceProvider extends ServiceProvider
 {

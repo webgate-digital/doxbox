@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NotFoundException;
+use App\Exceptions\ValidationException;
+use App\Repositories\PageRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\SettingRepository;
+use App\Services\StoryblokService;
 use Cache;
 use Illuminate\Http\Request;
-use Theshop\Frontstore\Base\Exceptions\NotFoundException;
-use Theshop\Frontstore\Base\Exceptions\ValidationException;
-use Theshop\Frontstore\Base\Repositories\SettingRepository;
-use Theshop\Frontstore\Storyblok\Client;
-use Theshop\Frontstore\Storyblok\Services\StoryblokService;
-use Theshop\Frontstore\Cart\Repositories\CartRepository;
-use Theshop\Frontstore\Pages\Repositories\PageRepository;
-use Theshop\Frontstore\Products\Repositories\ProductRepository;
 
 class PageController extends Controller
 {

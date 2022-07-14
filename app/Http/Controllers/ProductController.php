@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NotFoundException;
 use App\Http\Requests\Filter;
+use App\Repositories\ProductRepository;
+use App\Repositories\SetupRepository;
 use Cache;
 use Illuminate\Http\Request;
 use Str;
-use Theshop\Frontstore\Base\Exceptions\NotFoundException;
-use Theshop\Frontstore\Base\Repositories\SetupRepository;
-use Theshop\Frontstore\Products\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {

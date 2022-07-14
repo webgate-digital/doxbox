@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NotFoundException;
+use App\Exceptions\UnauthorizedException;
+use App\Exceptions\ValidationException;
+use App\Http\Requests\AddToCart;
+use App\Http\Requests\ApplyVoucher;
+use App\Http\Requests\Checkout;
+use App\Http\Requests\RemoveFromCart;
+use App\Repositories\CartRepository;
+use App\Repositories\PageRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\SettingRepository;
+use App\Repositories\SetupRepository;
+use App\Repositories\TranslationRepository;
+use App\Services\CartService;
 use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Str;
-use Theshop\Frontstore\Base\Exceptions\NotFoundException;
-use Theshop\Frontstore\Base\Exceptions\UnauthorizedException;
-use Theshop\Frontstore\Base\Exceptions\ValidationException;
-use Theshop\Frontstore\Base\Repositories\SettingRepository;
-use Theshop\Frontstore\Base\Repositories\SetupRepository;
-use Theshop\Frontstore\Base\Repositories\TranslationRepository;
-use Theshop\Frontstore\Cart\Repositories\CartRepository;
-use Theshop\Frontstore\Cart\Requests\AddToCart;
-use Theshop\Frontstore\Cart\Requests\ApplyVoucher;
-use Theshop\Frontstore\Cart\Requests\Checkout;
-use Theshop\Frontstore\Cart\Requests\RemoveFromCart;
-use Theshop\Frontstore\Cart\Services\CartService;
-use Theshop\Frontstore\Pages\Repositories\PageRepository;
-use Theshop\Frontstore\Products\Repositories\ProductRepository;
 use Exception;
 
 class CartController extends Controller
