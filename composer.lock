@@ -4,102 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40a798a81d2cd435d4ed861285022a34",
+    "content-hash": "0e1806462d7ba4314a67dcdf3f9b6eab",
     "packages": [
-        {
-            "name": "apix/cache",
-            "version": "1.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/apix/cache.git",
-                "reference": "1ed9395a0c42c9029c17462df1927d4536b513da"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/apix/cache/zipball/1ed9395a0c42c9029c17462df1927d4536b513da",
-                "reference": "1ed9395a0c42c9029c17462df1927d4536b513da",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "psr/cache": "^1.0"
-            },
-            "provide": {
-                "psr/cache-implementation": "^1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.0|^5.0",
-                "satooshi/php-coveralls": "~0.7.1"
-            },
-            "suggest": {
-                "ext-apc": "Allows to cache into APC data store ~ up to PHP 5.4.",
-                "ext-apcu": "Allows to use APCu userland caching ~ any PHP version.",
-                "ext-igbinary": "Fast and small serialization format",
-                "ext-memcached": "Allows to use Memcached distributed memory caching system",
-                "ext-mongo": "Allows to cache into MongoDB instances using http://php.net/mongo  ~ up to PHP 5.6.",
-                "ext-mongodb": "Allows to cache into MongoDB instances using https://php.net/mongodb ~ from PHP 7 and above and HHVM.",
-                "ext-pdo": "Allows to cache into PDO supported DBs such as Oracle, MS SQL server, IBM DB2.",
-                "ext-pdo_mysql": "Allows to use MySQL.",
-                "ext-pdo_pgsql": "Allows to use PostgreSQL",
-                "ext-pdo_sqlite": "Allows to cache into SQLite.",
-                "ext-redis": "So you can cache into Redis servers.",
-                "msgpack/msgpack-php": "MessagePack serialization format"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Apix\\Cache\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Franck Cassedanne",
-                    "email": "franck@ouarz.net"
-                },
-                {
-                    "name": "Apix Cache Community",
-                    "homepage": "https://github.com/frqnck/apix-cache/contributors"
-                }
-            ],
-            "description": "A thin PSR-6 cache wrapper with a generic interface to various caching backends emphasising cache taggging and indexing to Redis, Memcached, PDO/SQL, APC and other adapters.",
-            "homepage": "https://github.com/frqnck/apix-cache",
-            "keywords": [
-                "apc",
-                "apcu",
-                "cache",
-                "caching",
-                "filesystem",
-                "igbinary",
-                "json",
-                "memcache",
-                "memcached",
-                "mongo",
-                "mongodb",
-                "msgpack",
-                "mysql",
-                "pdo",
-                "pgsql",
-                "postgres",
-                "psr-6",
-                "psr-cache",
-                "psrCache",
-                "redis",
-                "serializer",
-                "session",
-                "sqlite",
-                "tagging"
-            ],
-            "support": {
-                "irc": "irc://irc.freenode.org/ouarz",
-                "issues": "https://github.com/apix/cache/issues",
-                "source": "https://github.com/apix/cache/tree/1.3.5"
-            },
-            "time": "2020-06-11T09:10:14+00:00"
-        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",
@@ -2492,55 +2398,6 @@
             "time": "2021-12-04T23:24:31+00:00"
         },
         {
-            "name": "psr/cache",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/cache.git",
-                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
-                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Cache\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for caching libraries",
-            "keywords": [
-                "cache",
-                "psr",
-                "psr-6"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/cache/tree/master"
-            },
-            "time": "2016-08-06T20:24:11+00:00"
-        },
-        {
             "name": "psr/container",
             "version": "1.1.2",
             "source": {
@@ -3259,54 +3116,6 @@
                 }
             ],
             "time": "2021-12-15T10:28:22+00:00"
-        },
-        {
-            "name": "storyblok/php-client",
-            "version": "v1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/storyblok/php-client.git",
-                "reference": "9924c748daa3ac30cadfe5d1784d5e82e6e28557"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/storyblok/php-client/zipball/9924c748daa3ac30cadfe5d1784d5e82e6e28557",
-                "reference": "9924c748daa3ac30cadfe5d1784d5e82e6e28557",
-                "shasum": ""
-            },
-            "require": {
-                "apix/cache": "^1.2",
-                "guzzlehttp/guzzle": "^6.2|^7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Storyblok": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Feiglstorfer",
-                    "email": "delooks@gmail.com"
-                },
-                {
-                    "name": "Dominik Angerer",
-                    "email": "dominikangerer1@gmail.com"
-                }
-            ],
-            "description": "Storyblok Client to easily call the publishing api",
-            "keywords": [
-                "storyblok"
-            ],
-            "support": {
-                "issues": "https://github.com/storyblok/php-client/issues",
-                "source": "https://github.com/storyblok/php-client/tree/v1.6.0"
-            },
-            "time": "2021-08-06T13:26:59+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

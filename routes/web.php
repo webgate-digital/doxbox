@@ -61,7 +61,6 @@ Route::get('/cache', function () {
     return redirect()->route(locale() . '.homepage');
 });
 
-//TODO: This is for Storyblok only
 Route::multilingual('/home', [PageController::class, 'homepage'])->name('homepage');
 
 Route::multilingual('/', [PageController::class, 'homepage'])->name('homepage');

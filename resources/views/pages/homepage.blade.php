@@ -2,29 +2,20 @@
 
 @section('content')
     <main>
-        @isset($pageContent['big-banner'])
-            {!! $pageContent['big-banner']['_editable'] !!}
-            <section class="big-banner" @if($pageContent['big-banner']['block']['background_image']['filename']) style="background-image: url({{$pageContent['big-banner']['block']['background_image']['filename']}})" @endif>
-                <div class="container">
-                    <div class="flex flex-wrap items-center">
-                        <div class="w-full lg:w-1/2">
-                            @if($pageContent['big-banner']['block']['subheadline'])
-                                <p class="h2 leading-none">{{$pageContent['big-banner']['block']['subheadline']}}</p>
-                            @endif
-                            <h1 class="h1 !text-[160px] leading-none text-secondary">
-                                {{ Illuminate\Mail\Markdown::parse($pageContent['big-banner']['block']['headline']) }}
-                            </h1>
-                            <a href="{{$pageContent['big-banner']['block']['cta_url']}}"
-                               class="button button--primary button--inline">{{$pageContent['big-banner']['block']['cta_text']}}</a>
-                        </div>
-                        <div class="w-full lg:w-1/2">
-                            <img src="{{$pageContent['big-banner']['block']['image']['filename']}}"
-                                 alt="{{$pageContent['big-banner']['block']['image']['alt']}}" class="mt-16 lg:mt-0 mx-auto">
-                        </div>
+        <section class="big-banner" style="background-image: url({{asset('images/slide-1.jpeg')}})">
+            <div class="container">
+                <div class="flex flex-wrap items-center">
+                    <div class="w-full lg:w-1/2">
+                        <p class="h2 leading-none">Využite jedinečný</p>
+                        <h1 class="h1 !text-[160px] leading-none text-secondary">
+                            <p>Výpredaj</p>
+                        </h1>
+                        <a href="https://frontstore.theshop.sk"
+                           class="button button--primary button--inline">Prejsť do obchodu</a>
                     </div>
                 </div>
-            </section>
-        @endisset
+            </div>
+        </section>
         <section class="section">
             <div class="container">
                 <h2 class="h2 text-center">{{$translations['products.top_selling_title']['text']}}</h2>
@@ -41,25 +32,32 @@
                 </div>
             </div>
         </section>
-        @isset($pageContent['icon-boxes'])
-            <section class="section">
-                <div class="container">
-                    <div class="text-center">
-                        <div class="flex flex-wrap">
-                            {!! $pageContent['icon-boxes']['_editable'] !!}
-                            @foreach($pageContent['icon-boxes']['columns'] as $column)
-                                <div class="w-full lg:w-1/3">
-                                    <img src="{{$column['image']['filename']}}" class="mb-8 mx-auto max-w-[150px]"
-                                         alt="{{$column['image']['alt']}}">
-                                    <h3 class="h3">{{$column['title']}}</h3>
-                                    <p>{{$column['text']}}</p>
-                                </div>
-                            @endforeach
+        <section class="section">
+            <div class="container">
+                <div class="text-center">
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-1/3">
+                            <img src="{{asset('images/logo-theshop.svg')}}" class="mb-8 mx-auto max-w-[150px]"
+                                 alt="theshop">
+                            <h3 class="h3">Výhoda 1</h3>
+                            <p>Text výhody 1</p>
+                        </div>
+                        <div class="w-full lg:w-1/3">
+                            <img src="{{asset('images/logo-theshop.svg')}}" class="mb-8 mx-auto max-w-[150px]"
+                                 alt="theshop">
+                            <h3 class="h3">Výhoda 2</h3>
+                            <p>Text výhody 2</p>
+                        </div>
+                        <div class="w-full lg:w-1/3">
+                            <img src="{{asset('images/logo-theshop.svg')}}" class="mb-8 mx-auto max-w-[150px]"
+                                 alt="theshop">
+                            <h3 class="h3">Výhoda 3</h3>
+                            <p>Text výhody 3</p>
                         </div>
                     </div>
                 </div>
-            </section>
-        @endisset
+            </div>
+        </section>
         <section class="section">
             <div class="container">
                 <h2 class="h2 text-center">
@@ -83,14 +81,4 @@
 {{--            </div>--}}
 {{--        </section>--}}
     </main>
-@endsection
-
-@section('js')
-    <script type="text/javascript" src="//app.storyblok.com/storyblok-latest.js"></script>
-    <script type="text/javascript">
-        storyblok.init();
-        storyblok.on('change', function () {
-            window.location.reload(true);
-        });
-    </script>
 @endsection

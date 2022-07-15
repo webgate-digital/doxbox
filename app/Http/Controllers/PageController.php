@@ -7,7 +7,6 @@ use App\Exceptions\ValidationException;
 use App\Repositories\PageRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
-use App\Services\StoryblokService;
 use Cache;
 use Illuminate\Http\Request;
 
@@ -24,8 +23,6 @@ class PageController extends Controller
 
     public function homepage()
     {
-        $pageContent = StoryblokService::getContent('home', locale());
-
         $products = Cache::rememberForever('homepage_products_list', function () {
             return $this->_productRepository->list(locale(), session()->get('currency'), 8)['items'];
         });
@@ -34,7 +31,7 @@ class PageController extends Controller
             return $this->_productRepository->categories(locale(), 8)['items'];
         });
 
-        return view('pages.homepage', compact('pageContent', 'products', 'categories'));
+        return view('pages.homepage', compact('products', 'categories'));
     }
 
     public function page(string $slug)
