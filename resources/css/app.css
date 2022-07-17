@@ -27,6 +27,10 @@ iframe {
     @apply w-full;
 }
 
+.content {
+    min-height: calc(100vh - 409.187px);
+}
+
 .section {
     @apply py-32;
 }

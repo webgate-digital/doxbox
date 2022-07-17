@@ -76,8 +76,8 @@
 
     <nav class="main-nav">
         <div class="container">
-            <div class="flex items-center">
-                <div class="w-1/2 lg:w-2/3">
+            <div class="flex items-center justify-between">
+                <div>
                     <div class="flex items-center">
                         <a href="{{route(locale() . '.homepage')}}" class="mr-16">
                             <img src="{{asset('images/logo.svg')}}" width="120" alt="{{config('app.name')}}">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                    <div class="w-1/2 lg:w-1/3">
+                    <div>
                         <div class="flex items-center justify-end relative">
                             <button type="button"
                                     onclick="document.getElementById('search-wrapper').classList.add('opened');">
@@ -130,7 +130,9 @@
         </div>
     @endisset
 
-    @yield('content')
+    <div class="content">
+        @yield('content')
+    </div>
 
     <footer class="footer">
         <div class="container">
