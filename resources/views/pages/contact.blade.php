@@ -1,7 +1,7 @@
 @extends('layout', ['ogTitle' => $translations['contact.title']['text'], 'robots' => 'index,follow'])
 
 @section('content')
-    <!-- Page title -->
+    <!-- Breadrumbs -->
     @php
         $breadcrumbs = [];
         $breadcrumbs[] = [
@@ -10,7 +10,7 @@
         ];
     @endphp
     @include('components.breadcrumbs')
-    <!-- end: Page title -->
+    <!-- end: Breadrumbs -->
 
     <section class="section">
         <div class="container">

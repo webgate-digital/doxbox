@@ -11,5 +11,8 @@
 {{--                                <a href="{{route(locale() . '.blog.list')}}">{{$translations['menu.blog']['text']}}</a>--}}
 {{--                            </li>--}}
 <li>
+    <a href="{{route(locale() . '.blog.list')}}">{{$translations['menu.blog']['text']}}</a>
+</li>
+<li>
     <a href="{{route(locale() . '.contact')}}">{{$translations['menu.contact']['text']}}</a>
 </li>

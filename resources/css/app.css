@@ -503,6 +503,12 @@ iframe {
     @apply my-16;
 }
 
+/* blog */
+
+.post-item a {
+    @apply text-secondary;
+}
+
 /* breadcrumbs */
 
 .breadcrumbs {

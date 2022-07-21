@@ -47,6 +47,16 @@ class PageController extends Controller
         return view('pages.page', compact('item'));
     }
 
+    public function blog()
+    {
+        $supplier = Cache::rememberForever('blog_articles', function () {
+            $_settingRepository = new SettingRepository();
+            return $_settingRepository->supplier()['items'];
+        });
+
+        return view('pages.blog', compact('supplier'));
+    }
+
     public function contact()
     {
         $supplier = Cache::rememberForever('supplier_settings', function () {

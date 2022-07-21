@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
@@ -50,6 +51,10 @@ Route::multilingual('/product-detail', [ProductController::class, 'detail'])->na
 Route::multilingual('/product-category', [ProductController::class, 'category'])->name('product.category');
 Route::multilingual('/product-list', [ProductController::class, 'list'])->name('product.list');
 Route::multilingual('/search', [ProductController::class, 'search'])->name('search');
+
+Route::multilingual('/blog-detail', [BlogController::class, 'detail'])->name('blog.detail');
+Route::multilingual('/blog-category', [BlogController::class, 'category'])->name('blog.category');
+Route::multilingual('/blog-list', [BlogController::class, 'list'])->name('blog.list');
 
 Route::multilingual('/contact', [PageController::class, 'contact'])->name('contact');
 
