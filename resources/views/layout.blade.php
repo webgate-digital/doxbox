@@ -33,7 +33,7 @@
 
     @yield('css')
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/favicon/apple-touch-icon.png')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/favicon/favicon-32x32.png')}}">
@@ -210,7 +210,7 @@
 
 @yield('js')
 
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{mix('js/app.js')}}"></script>
 
 </body>
 </html>
