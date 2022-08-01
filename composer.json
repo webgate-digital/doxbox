@@ -62,11 +62,12 @@
     },
     "config": {
         "github-oauth": {
-            "github.com": "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"
+            "github.com": "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"
         },
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": false
     },
     "minimum-stability": "dev",
     "prefer-stable": true

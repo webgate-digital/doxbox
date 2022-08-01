@@ -216,15 +216,15 @@ iframe {
 /*top nav*/
 
 .top-nav {
-    @apply bg-white;
+    @apply bg-gray-80;
     @apply py-4;
     @apply text-small;
     @apply text-right;
-    @apply border-b border-grey;
 }
 
 .top-nav--item {
-    @apply pr-8;
+    @apply pr-4;
+    @apply text-white;
 }
 
 .top-nav--item:hover {
@@ -237,7 +237,7 @@ iframe {
 
 .top-nav--icon {
     @apply inline;
-    @apply mr-4;
+    @apply mr-2;
     @apply relative;
     @apply top-[-1px];
 }
@@ -249,9 +249,8 @@ iframe {
 /*main nav*/
 
 .main-nav {
-    @apply py-8;
-    @apply bg-white;
-    @apply shadow-md;
+    @apply py-3;
+    @apply bg-gray-100;
 }
 
 .main-nav--menu {
@@ -269,10 +268,8 @@ iframe {
 
 .main-nav--menu li a {
     @apply text-white;
-    @apply uppercase;
     @apply text-small;
     @apply font-medium;
-    @apply text-black;
 }
 
 .main-nav--menu li a:hover {

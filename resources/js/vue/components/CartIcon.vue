@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <div class="text-black mr-2 hidden lg:block">{{ price_formatted }}</div>
-        <div class="bg-black text-default rounded-full w-[20px] h-[20px] flex items-center justify-center">{{ count }}</div>
+        <div class="bg-gray-50 text-default rounded-full w-[20px] h-[20px] flex items-center justify-center">{{ count }}</div>
     </div>
 </template>
 

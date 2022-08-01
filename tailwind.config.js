@@ -34,7 +34,12 @@ module.exports = {
             'secondary': '#ae6364',
             'transparent': 'transparent',
             'danger': 'red',
-            'success': 'green'
+            'success': 'green',
+            'gray': {
+                50: '#A8A9AA',
+                80: '#25282B',
+                100: '#131416'
+            }
         },
         transitionProperty: {
             'height': 'height',

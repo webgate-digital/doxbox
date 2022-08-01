@@ -57,17 +57,17 @@
         <div class="top-nav">
             <div class="container">
                 <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
-                        src="{{asset('images/icons/email_black_24dp.svg')}}"
-                        alt="{{$catalogSettings['email']['value']}}" width="15"
+                        src="{{asset('images/icons/email_white_24dp.svg')}}"
+                        alt="{{$catalogSettings['email']['value']}}" width="16"
                         class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
-                <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline"><img
-                        src="{{asset('images/icons/call_black_24dp.svg')}}"
-                        alt="{{$catalogSettings['phone']['value']}}" width="15"
+                <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline mr-10"><img
+                        src="{{asset('images/icons/call_white_24dp.svg')}}"
+                        alt="{{$catalogSettings['phone']['value']}}" width="16"
                         class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
                 @foreach(config('locales.supported') as $locale)
                     <a href="{{route($locale . '.homepage')}}" class="top-nav--item"><img
                             src="{{asset('images/flags/'.$locale.'.svg')}}" class="top-nav--flag"
-                            width="15"
+                            width="22"
                             alt="{{$locale}}"></a>
                 @endforeach
             </div>
@@ -78,27 +78,27 @@
         <div class="container">
             <div class="flex items-center justify-between">
                 <div>
-                    <div class="flex items-center">
-                        <a href="{{route(locale() . '.homepage')}}" class="mr-16">
-                            <img src="{{asset('images/logo.svg')}}" width="120" alt="{{config('app.name')}}">
-                        </a>
-                        @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                            <ul class="main-nav--menu hidden lg:block">
-                                @include('components.main_nav')
-                            </ul>
-                        @endif
-                    </div>
+                    <a href="{{route(locale() . '.homepage')}}" class="mr-16">
+                        <img class="inline" src="{{asset('images/logo.svg')}}" width="120" alt="{{config('app.name')}}">
+                    </a>
                 </div>
+                @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
+                    <div>
+                        <ul class="main-nav--menu hidden lg:block">
+                            @include('components.main_nav')
+                        </ul>
+                    </div>
+                @endif
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
                     <div>
                         <div class="flex items-center justify-end relative">
                             <button type="button"
                                     onclick="document.getElementById('search-wrapper').classList.add('opened');">
-                                <img src="{{asset('images/icons/search_black_24dp.svg')}}"
+                                <img src="{{asset('images/icons/search_white_24dp.svg')}}"
                                      alt="{{$translations['search.title']['text']}}">
                             </button>
                             <a href="{{route(locale() . '.cart')}}" class="ml-8 flex items-center">
-                                <img src="{{asset('images/icons/shopping_cart_black_24dp.svg')}}" class="mr-2"
+                                <img src="{{asset('images/icons/shopping_cart_white_24dp.svg')}}" class="mr-2"
                                      alt="{{$translations['cart.title']['text']}}">
                                 <div class="text-small text-white">
                                     <cart-icon></cart-icon>
@@ -106,7 +106,7 @@
                             </a>
                             <button type="button"
                                     onclick="document.getElementById('main-nav--mobile').classList.toggle('is-open');">
-                                <img src="{{asset('images/icons/menu_black_24dp.svg')}}" class="ml-8 lg:hidden"
+                                <img src="{{asset('images/icons/menu_white_24dp.svg')}}" class="ml-8 lg:hidden"
                                      alt="{{$translations['cart.title']['text']}}">
                             </button>
                             <ul class="main-nav--mobile" id="main-nav--mobile">
