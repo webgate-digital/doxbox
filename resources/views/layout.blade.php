@@ -78,7 +78,7 @@
         <div class="container">
             <div class="flex items-center justify-between">
                 <div>
-                    <a href="{{route(locale() . '.homepage')}}" class="mr-16">
+                    <a href="{{route(locale() . '.homepage')}}">
                         <img class="inline" src="{{asset('images/logo.svg')}}" width="120" alt="{{config('app.name')}}">
                     </a>
                 </div>
