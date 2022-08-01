@@ -1,6 +1,6 @@
 @foreach($headerPages as $headerPage)
     <li>
-        <a href="{{route(locale() . '.page', [$headerPage['slug']])}}" class="{{$headerPage['slug'] == $page->slug ? 'active' : ''}}">
+        <a href="{{route(locale() . '.page', [$headerPage['slug']])}}">
             {{$headerPage['title']}}
         </a>
     </li>
