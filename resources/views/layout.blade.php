@@ -154,10 +154,7 @@
     <footer class="footer">
         <div class="container">
             <div class="flex flex-wrap">
-                <div class="w-full lg:w-1/2">
-                    <a href="{{route(locale() . '.homepage')}}" class="mb-8 block">
-                        <img src="{{asset('images/logo.svg')}}" width="125" alt="{{config('app.name')}}">
-                    </a>
+                <div class="w-full lg:w-1/4">
                     @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
                         <p><b>{{$supplierSettings['name']['value']}}</b><br>
                             {{$supplierSettings['address']['value']}}<br>
@@ -169,33 +166,50 @@
                         </p>
                     @endif
                 </div>
-                @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                    <div class="w-full lg:w-1/2">
-                        <p><b>{{$translations['footer.useful_links_title']['text']}}</b></p>
-                        <ul>
-                            @foreach($footerPages as $footerPage)
-                                <li>
-                                    <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </div>
-            <div class="footer-bottom">
-                <div class="flex flex-wrap items-center">
-                    <div class="w-full lg:w-1/2">
-                        <p class="flex justify-center lg:justify-start">{{date('Y')}} &copy; {{config('app.name')}}</p>
-                    </div>
-                    <div class="w-full lg:w-1/2">
-                        <p class="flex items-center justify-center lg:justify-end">
-                            <span>&#129505; &nbsp; Proudly powered by</span>
-                            <img src="{{asset('images/logo-theshop.svg')}}" class="mx-4 h-[25px]" alt="theshop">
-                            <b>theshop</b>
-                        </p>
-                    </div>
+                <div class="w-full lg:w-1/4">
+                    <p>
+                        <b>{{$translations['footer.useful_links_title']['text']}}</b>
+                    </p>
+                    <ul>
+                        @foreach($footerPages as $footerPage)
+                            <li>
+                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
+                <div class="w-full lg:w-1/4">
+                    <p>
+                        <b>{{$translations['footer.useful_links_title']['text']}}</b>
+                    </p>
+                    <ul>
+                        @foreach($footerPages as $footerPage)
+                            <li>
+                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="w-full lg:w-1/4">
+                    <p>
+                        <b>{{$translations['footer.useful_links_title']['text']}}</b>
+                    </p>
+                    <ul>
+                        @foreach($footerPages as $footerPage)
+                            <li>
+                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                {{date('Y')}} &copy; {{config('app.name')}}
             </div>
         </div>
     </footer>

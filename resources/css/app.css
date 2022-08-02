@@ -75,9 +75,9 @@ iframe {
 }
 
 .footer-bottom {
-    @apply border-t;
-    @apply pt-8;
-    @apply mt-8;
+    @apply py-5;
+    @apply bg-gray-80;
+    @apply text-center;
 }
 
 .h1 {
