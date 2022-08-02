@@ -56,20 +56,37 @@
     @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
         <div class="top-nav">
             <div class="container">
-                <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
-                        src="{{asset('images/icons/email_white_24dp.svg')}}"
-                        alt="{{$catalogSettings['email']['value']}}" width="16"
-                        class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
-                <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline mr-10"><img
-                        src="{{asset('images/icons/call_white_24dp.svg')}}"
-                        alt="{{$catalogSettings['phone']['value']}}" width="16"
-                        class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
-                @foreach(config('locales.supported') as $locale)
-                    <a href="{{route($locale . '.homepage')}}" class="top-nav--item"><img
-                            src="{{asset('images/flags/'.$locale.'.svg')}}" class="top-nav--flag"
-                            width="22"
-                            alt="{{$locale}}"></a>
-                @endforeach
+                <div class="flex items-center justify-between">
+                    <div>
+                        <ul class="top-nav--menu">
+                            <li>
+                                <a href="#">Kontakt</a>
+                            </li>
+                            <li>
+                                <a href="#">Doprava</a>
+                            </li>
+                            <li>
+                                <a href="#">Vrátenie tovaru</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
+                                src="{{asset('images/icons/email_white_24dp.svg')}}"
+                                alt="{{$catalogSettings['email']['value']}}" width="16"
+                                class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
+                        <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline mr-10"><img
+                                src="{{asset('images/icons/call_white_24dp.svg')}}"
+                                alt="{{$catalogSettings['phone']['value']}}" width="16"
+                                class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
+                        @foreach(config('locales.supported') as $locale)
+                            <a href="{{route($locale . '.homepage')}}" class="top-nav--item"><img
+                                    src="{{asset('images/flags/'.$locale.'.svg')}}" class="top-nav--flag"
+                                    width="22"
+                                    alt="{{$locale}}"></a>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     @endif

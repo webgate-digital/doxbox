@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\PageRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
 use App\Repositories\SetupRepository;
 use App\Repositories\TranslationRepository;
@@ -59,10 +60,12 @@ class AppServiceProvider extends ServiceProvider
                 return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', false, true, false, false)['items'];
             });
 
-            $headerPages = Cache::rememberForever('pages_header', function () {
-                $_pageRepository = new PageRepository();
-                return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', true, false, false, false)['items'];
+            $categories = Cache::rememberForever('header_navigation_items', function () {
+                $_productRepository = new ProductRepository();
+                return $_productRepository->categories(locale(), 10)['items'];
             });
+
+            $headerNavigationItems = collect($categories)->whereNull('parent_slug')->sortBy('name')->toArray();
 
             $setup = Cache::rememberForever('setup', function () {
                 $_setupRepository = new SetupRepository();
@@ -84,7 +87,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('catalogSettings', $catalogSettings);
             $view->with('translations', $translations);
             $view->with('footerPages', $footerPages);
-            $view->with('headerPages', $headerPages);
+            $view->with('headerNavigationItems', $headerNavigationItems);
             $view->with('supplierSettings', $supplierSettings);
             $view->with('setup', $setup);
             $view->with('documentSettings', $documentSettings);

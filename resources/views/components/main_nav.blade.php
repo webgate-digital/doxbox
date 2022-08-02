@@ -1,7 +1,7 @@
-@foreach($headerPages as $headerPage)
+@foreach($headerNavigationItems as $item)
     <li>
-        <a href="{{route(locale() . '.page', [$headerPage['slug']])}}">
-            {{$headerPage['title']}}
+        <a href="{{route(locale() . '.product.category', [$item['slug']])}}">
+            {{$item['name']}}
         </a>
     </li>
 @endforeach

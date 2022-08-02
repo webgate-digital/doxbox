@@ -246,6 +246,17 @@ iframe {
     @apply inline;
 }
 
+.top-nav--menu {
+    @apply mb-0;
+}
+
+.top-nav--menu li {
+    @apply mr-10;
+    @apply inline-block;
+    @apply text-white;
+    @apply font-bold;
+}
+
 /*main nav*/
 
 .main-nav {

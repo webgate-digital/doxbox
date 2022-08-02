@@ -13,7 +13,7 @@ module.exports = {
             padding: '2rem',
         },
         fontFamily: {
-            'body': ['"Poppins", sans-serif']
+            'body': ['"Roboto", sans-serif']
         },
         fontSize: {
             'default': '10px',

@@ -86,7 +86,7 @@ class ProductController extends Controller
             return $this->_productRepository->list(locale(), session()->get('currency'), 0, 0, $order, $sort, $min_price, $max_price, $attributes, $category['slug'])['items'];
         });
 
-        return view('products.category', compact('category', 'categories', 'filterPrices', 'attributes', 'products'));
+        return view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products'));
     }
 
     public function detail(string $categorySlug, string $slug)
