@@ -269,8 +269,19 @@ iframe {
 }
 
 .main-nav--menu li {
+    @apply relative;
     @apply inline-block;
     @apply mr-16;
+}
+
+.main-nav--menu li.active a::after, .main-nav--menu li a:hover::after {
+    @apply bg-white;
+    @apply absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
 }
 
 .main-nav--menu li:last-child {
@@ -281,10 +292,6 @@ iframe {
     @apply text-white;
     @apply text-small;
     @apply font-medium;
-}
-
-.main-nav--menu li a:hover {
-    @apply underline;
 }
 
 .main-nav--mobile {
