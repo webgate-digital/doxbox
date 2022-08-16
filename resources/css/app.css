@@ -377,8 +377,7 @@ iframe {
     @apply -mx-4;
     @apply grid;
     @apply grid-cols-4;
-    @apply gap-x-8;
-    @apply gap-y-20;
+    @apply gap-8;
 }
 
 .category-box {
