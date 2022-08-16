@@ -16,6 +16,7 @@ class ProductRepository
     protected const UPSELL_URL = '/products/upsell';
     private const SEARCH_URL = '/products/search';
     private const CATEGORIES_URL = '/product-categories';
+    private const BRANDS_URL = '/product-brands';
     private const CATEGORY_URL = '/product-categories/detail';
     private const ATTRIBUTES_URL = '/product-attributes';
     protected $client;
@@ -82,9 +83,9 @@ class ProductRepository
         return $this->response($response);
     }
 
-    public function attributes(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'created_at'): array
+    public function brands(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'name'): array
     {
-        $response = $this->client->get(config('frontstore.api_endpoint') . self::ATTRIBUTES_URL, [
+        $response = $this->client->get(config('frontstore.api_endpoint') . self::BRANDS_URL, [
             'headers' => $this->headers,
             'query' => [
                 'limit' => $limit,
@@ -94,7 +95,6 @@ class ProductRepository
                 'locale' => $locale,
             ]
         ]);
-
         return $this->response($response);
     }
 

@@ -31,7 +31,11 @@ class PageController extends Controller
             return $this->_productRepository->categories(locale(), 8)['items'];
         });
 
-        return view('pages.homepage', compact('products', 'categories'));
+        $brands = Cache::rememberForever('homepage_brands_list', function () {
+            return $this->_productRepository->brands(locale(), 8)['items'];
+        });
+
+        return view('pages.homepage', compact('products', 'categories', 'brands'));
     }
 
     public function page(string $slug)

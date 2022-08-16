@@ -30,12 +30,13 @@ module.exports = {
             'white': '#ffffff',
             'black': '#000000',
             'grey': '#eeeeee',
-            'primary': '#333',
-            'secondary': '#ae6364',
+            'primary': '#4263EB',
+            'secondary': '#333',
             'transparent': 'transparent',
             'danger': 'red',
-            'success': 'green',
+            'success': '#1AB759',
             'gray': {
+                5: '#F0F0F0',
                 50: '#A8A9AA',
                 80: '#25282B',
                 100: '#131416'
