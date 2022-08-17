@@ -10,6 +10,8 @@ use App\Repositories\SettingRepository;
 use Cache;
 use Illuminate\Http\Request;
 
+const HOUR = 3600;
+
 class PageController extends Controller
 {
     private $_productRepository;
@@ -23,11 +25,11 @@ class PageController extends Controller
 
     public function homepage()
     {
-        $products = Cache::rememberForever('homepage_products_list', function () {
+        $products = Cache::remember('homepage_products_list', HOUR, function () {
             return $this->_productRepository->list(locale(), session()->get('currency'), 8)['items'];
         });
 
-        $categories = Cache::rememberForever('homepage_categories_list', function () {
+        $categories = Cache::remember('homepage_categories_list', HOUR, function () {
             return $this->_productRepository->categories(locale(), 8)['items'];
         });
 

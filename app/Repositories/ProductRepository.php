@@ -83,6 +83,22 @@ class ProductRepository
         return $this->response($response);
     }
 
+    public function attributes(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'created_at'): array
+    {
+        $response = $this->client->get(config('frontstore.api_endpoint') . self::ATTRIBUTES_URL, [
+            'headers' => $this->headers,
+            'query' => [
+                'limit' => $limit,
+                'offset' => $offset,
+                'order' => $order,
+                'sort' => $sort,
+                'locale' => $locale,
+            ]
+        ]);
+
+        return $this->response($response);
+    }
+
     public function brands(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'name'): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::BRANDS_URL, [

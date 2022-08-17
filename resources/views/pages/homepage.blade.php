@@ -125,7 +125,9 @@
                     na marketingové účely.
                 </small>
                 <div class="mx-auto mt-12">
-                    <div class="text-gray-50">Tvoja e-mailová adresa</div>
+                    <label class="label text-gray-50">
+                        Tvoja e-mailová adresa
+                    </label>
                     <form class="flex">
                         <input id="email" type="email" class="input rounded-lg p-4" placeholder="Vyplň e-mail">
                         <button class="button button--primary button--inline ml-6 rounded-lg">

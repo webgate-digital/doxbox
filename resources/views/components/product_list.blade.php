@@ -16,10 +16,8 @@
     <input type="hidden" name="max_price" value="{{request()->get('max_price', $filterPrices['max_price'])}}">
 </form>
 
-<div class="product-container mb-32 lg:mb-0">
+<div class="product-container mb-32 lg:mb-0 !grid-cols-3">
     @foreach($products as $product)
-        <div class="w-1/2 lg:w-1/3">
-            @include('components.product', ['item' => $product])
-        </div>
+        @include('components.product', ['item' => $product])
     @endforeach
 </div>
