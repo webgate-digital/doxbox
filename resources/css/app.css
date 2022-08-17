@@ -392,7 +392,12 @@ iframe {
     @apply p-6;
     @apply h-full;
     @apply bg-gray-5;
+    @apply transition-all;
     @apply rounded;
+}
+
+.category-box:hover {
+    @apply bg-gray-10;
 }
 
 .category-box img {
