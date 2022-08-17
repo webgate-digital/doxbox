@@ -8,7 +8,6 @@ html, body {
 
 body {
     @apply font-body;
-    @apply font-light;
     @apply text-body;
     @apply leading-relaxed;
 }
@@ -37,6 +36,7 @@ iframe {
 
 .section--newsletter {
     @apply bg-gray-5;
+    @apply mt-32;
 }
 
 .section--newsletter h2 {
@@ -45,6 +45,12 @@ iframe {
 
 .section--newsletter h3 {
     @apply font-normal;
+    @apply mb-4;
+}
+
+.section--newsletter #email {
+    width: min(320px, 100vw);
+    display: block;
 }
 
 .wysiwyg-content ul, .wysiwyg-content ol {
@@ -716,4 +722,45 @@ iframe {
     height: 0;
     overflow: hidden;
     transition: height .35s ease
+}
+
+.bg-gray-5 {
+    @apply bg-gray-5;
+}
+
+.promo-section-big {
+    @apply flex;
+    @apply flex-col;
+    @apply items-center;
+    @apply bg-contain;
+    @apply bg-no-repeat;
+    @apply bg-left-bottom;
+    @apply pt-40;
+    aspect-ratio: 1440 / 720;
+    background-image: var(--bg-image);
+}
+
+.promo-section {
+    @apply grid;
+    @apply grid-cols-2;
+    @apply gap-6;
+    @apply my-6;
+    @apply mx-auto;
+    @apply mx-6;
+}
+
+.promo-section > div {
+    @apply flex;
+    @apply flex-col;
+    @apply items-center;
+    @apply p-28;
+    @apply bg-contain;
+    @apply bg-no-repeat;
+    @apply bg-center;
+    aspect-ratio: 1;
+    background-image: var(--bg-image);
+}
+
+.promo-section-big h2 {
+    @apply mb-8;
 }

@@ -31,7 +31,7 @@ module.exports = {
             'black': '#000000',
             'grey': '#eeeeee',
             'primary': '#4263EB',
-            'secondary': '#333',
+            'secondary': '#25282B',
             'transparent': 'transparent',
             'danger': 'red',
             'success': '#1AB759',
