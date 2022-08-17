@@ -761,6 +761,6 @@ iframe {
     background-image: var(--bg-image);
 }
 
-.promo-section-big h2 {
+.promo-section h2 {
     @apply mb-8;
 }
