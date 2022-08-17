@@ -413,13 +413,13 @@ iframe {
 
 .category-list {
     @apply py-8;
-    @apply bg-grey;
+    overflow: hidden;
 }
 
 .category-list--container {
     @apply -mx-4;
     @apply flex;
-    @apply flex-wrap;
+    @apply gap-8;
 }
 
 .category-list--container > div {
@@ -428,10 +428,14 @@ iframe {
 
 .category-list--item {
     @apply bg-white;
-    @apply p-4;
+    @apply py-6;
+    @apply pl-6;
+    @apply pr-32;
     @apply flex;
     @apply text-medium;
+    @apply font-bold;
     @apply items-center;
+    @apply flex-shrink-0;
 }
 
 .category-list--item.active {
@@ -446,14 +450,12 @@ iframe {
     @apply w-[50px];
     @apply h-[50px];
     @apply object-cover;
-    @apply rounded-full;
-    @apply mr-4;
+    @apply mr-8;
 }
 
 /*products*/
 
 .product-container {
-    @apply -mx-4;
     @apply grid;
     @apply grid-cols-4;
     @apply gap-x-8;
@@ -559,9 +561,12 @@ iframe {
 
 .breadcrumbs {
     @apply py-4;
+    @apply mb-1;
     @apply text-small;
     @apply border-b;
     @apply border-grey;
+    @apply bg-gray-5;
+    @apply border;
 }
 
 .breadcrumbs--item {
@@ -579,8 +584,19 @@ iframe {
 /* vue slider */
 
 .vue-slider-process, .vue-slider-dot-tooltip-inner {
-    @apply !bg-secondary;
-    @apply !border-secondary;
+    @apply !bg-primary-80;
+    @apply !border-primary;
+}
+
+.vue-slider-dot-handle {
+    box-shadow: none;
+    @apply border;
+    @apply border-primary;
+    @apply border-2;
+}
+
+.vue-slider-rail {
+    @apply !bg-primary-10;
 }
 
 /* search */

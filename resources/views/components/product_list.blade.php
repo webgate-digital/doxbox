@@ -1,4 +1,4 @@
-<form action="" class="flex mb-4 justify-end">
+<form action="" class="flex flex-col mb-4 items-end gap-4">
     <select name="sort" onchange="this.form.submit()">
         <option @if(request()->get('sort', $setup['api']['defaults']['sort']['products']) === 'score_desc') selected
                 @endif value="score_desc">{{$translations['sort.score_desc']['text']}}</option>
@@ -14,10 +14,9 @@
     </select>
     <input type="hidden" name="min_price" value="{{request()->get('min_price', $filterPrices['min_price'])}}">
     <input type="hidden" name="max_price" value="{{request()->get('max_price', $filterPrices['max_price'])}}">
+    <div class="product-container mb-32 lg:mb-0 !grid-cols-3">
+        @foreach($products as $product)
+            @include('components.product', ['item' => $product])
+        @endforeach
+    </div>
 </form>
-
-<div class="product-container mb-32 lg:mb-0 !grid-cols-3">
-    @foreach($products as $product)
-        @include('components.product', ['item' => $product])
-    @endforeach
-</div>
