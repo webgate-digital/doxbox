@@ -537,6 +537,7 @@ iframe {
 }
 
 .product-detail--price-old {
+    @apply text-h4;
     @apply font-light;
     @apply text-body;
     @apply line-through;

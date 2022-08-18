@@ -73,7 +73,15 @@
                 </div>
                 <div class="w-full lg:w-1/2 px-4">
                     <h1 class="h1">{{$item['name']}}</h1>
-                    <p class="product-detail--price">{{$item['retail_price_discounted_formatted']}} @if($item['retail_discount']) <span class="product-detail--price-old">{{$item['retail_price_formatted']}}</span> @endif
+                    <p class="product-detail--price">
+                        <span @if($item['retail_discount']) class="text-success" @endif>
+                            {{$item['retail_price_discounted_formatted']}}
+                        </span>
+                        @if($item['retail_discount'])
+                            <span class="product-detail--price-old">
+                                {{$item['retail_price_formatted']}}
+                            </span>
+                        @endif
                     </p>
                     <p class="">{{$item['perex']}}</p>
                     <div class="product-detail--separator"></div>
@@ -82,11 +90,6 @@
                            class="button button--primary button--inline">{{$translations['products.contact_us_cta']['text']}}</a>
                     @else
                         <add-to-cart uuid="{{$item['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
-                    @endif
-                    @if($item['info'])
-                        <div class="wysiwyg-content">
-                            {!! $item['info'] !!}
-                        </div>
                     @endif
                 </div>
             </div>

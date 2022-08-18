@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="flex items-center mb-4">
-            <button type="button" class="button border border-primary aspect-square !w-auto rounded-lg text-primary button--sm" @click="removeQuantity">
+            <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary" @click="removeQuantity">
                 -
             </button>
-            <input type="text" class="form--input border-none text-center !w-auto" v-model="quantity">
-            <button type="button" class="button border border-primary aspect-square !w-auto rounded-lg text-primary button--sm" @click="addQuantity">
+            <input type="text" class="form--input !w-16 !h-16 p-0 border-none text-center" v-model="quantity">
+            <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary" @click="addQuantity">
                 +
             </button>
-            <button class="button button--primary rounded-lg ml-16" @click="addToCart()">
+            <button class="button button--primary rounded-xl ml-16 !w-auto !px-16" @click="addToCart()">
                 <template v-if="!loading && !error">
                     {{ translations['Do košíka'] }}
                 </template>
