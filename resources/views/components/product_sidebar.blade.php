@@ -1,16 +1,18 @@
 <aside class="sticky top-8">
     <form method="get" action="#list" id="filter-form" class="flex flex-col">
         @foreach($attributes as $attribute)
-            <p class="h5">{{$attribute['name']}}</p>
-            @foreach ($attribute['values'] as $attributeValue)
-                <div onclick="document.getElementById('filter-form').submit();" class="mb-4">
-                    <input id="attribute_{{$attributeValue['uuid']}}"
-                           name="attributes[{{$attribute['uuid']}}][]" type="checkbox"
-                           value="{{$attributeValue['uuid']}}"
-                           @if(isset(request()->get('attributes')[$attribute['uuid']]) && (is_array((request()->get('attributes')[$attribute['uuid']]))) && (in_array((string)$attributeValue['uuid'], request()->get('attributes')[$attribute['uuid']]))) checked @endif>
-                    <label for="attribute_{{$attributeValue['uuid']}}">&nbsp;{{$attributeValue['name']}}</label>
-                </div>
-            @endforeach
+            <div class="mb-8">
+                <p class="h5 ">{{$attribute['name']}}</p>
+                @foreach ($attribute['values'] as $attributeValue)
+                    <div onclick="document.getElementById('filter-form').submit();" class="mb-4 flex items-center gap-4 cursor-pointer">
+                        <input class="cursor-pointer" id="attribute_{{$attributeValue['uuid']}}"
+                            name="attributes[{{$attribute['uuid']}}][]" type="checkbox"
+                            value="{{$attributeValue['uuid']}}"
+                            @if(isset(request()->get('attributes')[$attribute['uuid']]) && (is_array((request()->get('attributes')[$attribute['uuid']]))) && (in_array((string)$attributeValue['uuid'], request()->get('attributes')[$attribute['uuid']]))) checked @endif>
+                        <label class="cursor-pointer" for="attribute_{{$attributeValue['uuid']}}">&nbsp;{{$attributeValue['name']}}</label>
+                    </div>
+                @endforeach
+            </div>
         @endforeach
         
         <p class="h5">{{$translations['filter.price_title']['text']}} (<span id="filter_sidebar_min_price">{{request()->get('min_price', $filterPrices['min_price'])}},00 {{$setup['currencies'][session()->get('currency')]['symbol']}}</span>

@@ -61,7 +61,9 @@
             <div class="flex flex-wrap -mx-4">
                 <div class="w-full lg:w-1/2 px-4">
                     <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true">
-                        <a href="{{$item['image_url']}}"><img alt="{{$item['name']}}" src="{{$item['image_url']}}"></a>
+                        <a href="{{$item['image_url']}}">
+                            <img alt="{{$item['name']}}" src="{{$item['image_url']}}">
+                        </a>
                         @foreach($item['gallery'] as $itemImage)
                             <a href="{{$itemImage}}"><img
                                     alt="{{$item['name']}}"
@@ -74,13 +76,13 @@
                     <p class="product-detail--price">{{$item['retail_price_discounted_formatted']}} @if($item['retail_discount']) <span class="product-detail--price-old">{{$item['retail_price_formatted']}}</span> @endif
                     </p>
                     <p class="">{{$item['perex']}}</p>
+                    <div class="product-detail--separator"></div>
                     @if(!$item['count'] && !$item['is_available_for_order'])
                         <a href="{{route(locale() . '.contact', ['url' => url()->current()])}}"
                            class="button button--primary button--inline">{{$translations['products.contact_us_cta']['text']}}</a>
                     @else
                         <add-to-cart uuid="{{$item['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
                     @endif
-                    <div class="product-detail--separator"></div>
                     @if($item['info'])
                         <div class="wysiwyg-content">
                             {!! $item['info'] !!}
@@ -88,7 +90,10 @@
                     @endif
                 </div>
             </div>
-            <div class="mt-16">
+
+            <div class="product-detail--separator"></div>
+
+            <div class="mt-16 product-detail--tabs">
                 <h3 class="h3">{{$translations['products.description_title']['text']}}</h3>
                 <div class="wysiwyg-content">
                     {!! $item['description'] !!}
@@ -96,6 +101,8 @@
             </div>
         </div>
     </section>
+
+    @include('components.newsletter-section')
 
 @endsection
 

@@ -1,27 +1,25 @@
 <template>
     <div>
-        <div class="flex items-center -mx-4 mb-4">
-            <div class="w-full lg:w-1/2 px-4">
-                <div class="flex">
-                    <button type="button" class="button button--ghost button--sm" @click="removeQuantity">-</button>
-                    <input type="text" class="form--input text-center" v-model="quantity">
-                    <button type="button" class="button button--ghost button--sm" @click="addQuantity">+</button>
-                </div>
-            </div>
-            <div class="w-full lg:w-1/2 px-4">
-                <button class="button button--primary" @click="addToCart()">
-                    <template v-if="!loading && !error">
-                        {{ translations['Do košíka'] }}
-                    </template>
-                    <template v-if="loading">
-                        <img src="/images/icons/sync_white_24dp.svg" class="animate-spin mx-auto" :alt="translations['Do košíka']">
-                    </template>
-                    <template v-if="error">
-                        <img src="/images/icons/warning_white_24dp.svg" class="mx-auto"
-                             :alt="translations['Na sklade nie je dostatočný počet kusov']">
-                    </template>
-                </button>
-            </div>
+        <div class="flex items-center mb-4">
+            <button type="button" class="button border border-primary aspect-square !w-auto rounded-lg text-primary button--sm" @click="removeQuantity">
+                -
+            </button>
+            <input type="text" class="form--input border-none text-center !w-auto" v-model="quantity">
+            <button type="button" class="button border border-primary aspect-square !w-auto rounded-lg text-primary button--sm" @click="addQuantity">
+                +
+            </button>
+            <button class="button button--primary rounded-lg ml-16" @click="addToCart()">
+                <template v-if="!loading && !error">
+                    {{ translations['Do košíka'] }}
+                </template>
+                <template v-if="loading">
+                    <img src="/images/icons/sync_white_24dp.svg" class="animate-spin mx-auto" :alt="translations['Do košíka']">
+                </template>
+                <template v-if="error">
+                    <img src="/images/icons/warning_white_24dp.svg" class="mx-auto"
+                            :alt="translations['Na sklade nie je dostatočný počet kusov']">
+                </template>
+            </button>
         </div>
         <p v-if="error" class="text-small"> {{ translations['Na sklade nie je dostatočný počet kusov'] }} </p>
     </div>
