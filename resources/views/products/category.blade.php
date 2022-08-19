@@ -21,7 +21,7 @@ $breadcrumbs[] = [
     <!-- end: Page title -->
     <section class="section bg-gray-5">
         <div class="container">
-            <h1 class="h1 @if(!$category['description']) !mb-0 @endif lg:mb-0">
+            <h1 class="text-heading-2xs @if(!$category['description']) !mb-0 @endif lg:mb-0">
                 {{$translations['sort.' . request()->get('sort', $setup['api']['defaults']['sort']['products'])]['text'] . ' ' . \Illuminate\Support\Str::lower($category['name'])}}
             </h1>
             <p class="w-1/2 lg:mb-0">{{$category['description']}}</p>

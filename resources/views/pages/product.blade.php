@@ -73,10 +73,10 @@
                 </div>
                 <div class="w-full lg:w-1/2 px-4">
                     
-                    <h1 class="h1 leading-none !mb-6">{{$item['name']}}</h1>
+                    <h1 class="text-heading-2xs !mb-4">{{$item['name']}}</h1>
                     
                     @if($item['brand'])
-                        <h2 class="h4 leading-none text-gray-40  !mb-8">{{$item['brand']['name']}}</h2>
+                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{{$item['brand']['name']}}</h2>
                     @endif
                     
                     <p class="product-detail--price">
@@ -132,7 +132,7 @@
             <div class="product-detail--separator"></div>
 
             <div class="mt-16 product-detail--tabs">
-                <h3 class="h3">{{$translations['products.description_title']['text']}}</h3>
+                <h3 class="text-subheading-xl mb-10">{{$translations['products.description_title']['text']}}</h3>
                 <div class="wysiwyg-content">
                     {!! $item['description'] !!}
                 </div>

@@ -21,7 +21,7 @@ $breadcrumbs[] = [
         <div class="container">
             <div class="flex flex-wrap items-center -mx-4">
                 <div class="w-full lg:w-1/3 px-4">
-                    <h1 class="h1 lg:mb-0">
+                    <h1 class="text-heading-2xs lg:mb-0">
                         {{$translations['search.title']['text'].': ' . request()->get('kw')}}
                     </h1>
                 </div>

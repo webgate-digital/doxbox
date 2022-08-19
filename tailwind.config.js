@@ -17,14 +17,6 @@ module.exports = {
         },
         fontSize: {
             'default': '10px',
-            'body': '1.6rem',
-            'small': '1.3rem',
-            'medium': '1.4rem',
-            'h1': '3.2rem',
-            'h2': '2.6rem',
-            'h3': '2.2rem',
-            'h4': '2rem',
-            'h5': '1.8rem',
         },
         colors: {
             'white': '#ffffff',
@@ -50,7 +42,27 @@ module.exports = {
             'height': 'height',
             'all': 'all',
         },
-        extend: {},
+        extend: {
+            fontSize: {
+                'heading-2xl': ['12rem', {lineHeight: '14.063rem'}],
+                'heading-xl': ['9.6rem', {lineHeight: '11.25rem'}],
+                'heading-l': ['8.4rem', {lineHeight: '9.844rem'}],
+                'heading-m': ['7.2rem', {lineHeight: '8.438rem'}],
+                'heading-s': ['6rem', {lineHeight: '7.031rem'}],
+                'heading-xs': ['4.8rem', {lineHeight: '5.625rem'}],
+                'heading-2xs': ['3.6rem', {lineHeight: '4.219rem'}],
+                'subheading-xl': '2.4rem',
+                'subheading-l': '2rem',
+                'subheading-m': '1.6rem',
+                'subheading-s': '1.4rem',
+                'subheading-xs': '1.2rem',
+                'body-xl': '2.4rem',
+                'body-l': '2.0rem',
+                'body-m': ['1.6rem', {lineHeight: '2.2rem'}],
+                'body-s': '1.4rem',
+                'body-xs': '1.2rem',
+            }
+        },
     },
     variants: {
         extend: {},
