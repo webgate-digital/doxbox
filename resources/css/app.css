@@ -524,6 +524,24 @@ iframe {
     @apply rounded-lg;
     @apply pointer-events-none;
     width: initial;
+    @apply z-20;
+}
+
+.product-box--badge {
+    @apply absolute;
+    @apply bottom-4;
+    @apply left-4;
+    @apply z-10;
+
+    @apply text-small;
+    @apply font-bold;
+    @apply rounded-xl;
+
+    @apply px-4;
+    @apply py-2;
+
+    color: var(--badge-font-color);
+    background-color: var(--badge-background-color);
 }
 
 /* product detail */

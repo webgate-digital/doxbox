@@ -4,6 +4,11 @@
         <div class="product-box--cta button button--primary">
             {{$translations['product.show_cta']['text']}}
         </div>
+        @if($item['badge'])
+            <div class="product-box--badge" style="--badge-font-color: {{$item['badge']['font_color']}}; --badge-background-color: {{$item['badge']['background_color']}};">
+                {{$item['badge']['name']}}
+            </div>
+        @endif
     </div>
     <h4 class="product-box--name">
         {{$item['name']}}

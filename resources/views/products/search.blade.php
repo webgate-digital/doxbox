@@ -41,4 +41,6 @@ $breadcrumbs[] = [
         </div>
     </section>
 
+    @include('components.newsletter-section')
+
 @endsection
