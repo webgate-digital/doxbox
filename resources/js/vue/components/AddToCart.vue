@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="flex items-center mb-4">
-            <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary" @click="removeQuantity">
+            <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary !text-xl" @click="removeQuantity">
                 -
             </button>
             <input type="text" class="form--input !w-16 !h-16 p-0 border-none text-center" v-model="quantity">
-            <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary" @click="addQuantity">
+            <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary !text-xl" @click="addQuantity">
                 +
             </button>
             <button class="button button--primary rounded-xl ml-16 !w-auto !px-16" @click="addToCart()">
