@@ -56,8 +56,6 @@ Route::multilingual('/blog-detail', [BlogController::class, 'detail'])->name('bl
 Route::multilingual('/blog-category', [BlogController::class, 'category'])->name('blog.category');
 Route::multilingual('/blog-list', [BlogController::class, 'list'])->name('blog.list');
 
-Route::multilingual('/contact', [PageController::class, 'contact'])->name('contact');
-
 Route::get('/cache', function () {
 
     abort_if(request()->get('token', null) !== config('frontstore.api_key'), 404);

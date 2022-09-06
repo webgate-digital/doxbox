@@ -99,7 +99,6 @@ iframe {
 }
 
 .footer {
-    @apply pt-16;
     @apply bg-black;
     @apply text-white;
 }

@@ -152,58 +152,75 @@
     </div>
 
     <footer class="footer">
-        <div class="container">
+        <div class="container py-16">
             <div class="flex flex-wrap">
                 <div class="w-full lg:w-1/4">
+                    <p>
+                        <b>{{$translations['footer.social.title']['text']}}</b>
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="{{$translations['footer.social.instagram.url']['text']}}" target="_blank">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M32 6H16C10.4772 6 6 10.4772 6 16V32C6 37.5228 10.4772 42 16 42H32C37.5228 42 42 37.5228 42 32V16C42 10.4772 37.5228 6 32 6ZM38.5 32C38.489 35.5853 35.5853 38.489 32 38.5H16C12.4147 38.489 9.51098 35.5853 9.5 32V16C9.51098 12.4147 12.4147 9.51098 16 9.5H32C35.5853 9.51098 38.489 12.4147 38.5 16V32ZM35.5 14.5C35.5 15.6046 34.6046 16.5 33.5 16.5C32.3954 16.5 31.5 15.6046 31.5 14.5C31.5 13.3954 32.3954 12.5 33.5 12.5C34.6046 12.5 35.5 13.3954 35.5 14.5ZM24 15C19.0294 15 15 19.0294 15 24C15 28.9706 19.0294 33 24 33C28.9706 33 33 28.9706 33 24C33.0053 21.6114 32.0588 19.3191 30.3698 17.6302C28.6809 15.9412 26.3886 14.9947 24 15ZM24 29.5C20.9624 29.5 18.5 27.0376 18.5 24C18.5 20.9624 20.9624 18.5 24 18.5C27.0376 18.5 29.5 20.9624 29.5 24C29.5 27.0376 27.0376 29.5 24 29.5Z" fill="white"/>
+                            </svg>
+                        </a>
+                        <a href="{{$translations['footer.social.facebook.url']['text']}}" target="_blank">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M33 12H27C25.8954 12 25 12.8954 25 14V20H33C33.2275 19.995 33.4432 20.1008 33.5784 20.2838C33.7137 20.4667 33.7516 20.704 33.68 20.92L32.2 25.32C32.0636 25.7238 31.6862 25.9968 31.26 26H25V41C25 41.5523 24.5523 42 24 42H19C18.4477 42 18 41.5523 18 41V26H15C14.4477 26 14 25.5523 14 25V21C14 20.4477 14.4477 20 15 20H18V14C18 9.58172 21.5817 6 26 6H33C33.5523 6 34 6.44772 34 7V11C34 11.5523 33.5523 12 33 12Z" fill="white"/>
+                            </svg>
+                        </a>
+                        <a href="{{$translations['footer.social.youtube.url']['text']}}" target="_blank">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M40 8.97985L37.08 8.67985C28.3431 7.77989 19.5369 7.77989 10.8 8.67985L8 8.97985C4.54304 9.37057 1.94711 12.3213 2 15.7998V32.1998C1.94711 35.6784 4.54304 38.6291 8 39.0198L10.92 39.3198C19.6569 40.2198 28.4631 40.2198 37.2 39.3198L40 39.0198C43.457 38.6291 46.0529 35.6784 46 32.1998V15.7998C46.0529 12.3213 43.457 9.37057 40 8.97985ZM30 25.2398L22.22 30.4398C21.767 30.6886 21.2178 30.6865 20.7667 30.4345C20.3155 30.1825 20.0258 29.716 20 29.1998V18.7998C20.001 18.2454 20.3078 17.7368 20.7976 17.4772C21.2875 17.2176 21.8807 17.2494 22.34 17.5598L30.12 22.7598C30.5392 23.033 30.792 23.4995 30.792 23.9998C30.792 24.5002 30.5392 24.9667 30.12 25.2398H30Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/4">
+                    <p>
+                        <b>{{$translations['footer.pages.title']['text']}}</b>
+                    </p>
+                    <ul>
+                        @foreach($footerPages as $page)
+                        <li>
+                            <a href="{{route(locale() . '.page', [$page['slug']])}}">
+                                {{$page['title']}}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="w-full lg:w-1/4">
+                    <p>
+                        <b>{{$translations['footer.categories.title']['text']}}</b>
+                    </p>
+                    <ul>
+                        @foreach($headerNavigationItems as $item)
+                        <li>
+                            <a href="{{route(locale() . '.product.category', [$item['slug']])}}">
+                                {{$item['name']}}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="w-full lg:w-1/4">
                     @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                        <p><b>{{$supplierSettings['name']['value']}}</b><br>
+                        <p>
+                            <b>{{$translations['footer.info.title']['text']}}</b>
+                        </p>
+                        <p>
+                            {{$supplierSettings['name']['value']}}<br>
                             {{$supplierSettings['address']['value']}}<br>
                             {{$supplierSettings['zip']['value']}} {{$supplierSettings['city']['value']}}<br>
-                            {{$translations['general.company_id']['text']}}: {{$supplierSettings['id']['value']}}<br>
-                            {{$translations['general.company_tax_id']['text']}}: {{$supplierSettings['tax_id']['value']}}
-{{--                            {{$translations['general.company_vat_id']['text']}}--}}
-{{--                            : {{$supplierSettings['vat_id']['value']}}--}}
+                            <a class='text-primary' href="{{$translations['footer.info.google_maps.url']['text']}}" target="_blank">
+                                {{$translations['footer.info.google_maps.text']['text']}}
+                            </a>
+                        </p>
+                        <p>
+                            <img src="{{asset('images/store.png')}}" alt="{{$supplierSettings['name']['value']}}" class="w-full">
                         </p>
                     @endif
-                </div>
-                <div class="w-full lg:w-1/4">
-                    <p>
-                        <b>{{$translations['footer.useful_links_title']['text']}}</b>
-                    </p>
-                    <ul>
-                        @foreach($footerPages as $footerPage)
-                            <li>
-                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="w-full lg:w-1/4">
-                    <p>
-                        <b>{{$translations['footer.useful_links_title']['text']}}</b>
-                    </p>
-                    <ul>
-                        @foreach($footerPages as $footerPage)
-                            <li>
-                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="w-full lg:w-1/4">
-                    <p>
-                        <b>{{$translations['footer.useful_links_title']['text']}}</b>
-                    </p>
-                    <ul>
-                        @foreach($footerPages as $footerPage)
-                            <li>
-                                <a href="{{route(locale() . '.page', [$footerPage['slug']])}}">{{$footerPage['title']}}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
                 </div>
             </div>
         </div>
