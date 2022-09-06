@@ -900,33 +900,10 @@ input[type="checkbox"]:checked {
     @apply rounded-lg;
 }
 
-.text-heading-2xl,
-.text-heading-xl,
-.text-heading-lg,
-.text-heading-md,
-.text-heading-sm,
-.text-heading-xs,
-.text-heading-2xs,
-.text-subheading-xl,
-.text-subheading-l,
-.text-subheading-m,
-.text-subheading-s,
-.text-subheading-xs {
-    font-weight: 800;
-}
-
-.text-body-xl,
-.text-body-l,
-.text-body-m,
-.text-body-s,
-.text-body-xs {
-    font-weight: 400;
-}
-
 .wysiwyg-content h2 {
-    @extend .text-subheading-xl
+    @apply .text-subheading-xl
 }
 
 .wysiwyg-content h3 {
-    @extend .text-subheading-l
+    @apply .text-subheading-l
 }
