@@ -923,8 +923,10 @@ input[type="checkbox"]:checked {
     font-weight: 400;
 }
 
-h1 { @apply text-heading-l}
-h2 { @apply text-heading-m}
-h3 { @apply text-heading-s}
-h4 { @apply text-heading-xs}
-h5 { @apply text-heading-2xs}
+.wysiwyg-content h2 {
+    @extend .text-subheading-xl
+}
+
+.wysiwyg-content h3 {
+    @extend .text-subheading-l
+}
