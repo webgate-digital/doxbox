@@ -901,9 +901,9 @@ input[type="checkbox"]:checked {
 }
 
 .wysiwyg-content h2 {
-    @apply .text-subheading-xl
+    @apply text-subheading-xl;
 }
 
 .wysiwyg-content h3 {
-    @apply .text-subheading-l
+    @apply text-subheading-l;
 }
