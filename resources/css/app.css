@@ -922,3 +922,9 @@ input[type="checkbox"]:checked {
 .text-body-xs {
     font-weight: 400;
 }
+
+h1 { @apply text-heading-l}
+h2 { @apply text-heading-m}
+h3 { @apply text-heading-s}
+h4 { @apply text-heading-xs}
+h5 { @apply text-heading-2xs}
