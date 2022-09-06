@@ -216,7 +216,7 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                {{date('Y')}} &copy; {{config('app.name')}}
+                <span class="text-body-xs">{{date('Y')}} &copy; {{config('app.name')}}</span>
             </div>
         </div>
     </footer>
