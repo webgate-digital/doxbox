@@ -923,19 +923,19 @@ input[type="checkbox"]:checked {
     font-weight: 400;
 }
 
-.wysiwyg-content h2 {
-    @apply mb-8;
+.reading-content h1 {
     @apply text-subheading-xl;
     font-weight: 800;
 }
 
-.wysiwyg-content h3 {
+.wysiwyg-content h2 {
     @apply mb-8;
     @apply text-subheading-l;
     font-weight: 800;
 }
 
-.reading-content h1 {
-    @apply text-heading-2xl;
+.wysiwyg-content h3 {
+    @apply mb-8;
+    @apply text-subheading-m;
     font-weight: 800;
 }
