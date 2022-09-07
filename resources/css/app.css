@@ -899,6 +899,7 @@ input[type="checkbox"]:checked {
 .fotorama__thumb {
     @apply rounded-lg;
 }
+
 .text-heading-2xl,
 .text-heading-xl,
 .text-heading-lg,
@@ -923,9 +924,13 @@ input[type="checkbox"]:checked {
 }
 
 .wysiwyg-content h2 {
+    @apply mb-8;
     @apply text-subheading-xl;
+    font-weight: 800;
 }
 
 .wysiwyg-content h3 {
+    @apply mb-8;
     @apply text-subheading-l;
+    font-weight: 800;
 }
