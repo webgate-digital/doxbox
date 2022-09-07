@@ -923,11 +923,6 @@ input[type="checkbox"]:checked {
     font-weight: 400;
 }
 
-.reading-content h1 {
-    @apply text-subheading-xl;
-    font-weight: 800;
-}
-
 .wysiwyg-content h2 {
     @apply mb-8;
     @apply text-subheading-l;

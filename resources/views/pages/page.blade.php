@@ -14,7 +14,7 @@
     <section class="section">
         <div class="container">
             <div class="reading-content">
-                <h1 class="h1">
+                <h1 class="text-heading-xs mb-16">
                     {{$item['title']}}
                 </h1>
                 <div class="wysiwyg-content">
