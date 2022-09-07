@@ -934,3 +934,8 @@ input[type="checkbox"]:checked {
     @apply text-subheading-l;
     font-weight: 800;
 }
+
+.reading-content h1 {
+    @apply text-heading-2xl;
+    font-weight: 800;
+}
