@@ -184,6 +184,11 @@
                             </a>
                         </li>
                         @endforeach
+                        <li>
+                            <a href="{{route(locale() . '.contact')}}">
+                                {{$translations['menu.contact']['text']}}
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="w-full lg:w-1/4 mt-8 lg:mt-0">
