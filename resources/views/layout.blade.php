@@ -177,6 +177,11 @@
                 <div class="w-full lg:w-1/4 mt-8 lg:mt-0">
                     <h3 class="text-subheading-l">{{$translations['footer.pages.title']['text']}}</h3>
                     <ul class="mt-4 lg:mt-10">
+                        <li>
+                            <a href="{{route(locale() . '.contact')}}">
+                                {{$translations['menu.contact']['text']}}
+                            </a>
+                        </li>
                         @foreach($footerPages as $page)
                         <li>
                             <a href="{{route(locale() . '.page', [$page['slug']])}}">
@@ -184,11 +189,6 @@
                             </a>
                         </li>
                         @endforeach
-                        <li>
-                            <a href="{{route(locale() . '.contact')}}">
-                                {{$translations['menu.contact']['text']}}
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <div class="w-full lg:w-1/4 mt-8 lg:mt-0">
