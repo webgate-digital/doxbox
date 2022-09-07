@@ -934,3 +934,8 @@ input[type="checkbox"]:checked {
     @apply text-subheading-m;
     font-weight: 800;
 }
+
+.wysiwyg-content a {
+    @apply text-primary;
+    @apply underline;
+}
