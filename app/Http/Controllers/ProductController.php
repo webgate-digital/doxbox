@@ -73,7 +73,11 @@ class ProductController extends Controller
             return $this->_productRepository->attributes(locale())['items'];
         });
 
-        $products = Cache::rememberForever('products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices, $category) {
+        $isAjax = $request->ajax();
+        $limit = config('frontstore.defaults.limit.products');
+        $page = $isAjax ? $request->get('page', 1) : 0;
+        $offset = $isAjax ? ($page - 1) * $limit : 0;
+        $productList = Cache::rememberForever('products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices, $category, $limit, $offset) {
             $setup = Cache::rememberForever('setup', function () {
                 return $this->_setupRepository->list()['items'];
             });
@@ -83,10 +87,14 @@ class ProductController extends Controller
             $min_price = $request->get('min_price', $filterPrices['min_price']);
             $max_price = $request->get('max_price', $filterPrices['max_price']);
             $attributes = $request->get('attributes', []);
-            return $this->_productRepository->list(locale(), session()->get('currency'), 0, 0, $order, $sort, $min_price, $max_price, $attributes, $category['slug'])['items'];
+            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $category['slug']);
         });
 
-        return view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products'));
+        $products = $productList['items'];
+        $total = $productList['total'];
+        $hasMoreProducts = count($products) < $total;
+
+        return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts'));
     }
 
     public function detail(string $categorySlug, string $slug)

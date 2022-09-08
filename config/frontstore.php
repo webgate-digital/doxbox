@@ -3,5 +3,10 @@
 return [
     'catalog' => env('CATALOG_ID'),
     'api_key' => env('API_KEY'),
-    'api_endpoint' => env('API_ENDPOINT')
+    'api_endpoint' => env('API_ENDPOINT'),
+    'defaults' => [
+        'limit' => [
+            'products' => 18,
+        ]
+    ]
 ];

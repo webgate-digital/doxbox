@@ -6,6 +6,18 @@ html, body {
     @apply text-default;
 }
 
+@screen md {
+    html, body {
+        @apply text-md;
+    }
+}
+
+@screen lg {
+    html, body {
+        @apply text-lg;
+    }
+}
+
 body {
     @apply font-body;
     @apply leading-relaxed;
@@ -32,6 +44,10 @@ iframe {
 
 .section {
     @apply py-8;
+}
+
+.section--contact p {
+    @apply leading-loose;
 }
 
 @screen sm {
@@ -938,4 +954,8 @@ input[type="checkbox"]:checked {
 .wysiwyg-content a {
     @apply text-primary;
     @apply underline;
+}
+
+.text-gray-80 {
+    @apply text-gray-80;
 }

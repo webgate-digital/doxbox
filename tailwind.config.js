@@ -16,7 +16,9 @@ module.exports = {
             'body': ['"Roboto", sans-serif']
         },
         fontSize: {
-            'default': '10px',
+            'lg': '10px',
+            'md': '9px',
+            'default': '9px',
         },
         colors: {
             'white': '#ffffff',
@@ -34,6 +36,7 @@ module.exports = {
                 10: '#D9D9D9',
                 40: '#A8A9AA',
                 50: '#A8A9AA',
+                60: '#8C8D8E',
                 80: '#25282B',
                 100: '#131416'
             }

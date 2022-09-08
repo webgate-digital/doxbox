@@ -7,6 +7,7 @@ use App\Exceptions\ValidationException;
 use App\Repositories\PageRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
+use App\Repositories\TranslationRepository;
 use Cache;
 use Illuminate\Http\Request;
 
@@ -70,7 +71,16 @@ class PageController extends Controller
             return $_settingRepository->supplier()['items'];
         });
 
-        return view('pages.contact', compact('supplier'));
+        $translations = Cache::rememberForever('translations_web', function () {
+            $_translationRepository = new TranslationRepository();
+            return $_translationRepository->default(locale())['items'];
+        });
+
+        $faqItems = array_filter($translations, function ($key) {
+            return substr($key, 0, 4) === 'faq.';
+        }, ARRAY_FILTER_USE_KEY);
+
+        return view('pages.contact', compact('supplier', 'faqItems'));
     }
 
     public function thankYou(Request $request)
