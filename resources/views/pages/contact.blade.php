@@ -22,11 +22,11 @@
                     {{ $translations['contact.subtitle']['text'] }}
                 </h2>
             </div>
-            <div class="lg:flex mt-32 items-center">
+            <div class="lg:flex mt-16 lg:mt-32 items-center">
                 <div class="lg:w-1/2">
                     <img src="/images/kontakt.jpeg" alt="Kontakt" class="drop-shadow-2xl">
                 </div>
-                <div class="lg:ml-[10%] flex-grow">
+                <div class="lg:ml-[10%] mt-16 lg:mt-0 flex-grow">
                     <h5 class="text-subheading-m">
                         {{ $translations['Zákaznícky servis']['text'] }}
                     </h5>
@@ -71,7 +71,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="lg:ml-[10%]">
+            <div class="lg:ml-[10%] mt-16 lg:mt-0">
                 <h2 class="text-subheading-xl">
                     {{ $translations['Firemné informácie']['text'] }}
                 </h2>
