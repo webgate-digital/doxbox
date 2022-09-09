@@ -83,9 +83,7 @@
                     </h2>
                     <div class="product-container">
                         @foreach($upsell as $product)
-                            <div class="w-1/2 lg:w-1/4">
-                                @include('components.product', ['item' => $product])
-                            </div>
+                            @include('components.product', ['item' => $product])
                         @endforeach
                     </div>
                 @endif

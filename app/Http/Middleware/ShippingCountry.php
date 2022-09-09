@@ -32,7 +32,7 @@ class ShippingCountry
                 return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
             });
 
-            session()->put('shipping_country', key($items));
+            $request->session()->put('shipping_country', key($items));
         }
 
         return $next($request);
