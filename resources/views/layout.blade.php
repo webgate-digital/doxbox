@@ -209,7 +209,7 @@
                         <p class="my-4 lg:my-10">
                             {{$supplierSettings['name']['value']}}<br>
                             {{$supplierSettings['address']['value']}}<br>
-                            {{$supplierSettings['zip']['value']}} {{$supplierSettings['city']['value']}}<br>
+                            {{$supplierSettings['zip']['value']}}, {{$supplierSettings['city']['value']}}<br>
                             <a class='text-primary' href="{{$translations['footer.info.google_maps.url']['text']}}" target="_blank">
                                 {{$translations['footer.info.google_maps.text']['text']}}
                             </a>

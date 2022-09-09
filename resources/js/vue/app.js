@@ -15,11 +15,12 @@ const app = new Vue({
     el: '#app',
 });
 
-// Add load more product list logic
+// Load more product list logic
 (() => {
     const $loadMoreButton = document.querySelector('#load-more');
+    if (!$loadMoreButton) return;
+
     const $loadMoreIcon = $loadMoreButton.querySelector('svg');
-    const $loadMoreText = $loadMoreButton.querySelector('span');
     const $productContainer = document.querySelector('.product-container');
     $loadMoreButton.addEventListener("click", () => {
         $loadMoreIcon.classList.remove('hidden');
@@ -41,5 +42,21 @@ const app = new Vue({
         };
 
         xhr.send();
+    });
+})();
+
+// Accordion logic
+(() => {
+    const $accordionTriggers = document.querySelectorAll('[data-accordion-content-id]');
+
+    $accordionTriggers.forEach($trigger => {
+        $trigger.addEventListener('click', event => {
+            event.preventDefault();
+            $trigger.classList.toggle('active');
+            const $accordionContent = document.querySelector(`#${$trigger.getAttribute('data-accordion-content-id')}`);
+            const $accordionContentInner = $accordionContent.querySelector('.accordion-content__inner');
+            console.log($accordionContentInner.clientHeight);
+            $accordionContent.style.height = $accordionContent.clientHeight === 0 ? `${$accordionContentInner.clientHeight}px` : '0px';
+        });
     });
 })();

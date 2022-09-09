@@ -959,3 +959,56 @@ input[type="checkbox"]:checked {
 .text-gray-80 {
     @apply text-gray-80;
 }
+
+.accordion-content {
+    @apply h-0;
+    @apply overflow-hidden;
+    
+    @apply transition-all;
+    @apply duration-300;
+    @apply ease-in-out;
+}
+
+.accordion-trigger {
+    @apply relative;
+
+    @apply transition-all;
+    @apply duration-300;
+    @apply ease-in-out;
+}
+
+.accordion-trigger::before {
+    content: '';
+    @apply block;
+    @apply absolute;
+    @apply bottom-0;
+    @apply w-full;
+    @apply h-1;
+    @apply left-0;
+    @apply pointer-events-none;
+    @apply bg-gray-10;
+}
+
+.accordion-trigger::after {
+    content: '';
+    @apply block;
+    @apply absolute;
+    @apply bottom-0;
+    @apply w-0;
+    @apply h-1;
+    @apply left-0;
+    @apply pointer-events-none;
+    @apply bg-black;
+
+    @apply transition-all;
+    @apply duration-300;
+    @apply ease-in-out;
+}
+
+.accordion-trigger.active::after, .accordion-trigger:hover::after {
+    @apply w-full;
+}
+
+.active.accordion-trigger, .accordion-trigger:hover {
+    @apply text-black;
+}

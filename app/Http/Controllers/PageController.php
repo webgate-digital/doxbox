@@ -76,9 +76,27 @@ class PageController extends Controller
             return $_translationRepository->default(locale())['items'];
         });
 
-        $faqItems = array_filter($translations, function ($key) {
-            return substr($key, 0, 4) === 'faq.';
+        $faqQuestionTranslations = array_filter($translations, function ($key) {
+            return substr($key, 0, 13) === 'faq.question.';
         }, ARRAY_FILTER_USE_KEY);
+
+        $faqAnswerTranslations = array_filter($translations, function ($key) {
+            return substr($key, 0, 11) === 'faq.answer.';
+        }, ARRAY_FILTER_USE_KEY);
+
+        $faqItems = array_map(function ($key) use ($faqQuestionTranslations, $faqAnswerTranslations) {
+            $questionNumber = substr($key, 13);
+            if (isset($faqQuestionTranslations['faq.question.' . $questionNumber]) && isset($faqAnswerTranslations['faq.answer.' . $questionNumber])) {
+                return [
+                    'question' => $faqQuestionTranslations['faq.question.' . $questionNumber]['text'],
+                'answer' => $faqAnswerTranslations['faq.answer.' . $questionNumber]['text'],
+                ];
+            } else {
+                return null;
+            }
+        }, array_keys($faqQuestionTranslations));
+
+        $faqItems = array_filter($faqItems);
 
         return view('pages.contact', compact('supplier', 'faqItems'));
     }

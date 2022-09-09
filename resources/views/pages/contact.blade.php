@@ -28,31 +28,25 @@
                 </div>
                 <div class="lg:ml-[10%] flex-grow">
                     <h5 class="text-subheading-m">
-                        Zákaznícky servis
+                        {{ $translations['Zákaznícky servis']['text'] }}
                     </h5>
                     <p>
                         Email:
                         <a href="mailto:{{ $catalogSettings['email']['value'] }}" class="underline text-primary">
                             {{ $catalogSettings['email']['value'] }}
                         </a>
-                        <br/>
+                        <br />
                         Tel:
-                        <a href="tel:{{ $catalogSettings['phone']['value'] }}">
+                        <a href="tel:{{ $catalogSettings['phone']['value'] }}" class="underline text-primary">
                             {{ $catalogSettings['phone']['value'] }}
                         </a>
                     </p>
 
                     <h5 class="text-subheading-m mt-16">
-                        Predajňa
+                        {{ $translations['Predajňa']['text'] }}
                     </h5>
-                    <p class="whitespace-pre-line">Platba: kartou, v hotovosti
-                        Otváracie hodiny:
-
-                        Po-Pi: od 10:00 do 18:00
-                        So: od 10:00 do 16:00
-                        Ne: zatvorené
-
-                        Od 27.12. do 30.12. bude predajňa otvorená od 10:00 do 14:00.
+                    <p class="whitespace-pre-line">{{ $translations['contact.payment_options_text']['text'] }}</p>
+                        {!! $translations['contact.opening_hours']['text'] !!}
                     </p>
                 </div>
             </div>
@@ -62,56 +56,43 @@
         <div class="container lg:flex">
             <div class="lg:w-1/2 flex-shrink-0">
                 <h2 class="text-subheading-xl mb-4">
-                    Odpovede na najčastejšie otázky zákazníkov DOXBOX
+                    {{ $translations['Odpovede na najčastejšie otázky zákazníkov DOXBOX']['text'] }}
                 </h2>
-                <div>
-                    <div>
-                        <h4 class="text-body-xl text-gray-60 cursor-pointer">
-                            Ako zabezpečiť bezpečnosť pri nákupe na internete?
-                        </h4>
-                        <div>
-                            <h5 class="text-subheading-m">
-                                Eshop
-                            </h5>
-                            <p>
-                                Online nákup platobnou kartou, cez Paypal alebo si tovar môžete poslať nadobierku a zaplatiť tak pri prevzatí balíku od kuriéra. Zákazníci z Česka pri dobierke platia v českých korunách.
-                            </p>
-                            
-                            <h5 class="text-subheading-m">
-                                Predajňa v Bratislava
-                            </h5>
-                            <p>
-                                V našej predajni môžete platiť platobnou kartou alebo v hotovosti.
-                            </p>
-                        </div>
-                    </div>
+                <div class="mt-16">
                     @foreach ($faqItems as $item)
-                        
+                        <h4 class="text-body-l text-gray-60 cursor-pointer inline-block accordion-trigger pb-2 @if (!$loop->first) mt-8 @endif" data-accordion-content-id="accordion-content-{{ $loop->index }}">
+                            {{ $item['question'] }}
+                        </h4>
+                        <div id="accordion-content-{{ $loop->index }}" class="accordion-content">
+                            <div class="accordion-content__inner pt-8">
+                                {!! $item['answer'] !!}
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>
             <div class="lg:ml-[10%]">
                 <h2 class="text-subheading-xl">
-                    Firemné informácie
+                    {{ $translations['Firemné informácie']['text'] }}
                 </h2>
                 <h3 class="text-subheading-m mt-16">
-                    Fakturačná a korešpondenčná adresa
+                    {{ $translations['Fakturačná a korešpondenčná adresa']['text'] }}
                 </h3>
-                <p class="whitespace-pre-line">4 Laby s.r.o.
-                    Vrakunská 39
-                    821 06, Bratislava
-                    Slovenská Republika
-                    
-                    IČO: 52192181 IČ, DPH: SK2120959918
+                <p class="whitespace-pre-line">{{$supplierSettings['name']['value']}}
+                    {{$supplierSettings['address']['value']}}
+                    {{$supplierSettings['zip']['value']}}, {{$supplierSettings['city']['value']}}
+                    {{$supplierSettings['country']['value']}}
+
+                    IČO: {{$supplierSettings['id']['value']}} IČ, DPH: {{$supplierSettings['tax_id']['value']}}
                 </p>
                 <h3 class="text-subheading-m mt-16">
-                    Bankové spojenie:
+                    {{ $translations['Bankové spojenie']['text'] }}:
                 </h3>
-                <p class="whitespace-pre-line">Číslo účtu:
-                    5154762908 / 0900
-                    IBAN: SK29 0900 0000 0051 5476 2908
-                    BIC/SWIFT: GIBASKBX
-                    V prípade platby vašej objednávky uveďte ako variabilný symbol (VS) vaše číslo objednávky.
+                <p class="whitespace-pre-line">{{$translations['Číslo účtu']['text']}}:
+                    {{$translations['bank.account_number']['text']}}
+                    IBAN: {{$translations['bank.iban']['text']}}
+                    BIC/SWIFT: {{$translations['bank.swift']['text']}}
+                    {{$translations['V prípade platby vašej objednávky uveďte ako variabilný symbol (VS) vaše číslo objednávky.']['text']}}
                 </p>
             </div>
         </div>
