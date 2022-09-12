@@ -9,6 +9,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
 use App\Repositories\TranslationRepository;
 use Cache;
+use Exception;
 use Illuminate\Http\Request;
 
 const HOUR = 3600;
@@ -113,5 +114,15 @@ class PageController extends Controller
         $params = $request->all();
 
         return view('pages.thank_you', compact('order', 'params'));
+    }
+
+    public function resetCache(Request $request)
+    {
+        abort_if($request->get('token', null) !== config('frontstore.cacheResetToken'), 400);
+
+        try {
+            \cache()->flush();
+        } catch (Exception $e) {
+        }
     }
 }
