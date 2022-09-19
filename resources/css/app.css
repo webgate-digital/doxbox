@@ -307,6 +307,13 @@ iframe {
 
 .top-nav--menu {
     @apply mb-0;
+    @apply hidden;
+}
+
+@screen md {
+    .top-nav--menu {
+        @apply block;
+    }
 }
 
 .top-nav--menu li {

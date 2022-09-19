@@ -57,25 +57,23 @@
         <div class="top-nav">
             <div class="container">
                 <div class="flex items-center justify-between">
-                    <div>
-                        <ul class="top-nav--menu">
-                            <li>
-                                <a href="#">Kontakt</a>
-                            </li>
-                            <li>
-                                <a href="#">Doprava</a>
-                            </li>
-                            <li>
-                                <a href="#">Vrátenie tovaru</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
+                    <ul class="top-nav--menu">
+                        <li>
+                            <a href="#">Kontakt</a>
+                        </li>
+                        <li>
+                            <a href="#">Doprava</a>
+                        </li>
+                        <li>
+                            <a href="#">Vrátenie tovaru</a>
+                        </li>
+                    </ul>
+                    <div class="flex-grow">
                         <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
                                 src="{{asset('images/icons/email_white_24dp.svg')}}"
                                 alt="{{$catalogSettings['email']['value']}}" width="16"
                                 class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
-                        <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item hidden lg:inline mr-10"><img
+                        <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item mr-10"><img
                                 src="{{asset('images/icons/call_white_24dp.svg')}}"
                                 alt="{{$catalogSettings['phone']['value']}}" width="16"
                                 class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
@@ -129,6 +127,7 @@
                             <ul class="main-nav--mobile" id="main-nav--mobile">
                                 @include('components.main_nav')
                             </ul>
+                            <div class="overlay" onclick="document.getElementById('main-nav--mobile').classList.remove('is-open');"></div>
                         </div>
                     </div>
                 @endif
