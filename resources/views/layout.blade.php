@@ -59,24 +59,29 @@
                 <div class="flex items-center justify-between">
                     <ul class="top-nav--menu">
                         <li>
-                            <a href="#">Kontakt</a>
+                            <a href="{{route(locale() . '.contact')}}">
+                                {{$translations['menu.contact']['text']}}
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Doprava</a>
-                        </li>
-                        <li>
-                            <a href="#">Vrátenie tovaru</a>
-                        </li>
+                        @foreach($headerPages as $page)
+                            <li>
+                                <a href="{{route(locale() . '.page', [$page['slug']])}}">
+                                    {{$page['title']}}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                     <div class="flex-grow">
-                        <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item"><img
-                                src="{{asset('images/icons/email_white_24dp.svg')}}"
-                                alt="{{$catalogSettings['email']['value']}}" width="16"
-                                class="top-nav--icon"> {{$catalogSettings['email']['value']}}</a>
-                        <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item mr-10"><img
-                                src="{{asset('images/icons/call_white_24dp.svg')}}"
-                                alt="{{$catalogSettings['phone']['value']}}" width="16"
-                                class="top-nav--icon"> {{$catalogSettings['phone']['value']}}</a>
+                        <a href="mailto:{{$catalogSettings['email']['value']}}" class="top-nav--item">
+                            <img class="top-nav--icon" src="{{asset('images/icons/email_white_24dp.svg')}}"
+                                alt="{{$catalogSettings['email']['value']}}" width="16">
+                            {{$catalogSettings['email']['value']}}
+                        </a>
+                        <a href="tel:{{$catalogSettings['phone']['value']}}" class="top-nav--item mr-10">
+                            <img class="top-nav--icon" src="{{asset('images/icons/call_white_24dp.svg')}}"
+                                alt="{{$catalogSettings['phone']['value']}}" width="16">
+                            {{$catalogSettings['phone']['value']}}
+                        </a>
                         @foreach(config('locales.supported') as $locale)
                             <a href="{{route($locale . '.homepage')}}" class="top-nav--item"><img
                                     src="{{asset('images/flags/'.$locale.'.svg')}}" class="top-nav--flag"
@@ -182,11 +187,11 @@
                             </a>
                         </li>
                         @foreach($footerPages as $page)
-                        <li>
-                            <a href="{{route(locale() . '.page', [$page['slug']])}}">
-                                {{$page['title']}}
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{{route(locale() . '.page', [$page['slug']])}}">
+                                    {{$page['title']}}
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>

@@ -55,6 +55,11 @@ class AppServiceProvider extends ServiceProvider
                 return $_translationRepository->default(locale())['items'];
             });
 
+            $headerPages = Cache::rememberForever('pages_header', function () {
+                $_pageRepository = new PageRepository();
+                return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', true, false, false, false)['items'];
+            });
+
             $footerPages = Cache::rememberForever('pages_footer', function () {
                 $_pageRepository = new PageRepository();
                 return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', false, true, false, false)['items'];
@@ -86,6 +91,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('catalogSettings', $catalogSettings);
             $view->with('translations', $translations);
+            $view->with('headerPages', $headerPages);
             $view->with('footerPages', $footerPages);
             $view->with('headerNavigationItems', $headerNavigationItems);
             $view->with('supplierSettings', $supplierSettings);
