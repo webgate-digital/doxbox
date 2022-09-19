@@ -36,6 +36,16 @@
     </script>
 @endsection
 
+@section('add-to-cart')
+    @if(!$item['count'] && !$item['is_available_for_order'])
+        <a href="{{route(locale() . '.contact', ['url' => url()->current()])}}" class="button button--primary button--inline">
+            {{$translations['products.contact_us_cta']['text']}}
+        </a>
+    @else
+        <add-to-cart uuid="{{$item['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
+    @endif
+@endsection
+
 @section('content')
 
     <!-- Page title -->
@@ -59,7 +69,7 @@
     <section class="section">
         <div class="container">
             <div class="flex flex-wrap -mx-4">
-                <div class="w-full lg:w-1/2 px-4">
+                <div class="w-full lg:w-1/2 px-4 order-2 lg:order-1">
                     <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true" data-thumbmargin="8" data-ratio="1">
                         <a href="{{$item['image_url']}}">
                             <img alt="{{$item['name']}}" src="{{$item['image_url']}}">
@@ -71,7 +81,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="w-full lg:w-1/2 px-4">
+                <div class="w-full lg:w-1/2 px-4 order-1 lg:order-2">
                     
                     <h1 class="text-heading-2xs !mb-4">{{$item['name']}}</h1>
                     
@@ -119,14 +129,15 @@
 
                     <div class="product-detail--separator"></div>
 
-                    @if(!$item['count'] && !$item['is_available_for_order'])
-                        <a href="{{route(locale() . '.contact', ['url' => url()->current()])}}"
-                           class="button button--primary button--inline">{{$translations['products.contact_us_cta']['text']}}</a>
-                    @else
-                        <add-to-cart uuid="{{$item['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
-                    @endif
+                    <div class="hidden lg:block">
+                        @yield("add-to-cart")
+                    </div>
                 </div>
 
+            </div>
+
+            <div class="lg:hidden">
+                @yield("add-to-cart")
             </div>
 
             <div class="product-detail--separator"></div>

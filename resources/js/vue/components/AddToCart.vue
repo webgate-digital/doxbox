@@ -8,7 +8,7 @@
             <button type="button" class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary !text-xl" @click="addQuantity">
                 +
             </button>
-            <button class="button button--primary rounded-xl ml-16 !w-auto !px-16" @click="addToCart()">
+            <button class="button button--primary rounded-xl ml-16 !w-auto !px-16 flex-grow md:flex-grow-0" @click="addToCart()">
                 <template v-if="!loading && !error">
                     {{ translations['Do košíka'] }}
                 </template>
