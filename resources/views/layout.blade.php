@@ -214,7 +214,7 @@
                                 {{$translations['footer.info.google_maps.text']['text']}}
                             </a>
                         </p>
-                        <img src="{{asset('images/store.png')}}" alt="{{$supplierSettings['name']['value']}}" class="w-full mt-4">
+                        <img src="{{asset('images/store.png')}}" alt="{{$supplierSettings['name']['value']}}" class="w-full md:mt-4 mt-8">
                     @endif
                 </div>
             </div>

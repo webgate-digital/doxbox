@@ -9,7 +9,7 @@
             </a>
             na marketingové účely.
         </div>
-        <div class="mx-auto mt-12">
+        <div class="mx-auto md:mt-12 mt-4">
             <label for="email" class="label text-gray-50 text-body-s">
                 Tvoja e-mailová adresa
             </label>

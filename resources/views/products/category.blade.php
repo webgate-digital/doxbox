@@ -32,15 +32,26 @@ $breadcrumbs[] = [
 
     <section class="section" id="list">
         <div class="container">
-            <div class="flex flex-wrap-reverse lg:flex-wrap -mx-4">
+            <div class="md:flex flex-wrap-reverse lg:flex-wrap -mx-4">
                 <div class="w-full lg:w-1/4 px-4">
                     @include('components.product_sidebar')
                 </div>
-                <div class="w-full lg:w-3/4 px-4">
+
+                <div class="md:hidden text-center">
+                    <button onclick="document.getElementById('filter-bar').classList.toggle('is-open');" class="button button--primary rounded-xl">
+                        {{$translations['filter.cta']['text']}}
+                    </button>
+
+                    <a href="{{route(locale() . '.product.list')}}#list" class="mt-4 text-primary font-light text-center block">
+                        {{$translations['filter.cta_cancel']['text']}}
+                    </a>
+                </div>
+
+                <div class="w-full lg:w-3/4 px-4 mt-8 md:mt-0">
                     @include('components.product_list')
 
                     @if($hasMoreProducts)
-                        <div class="mt-24 text-center">
+                        <div class="mt-16 text-center">
                             <button id="load-more" data-page="1" class="button border border-primary text-primary rounded-lg !inline-flex !w-auto items-center">
                                 <svg id='load-more--loading' class="animate-spin hidden mr-3 h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

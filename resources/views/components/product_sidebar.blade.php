@@ -1,4 +1,9 @@
-<aside class="sticky top-8">
+<aside id="filter-bar" class="sticky top-8">
+    <div class="border-b border-white">
+        <h3 class="text-subheading-xl md:hidden">
+            {{$translations['filter.title']['text']}}
+        </h3>
+    </div>
     <form method="get" action="#list" id="filter-form" class="flex flex-col">
         @foreach($attributes as $attribute)
             <div class="mb-8">
@@ -33,3 +38,5 @@
         </a>
     </form>
 </aside>
+
+<div class="overlay" onclick="document.getElementById('filter-bar').classList.remove('is-open');"></div>

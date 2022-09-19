@@ -16,7 +16,7 @@
 
         <section class="section">
             <div class="container">
-                <h2 class="text-heading-2xs mb-20">
+                <h2 class="text-heading-2xs md:mb-20 mb-6">
                     {{$translations['products.top_selling_title']['text']}}
                 </h2>
                 <div class="product-container">
@@ -34,7 +34,7 @@
 
         <section class="section">
             <div class="container">
-                <h2 class="text-heading-2xs mb-20">
+                <h2 class="text-heading-2xs md:mb-20 mb-6">
                     {{$translations['categories.title']['text']}}
                 </h2>
                 <div class="category-container">
@@ -47,7 +47,7 @@
 
         <section class="section">
             <div class="container">
-                <h2 class="text-heading-2xs mb-20">
+                <h2 class="text-heading-2xs md:mb-20 mb-6">
                     Značky {{--  TODO: translate --}}
                 </h2>
                 <div class="category-container">

@@ -14,7 +14,7 @@
     </select>
     <input type="hidden" name="min_price" value="{{request()->get('min_price', $filterPrices['min_price'])}}">
     <input type="hidden" name="max_price" value="{{request()->get('max_price', $filterPrices['max_price'])}}">
-    <div class="product-container mb-32 lg:mb-0 !grid-cols-3">
+    <div class="product-container">
         @foreach($products as $product)
             @include('components.product', ['item' => $product])
         @endforeach
