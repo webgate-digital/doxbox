@@ -111,4 +111,7 @@ module.exports = {
         extend: {},
     },
     plugins: [],
+    content: [
+        './resources/**/*.vue',
+    ]
 }

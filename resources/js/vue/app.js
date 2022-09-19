@@ -8,6 +8,7 @@ Vue.component('mini-cart', require('./components/MiniCart.vue').default);
 Vue.component('cart-icon', require('./components/CartIcon.vue').default);
 Vue.component('cart-page', require('./components/CartPage.vue').default);
 Vue.component('shipping-and-payment', require('./components/ShippingAndPayment.vue').default);
+Vue.component('v-navigation', require('./components/VNavigation.vue').default);
 
 Vue.prototype.$loadingTime = 0;
 

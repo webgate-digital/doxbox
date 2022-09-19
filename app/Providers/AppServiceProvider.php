@@ -67,10 +67,13 @@ class AppServiceProvider extends ServiceProvider
 
             $categories = Cache::rememberForever('header_navigation_items', function () {
                 $_productRepository = new ProductRepository();
-                return $_productRepository->categories(locale(), 10)['items'];
+                return $_productRepository->categories(locale(), 0, 0, 'desc', 'score')['items'];
             });
 
-            $headerNavigationItems = collect($categories)->whereNull('parent_slug')->sortBy('name')->toArray();
+            // Add url to categories
+            foreach ($categories as $key => $category) {
+                $categories[$key]['url'] = route(locale() . '.product.category', [$category['slug']]);
+            }
 
             $setup = Cache::rememberForever('setup', function () {
                 $_setupRepository = new SetupRepository();
@@ -93,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('translations', $translations);
             $view->with('headerPages', $headerPages);
             $view->with('footerPages', $footerPages);
-            $view->with('headerNavigationItems', $headerNavigationItems);
+            $view->with('categories', $categories);
             $view->with('supplierSettings', $supplierSettings);
             $view->with('setup', $setup);
             $view->with('documentSettings', $documentSettings);

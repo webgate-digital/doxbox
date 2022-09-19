@@ -103,11 +103,7 @@
                     </a>
                 </div>
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                    <div>
-                        <ul class="main-nav--menu hidden lg:block">
-                            @include('components.main_nav')
-                        </ul>
-                    </div>
+                    <v-navigation :items="{{json_encode($categories)}}"></v-navigation>
                 @endif
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
                     <div>
@@ -129,10 +125,6 @@
                                 <img src="{{asset('images/icons/menu_white_24dp.svg')}}" class="ml-8 lg:hidden"
                                      alt="{{$translations['cart.title']['text']}}">
                             </button>
-                            <ul class="main-nav--mobile" id="main-nav--mobile">
-                                @include('components.main_nav')
-                            </ul>
-                            <div class="overlay" onclick="document.getElementById('main-nav--mobile').classList.remove('is-open');"></div>
                         </div>
                     </div>
                 @endif
@@ -198,12 +190,12 @@
                 <div class="w-full lg:w-1/4 mt-8 lg:mt-0">
                     <h3 class="text-subheading-l">{{$translations['footer.categories.title']['text']}}</h3>
                     <ul class="mt-4 lg:mt-10">
-                        @foreach($headerNavigationItems as $item)
-                        <li>
-                            <a href="{{route(locale() . '.product.category', [$item['slug']])}}">
-                                {{$item['name']}}
-                            </a>
-                        </li>
+                        @foreach(collect($categories)->where('has_parent', false) as $item)
+                            <li>
+                                <a href="{{route(locale() . '.product.category', [$item['slug']])}}">
+                                    {{$item['name']}}
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
