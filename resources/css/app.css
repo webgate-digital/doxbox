@@ -624,7 +624,8 @@ iframe {
 .product-box--image img {
     @apply w-full;
     @apply h-full;
-    @apply object-cover;
+    @apply object-contain;
+    aspect-ratio: 1;
 }
 
 .product-box--name {
