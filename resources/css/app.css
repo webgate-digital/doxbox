@@ -595,7 +595,7 @@ iframe {
 
 @screen md {
     .product-container {
-        @apply grid-cols-4;
+        @apply grid-cols-3;
         @apply gap-x-8;
         @apply gap-y-20;
     }

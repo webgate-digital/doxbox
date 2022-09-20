@@ -9,7 +9,7 @@
             <div class="mb-8 flex flex-col">
                 <p class="h5 ">{{$attribute['name']}}</p>
                 @foreach ($attribute['values'] as $attributeValue)
-                    <div onclick="document.getElementById('filter-form').submit();" class="mb-4 flex items-center gap-4 cursor-pointer filter-bar--attribute" style="order: {{$loop->index}}">
+                    <div onclick="document.getElementById('filter-form').submit();" class="mb-4 flex items-center gap-4 cursor-pointer filter-bar--attribute">
                         <input class="cursor-pointer" id="attribute_{{$attributeValue['uuid']}}"
                             name="attributes[{{$attribute['uuid']}}][]" type="checkbox"
                             value="{{$attributeValue['uuid']}}"
