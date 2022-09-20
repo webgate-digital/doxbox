@@ -1184,3 +1184,24 @@ input[type="checkbox"]:checked {
         @apply underline;
     }
 }
+
+.filter-bar--show-more {
+    @apply text-primary;
+    order: 9999;
+}
+
+.filter-bar--show-more::after {
+    content: attr(data-show-more-text);
+}
+
+.active.filter-bar--show-more::after {
+    content: attr(data-show-less-text);
+}
+
+.filter-bar--show-more ~ .filter-bar--attribute {
+    @apply hidden;
+}
+
+.active.filter-bar--show-more ~ .filter-bar--attribute {
+    @apply block;
+}

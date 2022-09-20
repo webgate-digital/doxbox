@@ -90,19 +90,13 @@ class ProductController extends Controller
             return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $category['slug']);
         });
 
-        // map attributes so that they contain 'available' property, according to $productList['availableAttributes']
-        $attributes = array_map(function ($attribute) use ($productList) {
-            $attribute['available'] = in_array($attribute['uuid'], array_map(function ($attribute) {
-                return $attribute['uuid'];
-            }, $productList['availableAttributes']));
-            return $attribute;
-        }, $attributes);
+        $availableAttributes = $productList['availableAttributes'];
 
         $products = $productList['items'];
         $total = $productList['total'];
         $hasMoreProducts = count($products) < $total;
 
-        return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts'));
+        return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes'));
     }
 
     public function detail(string $categorySlug, string $slug)

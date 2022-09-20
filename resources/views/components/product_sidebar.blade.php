@@ -5,17 +5,21 @@
         </h3>
     </div>
     <form method="get" action="#list" id="filter-form" class="flex flex-col">
-        @foreach($attributes as $attribute)
-            <div class="mb-8">
+        @foreach($availableAttributes as $attribute)
+            <div class="mb-8 flex flex-col">
                 <p class="h5 ">{{$attribute['name']}}</p>
                 @foreach ($attribute['values'] as $attributeValue)
-                    <div onclick="document.getElementById('filter-form').submit();" class="mb-4 flex items-center gap-4 cursor-pointer">
+                    <div onclick="document.getElementById('filter-form').submit();" class="mb-4 flex items-center gap-4 cursor-pointer filter-bar--attribute" style="order: {{$loop->index}}">
                         <input class="cursor-pointer" id="attribute_{{$attributeValue['uuid']}}"
                             name="attributes[{{$attribute['uuid']}}][]" type="checkbox"
                             value="{{$attributeValue['uuid']}}"
                             @if(isset(request()->get('attributes')[$attribute['uuid']]) && (is_array((request()->get('attributes')[$attribute['uuid']]))) && (in_array((string)$attributeValue['uuid'], request()->get('attributes')[$attribute['uuid']]))) checked @endif>
                         <label class="cursor-pointer" for="attribute_{{$attributeValue['uuid']}}">&nbsp;{{$attributeValue['name']}}</label>
                     </div>
+
+                    @if($loop->index === 4)
+                        <a href="#" class="filter-bar--show-more" onclick="event.preventDefault();event.target.classList.toggle('active');" data-show-more-text="{{$translations['Zobraziť viac']['text']}}" data-show-less-text="{{$translations['Zobraziť menej']['text']}}"></a>
+                    @endif
                 @endforeach
             </div>
         @endforeach
