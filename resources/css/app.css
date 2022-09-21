@@ -334,6 +334,7 @@ iframe {
 .main-nav {
     @apply py-3;
     @apply bg-gray-100;
+    @apply relative;
 }
 
 .main-nav--menu {
@@ -394,6 +395,38 @@ iframe {
 .main-nav--mobile li a {
     @apply text-white;
     @apply uppercase;
+}
+
+.main-nav__flyout {
+    @apply absolute;
+    @apply bottom-0;
+    transform: translateY(100%);
+    @apply bg-white;
+    @apply p-10;
+    @apply shadow-md;
+    @apply z-10;
+}
+
+.main-nav__flyout--big {
+    @apply left-0;
+    @apply w-full;
+}
+
+.main-nav__flyout--link {
+    @apply transition-all;
+}
+
+.main-nav__flyout--link:hover {
+    @apply text-gray-50;
+}
+
+.main-nav__flyout--menu {
+    @apply mt-8;
+    @apply mb-0;
+}
+
+.main-nav__flyout--menu li:not(:last-child) {
+    @apply mb-6;
 }
 
 @screen -sm {

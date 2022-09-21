@@ -70,6 +70,10 @@ class AppServiceProvider extends ServiceProvider
                 return $_productRepository->categories(locale(), 0, 0, 'desc', 'score')['items'];
             });
 
+            $headerNavigationItems = array_filter($categories, function($item) {
+                return $item['has_parent'] === false;
+            });
+
             // Add url to categories
             foreach ($categories as $key => $category) {
                 $categories[$key]['url'] = route(locale() . '.product.category', [$category['slug']]);
@@ -97,6 +101,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('headerPages', $headerPages);
             $view->with('footerPages', $footerPages);
             $view->with('categories', $categories);
+            $view->with('headerNavigationItems', $headerNavigationItems);
             $view->with('supplierSettings', $supplierSettings);
             $view->with('setup', $setup);
             $view->with('documentSettings', $documentSettings);

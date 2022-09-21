@@ -103,7 +103,12 @@
                     </a>
                 </div>
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
-                    <v-navigation :items="{{json_encode($categories)}}"></v-navigation>
+                    <div class="hidden lg:block">
+                        <v-navigation
+                            :items="{{json_encode($categories)}}"
+                            :category-url="'{{route(locale() . '.product.category', ['categorySlug' => ':slug'])}}'"
+                        ></v-navigation>
+                    </div>
                 @endif
                 @if(!str_contains(Route::currentRouteName(), 'cart.checkout'))
                     <div>
@@ -125,6 +130,10 @@
                                 <img src="{{asset('images/icons/menu_white_24dp.svg')}}" class="ml-8 lg:hidden"
                                      alt="{{$translations['cart.title']['text']}}">
                             </button>
+                            <ul class="main-nav--mobile" id="main-nav--mobile">
+                                @include('components.main_nav')
+                            </ul>
+                            <div class="overlay" onclick="document.getElementById('main-nav--mobile').classList.remove('is-open');"></div>
                         </div>
                     </div>
                 @endif
