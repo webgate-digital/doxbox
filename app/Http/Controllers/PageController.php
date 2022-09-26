@@ -150,13 +150,19 @@ class PageController extends Controller
 
             return response()->json([
                 'status' => 'success',
+                'message' => 'Úspešne ste boli prihlásený na odber noviniek.',
             ]);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $response = $e->getResponse();
 
+            \Log::error('Newsletter subscription failed:', [
+                'email' => $email,
+                'response' => $response->getBody()->getContents(),
+            ]);
+
             return response()->json([
                 'status' => 'error',
-                'message' => $response->getBody()->getContents(),
+                'message' => 'Prihlásenie na odber noviniek zlyhalo. Prosím skúste to znova.',
             ]);
         }
 

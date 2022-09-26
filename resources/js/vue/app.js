@@ -73,10 +73,34 @@ const app = new Vue({
 
         const $button = $form.querySelector("button");
         const $loadingIcon = $button.querySelector('svg');
-        const email = $form.querySelector("input[name='email']");
+        const $message = $form.querySelector('.message');
+        const $email = $form.querySelector("input[name='email']");
+        const $csrf = $form.querySelector("input[name='_token']");
 
         $button.disabled = true;
+        $email.disabled = true;
         $loadingIcon.classList.remove('hidden');
+
+        fetch($form.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': $csrf.value
+            },
+            body: JSON.stringify({
+                email: $email.value
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                const status = data.status;
+
+                status !== 'success' && ($button.disabled = $email.disabled = false);
+                $loadingIcon.classList.add('hidden');
+                $message.innerHTML = data.message;
+            });
     });
 })();
 
