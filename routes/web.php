@@ -73,3 +73,5 @@ Route::multilingual('/', [PageController::class, 'homepage'])->name('homepage');
 Route::multilingual('/page', [PageController::class, 'page'])->name('page');
 
 Route::post('/reset-cache', [PageController::class, 'resetCache']);
+
+Route::post("/newsletter", [PageController::class, 'newsletter'])->name('newsletter.store');

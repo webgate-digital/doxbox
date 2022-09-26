@@ -125,4 +125,41 @@ class PageController extends Controller
         } catch (Exception $e) {
         }
     }
+
+    public function newsletter(Request $request)
+    {
+        $mailchimpApiKey = env('MAILCHIMP_API_KEY');
+        $mailchimpListId = env('MAILCHIMP_LIST_ID');
+        $mailchimpApiEndpoint = env('MAILCHIMP_API_ENDPOINT');
+        
+        $email = $request->get('email', null);
+        
+        abort_if(!$email || !$mailchimpApiKey || !$mailchimpListId, 400);
+
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->request('POST', $mailchimpApiEndpoint . '/lists/' . $mailchimpListId . '/members', [
+                'headers' => [
+                    'Authorization' => 'Basic ' . base64_encode('user:' . $mailchimpApiKey),
+                ],
+                'json' => [
+                    'email_address' => $email,
+                    'status' => 'subscribed',
+                ],
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+
+            return response()->json([
+                'status' => 'error',
+                'message' => $response->getBody()->getContents(),
+            ]);
+        }
+
+        return response()->json(['success' => true]);
+    }
 }

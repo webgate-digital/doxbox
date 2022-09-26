@@ -199,7 +199,7 @@
                 <div class="w-full lg:w-1/4 mt-8 lg:mt-0">
                     <h3 class="text-subheading-l">{{$translations['footer.categories.title']['text']}}</h3>
                     <ul class="mt-4 lg:mt-10">
-                        @foreach(collect($categories)->where('has_parent', false) as $item)
+                        @foreach($headerNavigationItems as $item)
                             <li>
                                 <a href="{{route(locale() . '.product.category', [$item['slug']])}}">
                                     {{$item['name']}}

@@ -56,8 +56,24 @@ const app = new Vue({
             $trigger.classList.toggle('active');
             const $accordionContent = document.querySelector(`#${$trigger.getAttribute('data-accordion-content-id')}`);
             const $accordionContentInner = $accordionContent.querySelector('.accordion-content__inner');
-            console.log($accordionContentInner.clientHeight);
             $accordionContent.style.height = $accordionContent.clientHeight === 0 ? `${$accordionContentInner.clientHeight}px` : '0px';
         });
+    });
+})();
+
+// Newsletter logic
+(() => {
+    const $form = document.querySelector('.section--newsletter form');
+    if (!$form) return;
+
+    $form.addEventListener("submit", event => {
+        event.preventDefault();
+        
+        const $button = $form.querySelector("button");
+        const $loadingIcon = $button.querySelector('svg');
+        const email = $form.querySelector("input[name='email']");
+
+        $button.disabled = true;
+        $loadingIcon.classList.remove('hidden');
     });
 })();
