@@ -1,3 +1,5 @@
+const { max } = require('lodash');
+
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -68,7 +70,7 @@ const app = new Vue({
 
     $form.addEventListener("submit", event => {
         event.preventDefault();
-        
+
         const $button = $form.querySelector("button");
         const $loadingIcon = $button.querySelector('svg');
         const email = $form.querySelector("input[name='email']");
@@ -76,4 +78,26 @@ const app = new Vue({
         $button.disabled = true;
         $loadingIcon.classList.remove('hidden');
     });
+})();
+
+// Category slider logic
+(() => {
+    const $slider = document.querySelector('.category-list--container');
+    const $arrowLeft = document.querySelector('.category-list--arrow-left');
+    const $arrowRight = document.querySelector('.category-list--arrow-right');
+    if (!$slider) return;
+
+    const scroll = (left = 0) => {
+        const currentPage = Number($slider.getAttribute('data-page') || 0);
+        const newPage = left ? Math.max(0, currentPage - 1) : currentPage + 1;
+        const allPages = Math.ceil($slider.scrollWidth / $slider.clientWidth);
+        const isLastPage = newPage === allPages - 1;
+
+        $slider.setAttribute('data-page', newPage);
+        isLastPage ? $slider.setAttribute('data-last-page', true) : $slider.removeAttribute('data-last-page');
+        $slider.style.transform = `translateX(calc(-100% * ${newPage}))`;
+    }
+
+    $arrowLeft.addEventListener('click', () => scroll(1));
+    $arrowRight.addEventListener('click', () => scroll());
 })();
