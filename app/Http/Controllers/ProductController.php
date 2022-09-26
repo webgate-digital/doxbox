@@ -73,6 +73,11 @@ class ProductController extends Controller
             return $this->_productRepository->attributes(locale())['items'];
         });
 
+        $translations = Cache::rememberForever('translations_web', function () {
+            $_translationRepository = new TranslationRepository();
+            return $_translationRepository->default(locale())['items'];
+        });
+
         $isAjax = $request->ajax();
         $limit = config('frontstore.defaults.limit.products');
         $page = $isAjax ? $request->get('page', 1) : 0;
@@ -96,7 +101,26 @@ class ProductController extends Controller
         $total = $productList['total'];
         $hasMoreProducts = count($products) < $total;
 
-        return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes'));
+        $breadcrumbs = [];
+        $currentCategory = $category;
+        do {
+            $breadcrumbs[] = [
+                'url' => route(locale() . '.product.category', ['categorySlug' => $currentCategory['slug']]),
+                'title' => $currentCategory['name'],
+            ];
+            $currentCategory = array_values(array_filter($categories, function ($item) use ($currentCategory) {
+                return $item['uuid'] == $currentCategory['parent_uuid'];
+            }))[0] ?? null;
+        } while ($currentCategory);
+
+        $breadcrumbs[] = [
+            'url' => route(locale() . '.product.list'),
+            'title' => $translations['menu.products']['text'],
+        ];
+
+        $breadcrumbs = array_reverse($breadcrumbs);
+
+        return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs'));
     }
 
     public function detail(string $categorySlug, string $slug)

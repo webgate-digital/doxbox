@@ -6,17 +6,6 @@
 
 @section('content')
     <!-- Page title -->
-    @php
-        $breadcrumbs = [];
-$breadcrumbs[] = [
-        'url' => route(locale().'.product.list'),
-        'title' => $translations['menu.products']['text']
-        ];
-        $breadcrumbs[] = [
-        'url' => url()->current(),
-        'title' => $category['name']
-        ];
-    @endphp
     @include('components.breadcrumbs')
     <!-- end: Page title -->
     <section class="section bg-gray-5">
