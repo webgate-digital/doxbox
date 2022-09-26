@@ -87,17 +87,27 @@ const app = new Vue({
     const $arrowRight = document.querySelector('.category-list--arrow-right');
     if (!$slider) return;
 
-    const scroll = (left = 0) => {
+    const updateArrows = () => {
+        const visibleWidth = $slider.scrollWidth > window.innerWidth
+            ? $slider.scrollWidth + (window.innerWidth - $slider.scrollWidth) / 2
+            : $slider.scrollWidth;
+        const allPages = Math.ceil($slider.scrollWidth / visibleWidth);
         const currentPage = Number($slider.getAttribute('data-page') || 0);
-        const newPage = left ? Math.max(0, currentPage - 1) : currentPage + 1;
-        const allPages = Math.ceil($slider.scrollWidth / $slider.clientWidth);
-        const isLastPage = newPage === allPages - 1;
-
-        $slider.setAttribute('data-page', newPage);
+        const isLastPage = currentPage === allPages - 1;
         isLastPage ? $slider.setAttribute('data-last-page', true) : $slider.removeAttribute('data-last-page');
-        $slider.style.transform = `translateX(calc(-100% * ${newPage}))`;
     }
 
+    const scroll = (left = 0) => {
+        const maxScroll = $slider.clientWidth - $slider.scrollWidth;
+        const currentPage = Number($slider.getAttribute('data-page') || 0);
+        const newPage = left ? Math.max(0, currentPage - 1) : currentPage + 1;
+
+        $slider.setAttribute('data-page', newPage);
+        $slider.style.transform = `translateX(max(-${newPage * 100}%, ${maxScroll}px))`;
+        updateArrows();
+    }
+
+    updateArrows();
     $arrowLeft.addEventListener('click', () => scroll(1));
     $arrowRight.addEventListener('click', () => scroll());
 })();
