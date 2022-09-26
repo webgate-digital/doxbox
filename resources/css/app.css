@@ -672,6 +672,10 @@ iframe {
         @apply gap-x-8;
         @apply gap-y-20;
     }
+
+    .product-container--homepage {
+        @apply grid-cols-4;
+    }
 }
 
 .product-box {

@@ -19,7 +19,7 @@
                 <h2 class="text-heading-2xs md:mb-20 mb-6">
                     {{$translations['products.top_selling_title']['text']}}
                 </h2>
-                <div class="product-container">
+                <div class="product-container product-container--homepage">
                     @foreach($products as $product)
                         @include('components.product', ['item' => $product])
                     @endforeach
