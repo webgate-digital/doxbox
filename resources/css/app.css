@@ -279,6 +279,13 @@ iframe {
     @apply py-4;
     @apply text-subheading-xs;
     @apply text-right;
+    @apply hidden;
+}
+
+@screen md {
+    .top-nav {
+        @apply block;
+    }
 }
 
 .top-nav--item {
@@ -335,6 +342,23 @@ iframe {
     @apply py-3;
     @apply bg-gray-100;
     @apply relative;
+}
+
+@screen -sm {
+    .main-nav {
+        @apply py-6;
+    }
+
+    .main-nav--logo {
+        @apply absolute;
+        @apply left-[50%];
+        @apply transform;
+        @apply -translate-x-1/2;
+    }
+
+    .main-nav--logo img {
+        @apply w-16;
+    }
 }
 
 .main-nav--menu {
@@ -459,6 +483,12 @@ iframe {
     }
 }
 
+.overlay {
+    @apply hidden;
+    @apply opacity-0;
+    @apply bg-black;
+}
+
 .is-open + .overlay {
     @apply block;
     @apply fixed;
@@ -466,7 +496,6 @@ iframe {
     @apply left-0;
     @apply w-full;
     @apply h-full;
-    @apply bg-black;
     @apply opacity-50;
     @apply z-10;
 }
@@ -554,6 +583,7 @@ iframe {
 .category-list {
     @apply my-8;
     @apply relative;
+    @apply overflow-hidden;
 }
 
 .category-list--container {
