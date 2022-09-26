@@ -1,3 +1,4 @@
+
 <a href="{{route(locale() . '.product.detail', [$item['category']['slug'], $item['slug']])}}" class="product-box">
     <div class="product-box--image">
         <img src="{{$item['image_url']}}" alt="{{$item['name']}}">

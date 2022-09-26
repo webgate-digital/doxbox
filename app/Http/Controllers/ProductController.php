@@ -126,7 +126,7 @@ class ProductController extends Controller
     public function detail(string $categorySlug, string $slug)
     {
         try {
-            $item = $this->_productRepository->detail(locale(), session()->get('currency'), $slug)['item'];
+            $item = $this->_productRepository->detail(locale(), session()->get('currency'), $slug);
         } catch (NotFoundException $e) {
             abort(404);
         }

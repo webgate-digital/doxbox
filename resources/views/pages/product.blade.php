@@ -1,8 +1,8 @@
 @extends('layout', [
-	'ogTitle' => $item['seo_title'] ?: $item['name'],
-	'ogDescription' => $item['seo_description'] ?: $item['perex'],
+	'ogTitle' => $item['item']['seo_title'] ?: $item['item']['name'],
+	'ogDescription' => $item['item']['seo_description'] ?: $item['item']['perex'],
 	'robots' => 'index,follow',
-    'ogImage' => $item['image_url']
+    'ogImage' => $item['item']['image_url']
     ]
 )
 
@@ -15,18 +15,18 @@
     {
       "@context": "https://schema.org/",
       "@type": "Product",
-      "name": "{{$item['seo_title'] ?: $item['name']}}",
-      "image": "{{asset($item['image_url'])}}",
-       "description": "{{ $item['seo_description'] ?: $item['perex'] }}",
-       "sku": "{{$item['sku'] ?: $item['uuid']}}",
+      "name": "{{$item['item']['seo_title'] ?: $item['item']['name']}}",
+      "image": "{{asset($item['item']['image_url'])}}",
+       "description": "{{ $item['item']['seo_description'] ?: $item['item']['perex'] }}",
+       "sku": "{{$item['item']['sku'] ?: $item['item']['uuid']}}",
        "brand": {
          "@type": "Brand",
-         "name": "{{$item['brand']['name']}}"
+         "name": "{{$item['item']['brand']['name']}}"
        },
        "offers": {
          "@type": "Offer",
-         "priceCurrency": "{{\Illuminate\Support\Str::upper($item['currency'])}}",
-         "price": "{{$item['retail_price_discounted']}}"
+         "priceCurrency": "{{\Illuminate\Support\Str::upper($item['item']['currency'])}}",
+         "price": "{{$item['item']['retail_price_discounted']}}"
        }
      }
 
@@ -37,12 +37,12 @@
 @endsection
 
 @section('add-to-cart')
-    @if(!$item['count'] && !$item['is_available_for_order'])
+    @if(!$item['item']['count'] && !$item['item']['is_available_for_order'])
         <a href="{{route(locale() . '.contact', ['url' => url()->current()])}}" class="button button--primary button--inline">
             {{$translations['products.contact_us_cta']['text']}}
         </a>
     @else
-        <add-to-cart uuid="{{$item['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
+        <add-to-cart uuid="{{$item['item']['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
     @endif
 @endsection
 
@@ -56,12 +56,12 @@
             'title' => $translations['menu.products']['text']
         ];
         $breadcrumbs[] = [
-            'url' => route(locale() . '.product.category', [$item['category']['slug']]),
-            'title' => $item['category']['name']
+            'url' => route(locale() . '.product.category', [$item['item']['category']['slug']]),
+            'title' => $item['item']['category']['name']
         ];
         $breadcrumbs[] = [
             'url' => url()->current(),
-            'title' => $item['name']
+            'title' => $item['item']['name']
         ];
     @endphp
     @include('components.breadcrumbs')
@@ -71,45 +71,45 @@
             <div class="flex flex-wrap -mx-4">
                 <div class="w-full lg:w-1/2 px-4 order-2 lg:order-1">
                     <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true" data-thumbmargin="8" data-ratio="1">
-                        <a href="{{$item['image_url']}}">
-                            <img alt="{{$item['name']}}" src="{{$item['image_url']}}">
+                        <a href="{{$item['item']['image_url']}}">
+                            <img alt="{{$item['item']['name']}}" src="{{$item['item']['image_url']}}">
                         </a>
-                        @foreach($item['gallery'] as $itemImage)
+                        @foreach($item['item']['gallery'] as $itemImage)
                             <a href="{{$itemImage}}"><img
-                                    alt="{{$item['name']}}"
+                                    alt="{{$item['item']['name']}}"
                                     src="{{$itemImage}}"></a>
                         @endforeach
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 px-4 order-1 lg:order-2">
                     
-                    <h1 class="text-heading-2xs !mb-4">{{$item['name']}}</h1>
+                    <h1 class="text-heading-2xs !mb-4">{{$item['item']['name']}}</h1>
                     
-                    @if($item['brand'])
-                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{{$item['brand']['name']}}</h2>
+                    @if($item['item']['brand'])
+                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{{$item['item']['brand']['name']}}</h2>
                     @endif
                     
                     <p class="product-detail--price">
                         
-                        <span @if($item['retail_discount']) class="text-success leading-none" @endif>
-                            {{$item['retail_price_discounted_formatted']}}
+                        <span @if($item['item']['retail_discount']) class="text-success leading-none" @endif>
+                            {{$item['item']['retail_price_discounted_formatted']}}
                         </span>
 
-                        @if($item['retail_discount'])
+                        @if($item['item']['retail_discount'])
                             <span class="product-detail--price-old leading-none">
-                                {{$item['retail_price_formatted']}}
+                                {{$item['item']['retail_price_formatted']}}
                             </span>
                         @endif
 
-                        @if($item['badge'])
-                            <span class="product-detail--badge" style="--badge-font-color: {{$item['badge']['font_color']}}; --badge-background-color: {{$item['badge']['background_color']}};">
-                                {{$item['badge']['name']}}
+                        @if($item['item']['badge'])
+                            <span class="product-detail--badge" style="--badge-font-color: {{$item['item']['badge']['font_color']}}; --badge-background-color: {{$item['item']['badge']['background_color']}};">
+                                {{$item['item']['badge']['name']}}
                             </span>
                         @endif
                     </p>
                     
                     <p>
-                        {{$item['perex']}}
+                        {{$item['item']['perex']}}
                     </p>
 
                     <div class="product-detail--labels">
@@ -145,9 +145,22 @@
             <div class="mt-16 product-detail--tabs">
                 <h3 class="text-subheading-xl mb-10">{{$translations['products.description_title']['text']}}</h3>
                 <div class="wysiwyg-content">
-                    {!! $item['description'] !!}
+                    {!! $item['item']['description'] !!}
                 </div>
             </div>
+
+            
+            @if(count($item['related']['items']) > 0)
+                <div class="product-detail--separator"></div>
+                <div class="mt-16 product-detail--tabs">
+                    <h3 class="text-subheading-xl mb-10">{{$translations['product.related_products']['text']}}</h3>
+                    <div class="product-container">
+                        @foreach(array_slice($item['related']['items'], 0, 3) as $product)
+                            @include('components.product', ['item' => $product])
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 
