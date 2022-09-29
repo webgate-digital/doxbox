@@ -1410,3 +1410,39 @@ input[type="checkbox"]:checked {
 .section--thank-you p {
     @apply text-body-l;
 }
+
+.section--cart table {
+    @apply border-collapse;
+    @apply w-full;
+}
+
+.section--cart table thead {
+    @apply text-subheading-l;
+    @apply text-left;
+    @apply bg-gray-10;
+    @apply rounded-t-lg;
+    @apply border-t;
+    @apply border-l;
+    @apply border-r;
+    @apply border-gray-20;
+}
+
+.section--cart table th,
+.section--cart table td {
+    @apply py-4;
+    @apply px-6;
+}
+
+.section--cart table tbody {
+    @apply border-l;
+    @apply border-r;
+    @apply border-gray-20;
+}
+
+.section--cart table tfoot {
+    @apply border-b;
+    @apply border-l;
+    @apply border-r;
+    @apply border-gray-20;
+    @apply rounded-b-lg;
+}

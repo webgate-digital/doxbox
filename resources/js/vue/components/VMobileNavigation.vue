@@ -73,7 +73,7 @@ export default {
     },
     computed: {
         rootItems() {
-            return this.items.filter((item) => !item.has_parent);
+            return this.items.filter((item) => !item.has_parent && item.score >= 100);
         },
         activeItem() {
             return this.items[this.activeItemIndex];

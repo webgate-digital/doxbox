@@ -96,9 +96,9 @@
         <nav class="main-nav">
             <div class="container">
                 <div class="flex items-center justify-between">
-                    <button type="button"
+                    <button type="button" class="lg:hidden"
                         onclick="document.getElementById('main-nav--mobile').classList.toggle('is-open');">
-                        <img src="{{ asset('images/icons/menu_white_24dp.svg') }}" class="lg:hidden"
+                        <img src="{{ asset('images/icons/menu_white_24dp.svg') }}"
                             alt="{{ $translations['cart.title']['text'] }}">
                     </button>
                     <a href="{{ route(locale() . '.homepage') }}" class="main-nav--logo">

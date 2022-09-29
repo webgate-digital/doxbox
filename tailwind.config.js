@@ -33,7 +33,7 @@ module.exports = {
             'success': '#1AB759',
             'gray': {
                 5: '#F0F0F0',
-                10: '#D9D9D9',
+                10: '#E9EAEA',
                 20: '#D3D4D5',
                 40: '#A8A9AA',
                 50: '#A8A9AA',

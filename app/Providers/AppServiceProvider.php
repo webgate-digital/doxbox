@@ -71,7 +71,7 @@ class AppServiceProvider extends ServiceProvider
             });
 
             $headerNavigationItems = array_filter($categories, function($item) {
-                return $item['has_parent'] === false;
+                return $item['has_parent'] === false && $item['score'] >= 100;
             });
 
             // Add url to categories
