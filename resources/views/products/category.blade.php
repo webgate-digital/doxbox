@@ -16,7 +16,9 @@
             <p class="w-1/2 lg:mb-0">{{$category['description']}}</p>
         </div>
 
-        @include('components.category_list')
+        @if($category['children'])
+            @include('components.category_list')
+        @endif
     </section>
 
     <section class="section" id="list">

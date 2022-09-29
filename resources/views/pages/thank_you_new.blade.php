@@ -15,9 +15,11 @@
         <div class="container">
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
                 <div>
-                    <h1 class="text-heading-xs mb-10">Ďakujeme za nákup</h1>
+                    <h1 class="text-heading-xs mb-10">
+                        {{$translations['cart.thank_you']['text']}} {{$order['code']}}
+                    </h1>
                     <p>
-                        Objednávka č. <strong>6558</strong> bola úspešne vytvorená.
+                        {{$translations['cart.']}} <strong>{{$order['code']}}</strong> {{$translations['bola úspešne vytvorená']}}.
                     </p>
                     <p>
                         Na <strong>filipfrancis@yahoo.com</strong> sme poslali potvrdzovací email a ďalšie informácie.
