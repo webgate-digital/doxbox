@@ -253,12 +253,32 @@ iframe {
     @apply font-bold;
     @apply text-subheading-m;
     @apply text-gray-100;
+    @apply relative;
+}
+
+.cart-step:not(:first-child)::after {
+    content: "";
+    @apply absolute;
+    left: calc(-50% + 20px);
+    @apply top-[20px];
+    width: calc(100% - 40px);
+    @apply h-[2px];
+    @apply bg-gray-100;
     @apply opacity-25;
 }
 
-.cart-step--active {
+.cart-step > div {
+    @apply opacity-25;
+}
+
+.cart-step--active >div {
     @apply opacity-100;
     @apply text-primary;
+}
+
+.cart-step--active::after {
+    @apply !bg-primary;
+    @apply !opacity-100;
 }
 
 @screen lg {
@@ -277,6 +297,7 @@ iframe {
     @apply justify-center;
     @apply mx-auto;
     @apply mb-4;
+    @apply bg-gray-5;
 }
 
 /*top nav*/
