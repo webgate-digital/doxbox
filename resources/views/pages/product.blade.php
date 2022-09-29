@@ -109,7 +109,7 @@
                     </p>
                     
                     <p>
-                        {{$item['item']['perex']}}
+                        {!!$item['item']['perex']!!}
                     </p>
 
                     <div class="product-detail--labels">
