@@ -383,6 +383,7 @@ iframe {
     @apply text-white;
     @apply text-subheading-s;
     @apply font-medium;
+    @apply transition-all;
 }
 
 .main-nav--mobile {
