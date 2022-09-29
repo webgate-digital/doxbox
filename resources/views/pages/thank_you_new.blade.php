@@ -13,7 +13,7 @@
 
     <section class="section section--thank-you">
         <div class="container">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
                 <div>
                     <h1 class="text-heading-xs mb-10">Ďakujeme za nákup</h1>
                     <p>
@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 <div>
-                    <div class="p-6 bg-gray-5 rounded-lg">
+                    <div class="p-6 bg-gray-5 md:mt-4 rounded-lg">
                         <div class="flex gap-6 items-center">
                             <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
                             Objednávka je zaplatená - Apple Pay.
                         </div>
                     </div>
-                    <div class="p-6 bg-gray-5 rounded-lg mt-10">
+                    <div class="p-6 bg-gray-5 rounded-lg mt-4 md:mt-10">
                         <div class="flex gap-6 items-center">
                             <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
                             Kuriérom na adresu Bajkalská 19, 82103 Bratislava.
                         </div>
                     </div>
-                    <div class="p-6 bg-gray-5 rounded-lg mt-10">
+                    <div class="p-6 bg-gray-5 rounded-lg mt-4 md:mt-10">
                         <div class="flex gap-6 items-center">
                             <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -92,70 +92,166 @@
                     </div>
                 </div>
             </div>
-            <div class="divider"></div>
         </div>
     </section>
+
+    <div class="section--thank-you container">
+        <div class="divider"></div>
+    </div>
 
     <section class="section section--cart">
         <div class="container">
             <h2 class="text-heading-2xs">Váš nákup</h2>
 
-            <table class="table-auto mt-6" cellpadding="0" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Objednávka č. 6558</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div>Extrémne odolná Loptička Wunderball -skákacia hračka</div>
-                            <div>Farba: Žltá</div>
-                            <div>Veľkosť: Medium</div>
-                        </td>
-                        <td>
-                            1ks
-                        </td>
-                        <td>
-                            28,90 €
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Extrémne odolná Loptička Wunderball -skákacia hračka
-                        </td>
-                        <td>
-                            1ks
-                        </td>
-                        <td>
-                            28,90 €
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Medzisúčet</td>
-                        <td>99,49 €</td>
-                    </tr>
-                    <tr>
-                        <td>Doručenie</td>
-                        <td>3,90 €</td>
-                    </tr>
-                    <tr>
-                        <td>Spôsob platby</td>
-                        <td>
-                            <div>0 €</div>
-                            <div>Apple Pay</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Celková cena</td>
-                        <td>103,39 €</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 mt-10">
+                <table class="table-auto md:col-span-2">
+                    <thead>
+                        <tr>
+                            <th>Objednávka č. 6558</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a class="text-primary" href="#">Extrémne odolná Loptička Wunderball -skákacia
+                                    hračka</a>
+                                <small>Farba: Žltá</small>
+                                <small>Veľkosť: Medium</small>
+                            </td>
+                            <td>
+                                1ks
+                            </td>
+                            <td>
+                                28,90 €
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="text-primary" href="#">Extrémne odolná Loptička Wunderball -skákacia
+                                    hračka</a>
+                            </td>
+                            <td>
+                                1ks
+                            </td>
+                            <td>
+                                28,90 €
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Medzisúčet</td>
+                            <td></td>
+                            <td>99,49 €</td>
+                        </tr>
+                        <tr>
+                            <td>Doručenie</td>
+                            <td></td>
+                            <td>3,90 €</td>
+                        </tr>
+                        <tr>
+                            <td>Spôsob platby</td>
+                            <td></td>
+                            <td>
+                                <div>0 €</div>
+                                <div>Apple Pay</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Celková cena</td>
+                            <td></td>
+                            <td>103,39 €</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>Dodacia adresa</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Meno</td>
+                            <td>Jozef Mrkvička</td>
+                        </tr>
+                        <tr>
+                            <td>Ulica</td>
+                            <td>Horehronská 27</td>
+                        </tr>
+                        <tr>
+                            <td>PSČ</td>
+                            <td>851 01</td>
+                        </tr>
+                        <tr>
+                            <td>Mesto</td>
+                            <td>Bratislava</td>
+                        </tr>
+                        <tr>
+                            <td>Telefón</td>
+                            <td>+421 903 123 123</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>jozefmrkva@yahoo.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>Fakturačná adresa</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Názov firmy</td>
+                            <td>ARTEM s.r.o.</td>
+                        </tr>
+                        <tr>
+                            <td>IČO</td>
+                            <td>20230430</td>
+                        </tr>
+                        <tr>
+                            <td>DIČ</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>IČ DPH</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Meno</td>
+                            <td>Jozef Mrkvička</td>
+                        </tr>
+                        <tr>
+                            <td>Ulica</td>
+                            <td>Horehronská 27</td>
+                        </tr>
+                        <tr>
+                            <td>PSČ</td>
+                            <td>851 01</td>
+                        </tr>
+                        <tr>
+                            <td>Mesto</td>
+                            <td>Bratislava</td>
+                        </tr>
+                        <tr>
+                            <td>Telefón</td>
+                            <td>+421 903 123 123</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>jozefmrkva@yahoo.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 

@@ -465,14 +465,14 @@ iframe {
         @apply bg-gray-5;
         @apply z-20;
     }
-    
+
     #filter-bar.is-open {
         @apply visible;
         @apply left-0;
         @apply opacity-100;
     }
 
-    #filter-bar > * {
+    #filter-bar>* {
         @apply p-8;
     }
 }
@@ -483,7 +483,7 @@ iframe {
     @apply bg-black;
 }
 
-.is-open + .overlay {
+.is-open+.overlay {
     @apply block;
     @apply fixed;
     @apply top-0;
@@ -617,7 +617,8 @@ iframe {
     }
 }
 
-.category-list--arrow-left, .category-list--arrow-right {
+.category-list--arrow-left,
+.category-list--arrow-right {
     @apply absolute;
     @apply top-1/2;
     @apply transform;
@@ -636,7 +637,8 @@ iframe {
     aspect-ratio: 1;
 }
 
-.category-list--arrow-left:hover, .category-list--arrow-right:hover {
+.category-list--arrow-left:hover,
+.category-list--arrow-right:hover {
     @apply bg-gray-5;
 }
 
@@ -648,12 +650,12 @@ iframe {
     @apply right-0;
 }
 
-.category-list--container[data-page="0"] ~ .category-list--arrow-left {
+.category-list--container[data-page="0"]~.category-list--arrow-left {
     @apply opacity-0;
     @apply pointer-events-none;
 }
 
-.category-list--container[data-last-page="true"] ~ .category-list--arrow-right {
+.category-list--container[data-last-page="true"]~.category-list--arrow-right {
     @apply opacity-0;
     @apply pointer-events-none;
 }
@@ -1300,11 +1302,11 @@ input[type="checkbox"]:checked {
     content: attr(data-show-less-text);
 }
 
-.filter-bar--show-more ~ .filter-bar--attribute {
+.filter-bar--show-more~.filter-bar--attribute {
     @apply hidden;
 }
 
-.active.filter-bar--show-more ~ .filter-bar--attribute {
+.active.filter-bar--show-more~.filter-bar--attribute {
     @apply block;
 }
 
@@ -1317,7 +1319,7 @@ input[type="checkbox"]:checked {
     @apply sticky;
     @apply top-0;
     @apply z-10;
-    
+
     @apply text-white;
     @apply text-subheading-xl;
 }
@@ -1410,7 +1412,7 @@ input[type="checkbox"]:checked {
 
 .section--thank-you .divider {
     @apply w-full;
-    @apply h-1;
+    @apply h-[1px];
     @apply bg-gray-20;
 }
 
@@ -1421,35 +1423,94 @@ input[type="checkbox"]:checked {
 .section--cart table {
     @apply border-collapse;
     @apply w-full;
+    border-spacing: 0;
+    border-collapse: separate;
+    height: fit-content;
 }
 
 .section--cart table thead {
     @apply text-subheading-l;
     @apply text-left;
     @apply bg-gray-10;
-    @apply rounded-t-lg;
-    @apply border-t;
-    @apply border-l;
-    @apply border-r;
-    @apply border-gray-20;
 }
 
 .section--cart table th,
 .section--cart table td {
     @apply py-4;
     @apply px-6;
+    @apply align-top;
 }
 
 .section--cart table tbody {
+    @apply text-body-l;
+}
+
+.section--cart table tbody div {
+    @apply text-primary;
+}
+
+.section--cart table tbody small {
+    @apply block;
+    @apply text-body-s;
+    @apply mt-1;
+}
+
+.section--cart table tbody td:not(:first-child),
+.section--cart table tfoot td:not(:first-child) {
+    @apply text-right;
+}
+
+.section--cart table tfoot {
+    @apply font-bold;
+    @apply text-subheading-l;
+}
+
+.section--cart table tfoot tr:last-child td {
+    @apply border-b;
+    @apply border-gray-20;
+}
+
+.section--cart table tfoot tr:last-child td:first-child,
+.section--cart table:not(.section--cart table:has(tfoot)) tr:last-child td:first-child {
     @apply border-l;
+    @apply border-gray-20;
+    @apply rounded-bl-lg;
+}
+
+.section--cart table tfoot tr:last-child td:last-child,
+.section--cart table:not(.section--cart table:has(tfoot)) tr:last-child td:last-child {
+    @apply border-r;
+    @apply rounded-br-lg;
+}
+
+.section--cart table thead tr:first-child th:first-child {
+    @apply border-t;
+    @apply border-l;
+    @apply border-gray-20;
+    @apply rounded-tl-lg;
+}
+
+.section--cart table thead tr:first-child th:last-child {
+    @apply border-t;
+    @apply border-r;
+    @apply border-gray-20;
+    @apply rounded-tr-lg;
+}
+
+.section--cart table tbody td:first-child,
+.section--cart table tfoot td:first-child {
+    @apply border-l;
+    @apply border-gray-20;
+}
+
+.section--cart table tbody td:last-child,
+.section--cart table tfoot td:last-child {
     @apply border-r;
     @apply border-gray-20;
 }
 
-.section--cart table tfoot {
+.section--cart table tbody tr td,
+.section--cart table tfoot tr:not(:last-child) td {
     @apply border-b;
-    @apply border-l;
-    @apply border-r;
     @apply border-gray-20;
-    @apply rounded-b-lg;
 }

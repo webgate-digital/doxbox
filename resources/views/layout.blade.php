@@ -187,11 +187,11 @@
         </div>
 
         <footer class="footer">
-            <div class="container py-16 text-center lg:text-left">
+            <div class="container py-16 text-left">
                 <div class="flex flex-wrap">
                     <div class="w-full lg:w-1/4">
                         <h3 class="text-subheading-l">{{ $translations['footer.social.title']['text'] }}</h3>
-                        <div class="flex gap-4 mt-4 lg:mt-10 justify-center lg:justify-start">
+                        <div class="flex gap-4 mt-4 lg:mt-10">
                             <a href="{{ $translations['footer.social.instagram.url']['text'] }}" target="_blank">
                                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
