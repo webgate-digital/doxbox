@@ -32,7 +32,7 @@
                                     <template v-if="item.children && item.children.length > 0">
                                         <ul class="mobile-navigation__item__content__item__sublist">
                                             <li v-for="child in item.children" :key="child.uuid">
-                                                <a href="#"
+                                                <a :href="getCategoryUrl(child.slug)"
                                                     class="mobile-navigation__item__content__item__sublist__item">
                                                     {{ child.name }}
                                                 </a>
