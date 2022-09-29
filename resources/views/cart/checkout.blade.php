@@ -22,6 +22,8 @@
         </div>
     @endif
 
+    @include('components.cart_steps')
+
     @if($cart['voucher'])
         <form action="{{route(locale().'.remove_voucher')}}" id="remove-voucher-form" method="post">
             @csrf

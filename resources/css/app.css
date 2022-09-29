@@ -250,8 +250,15 @@ iframe {
     @apply text-center;
     @apply px-8;
     @apply w-full;
-    @apply text-primary;
     @apply font-bold;
+    @apply text-subheading-m;
+    @apply text-gray-100;
+    @apply opacity-25;
+}
+
+.cart-step--active {
+    @apply opacity-100;
+    @apply text-primary;
 }
 
 @screen lg {

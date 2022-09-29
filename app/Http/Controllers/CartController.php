@@ -58,7 +58,9 @@ class CartController extends Controller
             $upsell = $this->_productRepository->upsell(locale(), session()->get('currency'), array_values(session()->get('cart', [])))['items'];
         }
 
-        return view('cart.index', compact('cart', 'upsell', 'shippingCountry', 'voucher'));
+        $step = 1;
+
+        return view('cart.index', compact('cart', 'upsell', 'shippingCountry', 'voucher', 'step'));
     }
 
     public function applyVoucher(ApplyVoucher $request)
@@ -136,7 +138,9 @@ class CartController extends Controller
 
         $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), session()->get('voucher', null)['code'] ?? null, $shippingCountries[session()->get('shipping_country')]['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => session()->get('checkout_support_value', 0), 'name' => session()->get('checkout_support_name', null)]);
 
-        return view('cart.shipping_and_payment', compact('cart'));
+        $step = 2;
+
+        return view('cart.shipping_and_payment', compact('cart', 'step'));
     }
 
     public function selectShippingCountry(Request $request)
@@ -242,7 +246,9 @@ class CartController extends Controller
             }
         });
 
-        return view('cart.checkout', compact('cart', 'user', 'voucher', 'shippingCountry', 'checkoutSupportPage'));
+        $step = 3;
+
+        return view('cart.checkout', compact('cart', 'user', 'voucher', 'shippingCountry', 'checkoutSupportPage', 'step'));
     }
 
     public function order(Checkout $request)
