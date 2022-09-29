@@ -371,15 +371,8 @@ iframe {
     @apply mr-16;
 }
 
-.main-nav--menu li.active a::after,
-.main-nav--menu li a:hover::after {
-    @apply bg-white;
-    @apply absolute;
-    content: '';
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 100%;
+.main-nav--menu li a:hover {
+    @apply text-gray-50;
 }
 
 .main-nav--menu li:last-child {
@@ -1405,4 +1398,14 @@ input[type="checkbox"]:checked {
     @apply mt-8;
     @apply text-gray-100;
     @apply text-subheading-l;
+}
+
+.section--thank-you .divider {
+    @apply w-full;
+    @apply h-1;
+    @apply bg-gray-20;
+}
+
+.section--thank-you p {
+    @apply text-body-l;
 }
