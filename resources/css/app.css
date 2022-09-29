@@ -1404,5 +1404,5 @@ input[type="checkbox"]:checked {
     @apply gap-4;
     @apply mt-8;
     @apply text-gray-100;
-    @apply text-subheading-xl;
+    @apply text-subheading-l;
 }
