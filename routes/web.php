@@ -45,10 +45,7 @@ Route::group(['middleware' => ['empty.cart']], function () {
 
 Route::multilingual('/cart', [CartController::class, 'index'])->name('cart');
 
-// Route::multilingual('/thank-you', [PageController::class, 'thankYou'])->name('thank_you');
-Route::multilingual('/thank-you', function(){
-    return view('pages.thank_you_new');
-})->name('thank_you');
+Route::multilingual('/thank-you', [PageController::class, 'thankYou'])->name('thank_you');
 
 Route::multilingual('/product-detail', [ProductController::class, 'detail'])->name('product.detail');
 Route::multilingual('/product-category', [ProductController::class, 'category'])->name('product.category');

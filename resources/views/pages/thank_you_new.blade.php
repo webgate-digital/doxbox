@@ -16,17 +16,21 @@
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
                 <div>
                     <h1 class="text-heading-xs mb-10">
-                        {{$translations['cart.thank_you']['text']}} {{$order['code']}}
+                        {{ $translations['cart.thank_you']['text'] }}
                     </h1>
                     <p>
-                        {{$translations['cart.']}} <strong>{{$order['code']}}</strong> {{$translations['bola úspešne vytvorená']}}.
+                        {{ $translations['Objednávka č.']['text'] }}
+                        <strong>{{ $order['code'] ?? '-' }}</strong>
+                        {{ $translations['bola úspešne vytvorená']['text'] }}.
                     </p>
                     <p>
-                        Na <strong>filipfrancis@yahoo.com</strong> sme poslali potvrdzovací email a ďalšie informácie.
+                        {!! str_replace('%email%', 'email', $translations['cart.thank_you.info']['text']) !!}
                     </p>
-                    <h3 class="text-subheading-xl mb-4">Čo bude nasledovať?</h3>
+                    <h3 class="text-subheading-xl my-4">
+                        {{ $translations['Čo bude nasledovať?']['text'] }}
+                    </h3>
                     <p>
-                        Rýchlo overíme dostupnosť produktov a následne objednávku pripravíme, zabalíme a odošleme.
+                        {!! $translations['cart.thank_you.whats_next.pickup']['text'] !!}
                     </p>
                 </div>
                 <div>
@@ -38,7 +42,7 @@
                                     d="M33 9C33 7.34315 31.6569 6 30 6H6C4.34315 6 3 7.34315 3 9V27C3 28.6569 4.34315 30 6 30H30C31.6569 30 33 28.6569 33 27V9ZM15 24.75C15 25.1642 14.6642 25.5 14.25 25.5H9.75C9.33579 25.5 9 25.1642 9 24.75V23.25C9 22.8358 9.33579 22.5 9.75 22.5H14.25C14.6642 22.5 15 22.8358 15 23.25V24.75ZM30 17.25C30 17.6642 29.6642 18 29.25 18H6.75C6.33579 18 6 17.6642 6 17.25V14.25C6 13.8358 6.33579 13.5 6.75 13.5H29.25C29.6642 13.5 30 13.8358 30 14.25V17.25Z"
                                     fill="#131416" />
                             </svg>
-                            <span class="text-subheading-l">Platba</span>
+                            <span class="text-subheading-l">{{ $translations['Platba']['text'] }}</span>
                         </div>
                         <div class="text-body-m mt-6">
                             Objednávka je zaplatená - Apple Pay.
@@ -53,7 +57,7 @@
                                     fill="#131416" />
                             </svg>
 
-                            <span class="text-subheading-l">Doručenie</span>
+                            <span class="text-subheading-l">{{ $translations['Doručenie']['text'] }}</span>
                         </div>
                         <div class="text-body-m mt-6">
                             Kuriérom na adresu Bajkalská 19, 82103 Bratislava.
@@ -68,10 +72,11 @@
                                     fill="#131416" />
                             </svg>
 
-                            <span class="text-subheading-l">Sú vaše kontaktné údaje spravne?</span>
+                            <span
+                                class="text-subheading-l">{{ $translations['Sú vaše kontaktné údaje spravne?']['text'] }}</span>
                         </div>
                         <div class="text-body-m mt-6">
-                            Ak nasledovné údaje nie sú správne, <a href="#" class="text-primary">kontaktujte nás</a>.
+                            {!! $translations['cart.thank_you.wrong_info']['text'] !!}
                         </div>
                         <div class="flex items-center gap-6 mt-4">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -109,62 +114,68 @@
                 <table class="table-auto md:col-span-2">
                     <thead>
                         <tr>
-                            <th>Objednávka č. 6558</th>
+                            <th>{{ $translations['Objednávka č.']['text'] }} {{ $order['code'] ?? '-' }}</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <a class="text-primary" href="#">Extrémne odolná Loptička Wunderball -skákacia
-                                    hračka</a>
-                                <small>Farba: Žltá</small>
-                                <small>Veľkosť: Medium</small>
-                            </td>
-                            <td>
-                                1ks
-                            </td>
-                            <td>
-                                28,90 €
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a class="text-primary" href="#">Extrémne odolná Loptička Wunderball -skákacia
-                                    hračka</a>
-                            </td>
-                            <td>
-                                1ks
-                            </td>
-                            <td>
-                                28,90 €
-                            </td>
-                        </tr>
+                        {{--
+                            <tr>
+                                <td>
+                                    <a class="text-primary" href="#">Extrémne odolná Loptička Wunderball -skákacia
+                                        hračka</a>
+                                    <small>Farba: Žltá</small>
+                                    <small>Veľkosť: Medium</small>
+                                </td>
+                                <td>
+                                    1ks
+                                </td>
+                                <td>
+                                    28,90 €
+                                </td>
+                            </tr>
+                        --}}
+                        @foreach ($order['items'] ?? [] as $item)
+                            <tr>
+                                <td>
+                                    <a class="text-primary"
+                                        href="{{ route(locale() . '.product.detail', [str_slug($item['product_category_name']), $item['slug']]) }}">
+                                        {{ $item['name'] }}
+                                    </a>
+                                    {{--
+                                    @foreach ($item['options'] as $option)
+                                        <small>{{ $option['name'] }}: {{ $option['value'] }}</small>
+                                    @endforeach
+                                    --}}
+                                </td>
+                                <td>
+                                    {{ $item['quantity'] }} {{ $item['quantity_type'] }}
+                                </td>
+                                <td>
+                                    {{ $item['vat_amount_formatted'] }}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td>Medzisúčet</td>
+                            <td>{{ $translations['Doručenie']['text'] }}</td>
                             <td></td>
-                            <td>99,49 €</td>
+                            <td>{{ $order['shipping']['price_formatted'] }}</td>
                         </tr>
                         <tr>
-                            <td>Doručenie</td>
-                            <td></td>
-                            <td>3,90 €</td>
-                        </tr>
-                        <tr>
-                            <td>Spôsob platby</td>
+                            <td>{{ $translations['Spôsob platby']['text'] }}</td>
                             <td></td>
                             <td>
-                                <div>0 €</div>
+                                <div>{{ $order['payment']['price_formatted'] }}</div>
                                 <div>Apple Pay</div>
                             </td>
                         </tr>
                         <tr>
-                            <td>Celková cena</td>
+                            <td>{{ $translations['Celková cena']['text'] }}</td>
                             <td></td>
-                            <td>103,39 €</td>
+                            <td>{{ $order['vat_amount_formatted'] }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -172,84 +183,85 @@
                 <table class="table-auto">
                     <thead>
                         <tr>
-                            <th>Dodacia adresa</th>
+                            <th>{{ $translations['Dodacia adresa']['text'] }}</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Meno</td>
-                            <td>Jozef Mrkvička</td>
+                            <td>{{ $translations['Meno']['text'] }}</td>
+                            <td>{{ $order['customer']['delivery_name'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Ulica</td>
-                            <td>Horehronská 27</td>
+                            <td>{{ $translations['Ulica']['text'] }}</td>
+                            <td>{{ $order['customer']['delivery_street'] ?? '-' }}
+                                {{ $order['customer']['delivery_house_number'] ?? '' }}</td>
                         </tr>
                         <tr>
-                            <td>PSČ</td>
-                            <td>851 01</td>
+                            <td>{{ $translations['PSČ']['text'] }}</td>
+                            <td>{{ $order['customer']['delivery_zip'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Mesto</td>
-                            <td>Bratislava</td>
+                            <td>{{ $translations['Mesto']['text'] }}</td>
+                            <td>{{ $order['customer']['delivery_city'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Telefón</td>
-                            <td>+421 903 123 123</td>
+                            <td>{{ $translations['Telefón']['text'] }}</td>
+                            <td>{{ $order['customer']['phone'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Email</td>
-                            <td>jozefmrkva@yahoo.com</td>
+                            <td>{{ $translations['Email']['text'] }}</td>
+                            <td>{{ $order['customer']['email'] ?? '-' }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <table class="table-auto">
                     <thead>
                         <tr>
-                            <th>Fakturačná adresa</th>
+                            <th>{{ $translations['Fakturačná adresa']['text'] }}</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Názov firmy</td>
-                            <td>ARTEM s.r.o.</td>
+                            <td>{{ $translations['Názov firmy']['text'] }}</td>
+                            <td>{{ $order['customer']['company_name'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>IČO</td>
-                            <td>20230430</td>
+                            <td>{{ $translations['IČO']['text'] }}</td>
+                            <td>{{ $order['customer']['company_tax_id'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>DIČ</td>
-                            <td>-</td>
+                            <td>{{ $translations['DIČ']['text'] }}</td>
+                            <td>{{ $order['customer']['company_vat_id'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>IČ DPH</td>
-                            <td>-</td>
+                            <td>{{ $translations['IČ DPH']['text'] }}</td>
+                            <td>{{ $order['customer']['company_vat_id'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Meno</td>
-                            <td>Jozef Mrkvička</td>
+                            <td>{{ $translations['Meno']['text'] }}</td>
+                            <td>{{ $order['customer']['name'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Ulica</td>
-                            <td>Horehronská 27</td>
+                            <td>{{ $translations['Ulica']['text'] }}</td>
+                            <td>{{ $order['customer']['company_address'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>PSČ</td>
-                            <td>851 01</td>
+                            <td>{{ $translations['PSČ']['text'] }}</td>
+                            <td>{{ $order['customer']['company_zip'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Mesto</td>
-                            <td>Bratislava</td>
+                            <td>{{ $translations['Mesto']['text'] }}</td>
+                            <td>{{ $order['customer']['company_city'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Telefón</td>
-                            <td>+421 903 123 123</td>
+                            <td>{{ $translations['Telefón']['text'] }}</td>
+                            <td>{{ $order['customer']['phone'] ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td>Email</td>
-                            <td>jozefmrkva@yahoo.com</td>
+                            <td>{{ $translations['Email']['text'] }}</td>
+                            <td>{{ $order['customer']['email'] ?? '-' }}</td>
                         </tr>
                     </tbody>
                 </table>
