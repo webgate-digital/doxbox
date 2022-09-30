@@ -9,44 +9,31 @@
         </li>
       </ul>
     </div>
-    <template
-      v-if="activeItem && activeItem.children && activeItem.children.length > 0"
-    >
-      <div
-        ref="flyout"
-        class="main-nav__flyout"
-        :class="{ 'main-nav__flyout--big': activeItemHasNestedChildren }"
+    <template v-if="activeItem && activeItem.children && activeItem.children.length > 0">
+      <div ref="flyout" class="main-nav__flyout" :class="{ 'main-nav__flyout--big': activeItemHasNestedChildren }"
         :style="{
           left: activeItemHasNestedChildren
             ? '0'
             : `${activeNavigationItemLeftPosition}px`,
-        }"
-      >
-        <div
-          class="grid gap-6"
-          :class="{
-            container: activeItemHasNestedChildren,
-            'grid-cols-4': activeItemHasNestedChildren,
-            'grid-flow-row': !activeItemHasNestedChildren,
-            'gap-y-16': activeItemHasNestedChildren,
-          }"
-        >
+        }">
+        <div class="grid gap-6" :class="{
+          container: activeItemHasNestedChildren,
+          'grid-cols-4': activeItemHasNestedChildren,
+          'grid-flow-row': !activeItemHasNestedChildren,
+          'gap-y-16': activeItemHasNestedChildren,
+        }">
           <template v-for="item in activeItem.children">
             <div :key="item.uuid" class="main-nav__flyout--item">
-              <a
-                :href="getCategoryUrl(item.slug)"
-                class="main-nav__flyout--link"
-                :class="{
-                  'text-subheading-m': activeItemHasNestedChildren,
-                  'text-body-m': !activeItemHasNestedChildren,
-                }"
-              >
+              <a :href="getCategoryUrl(item.slug)" class="main-nav__flyout--link" :class="{
+                'text-subheading-m': activeItemHasNestedChildren,
+                'text-body-m': !activeItemHasNestedChildren,
+              }">
                 {{ item.name }}
               </a>
               <template v-if="item.children && item.children.length > 0">
                 <ul class="main-nav__flyout--menu">
                   <li v-for="child in item.children" :key="child.uuid">
-                    <a href="#" class="text-body-m main-nav__flyout--link">
+                    <a :href="getCategoryUrl(child.slug)" class="text-body-m main-nav__flyout--link">
                       {{ child.name }}
                     </a>
                   </li>
@@ -66,10 +53,6 @@ export default {
   props: {
     items: {
       type: Array,
-      required: true,
-    },
-    categoryUrl: {
-      type: String,
       required: true,
     },
   },
@@ -105,7 +88,7 @@ export default {
           event.clientX <= flyoutRect.right &&
           event.clientY >= flyoutRect.top &&
           event.clientY <= flyoutRect.bottom;
-        
+
         const navigationRect = document.querySelector('.main-nav').getBoundingClientRect();
         const isMouseOverNavigation =
           event.clientX >= navigationRect.left &&
@@ -120,7 +103,7 @@ export default {
       }
     },
     getCategoryUrl(slug) {
-      return this.categoryUrl.replace(":slug", slug);
+      return this.items.find((item) => item.slug === slug).url;
     }
   }
 };

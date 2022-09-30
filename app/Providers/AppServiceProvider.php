@@ -69,15 +69,15 @@ class AppServiceProvider extends ServiceProvider
                 $_productRepository = new ProductRepository();
                 return $_productRepository->categories(locale(), 0, 0, 'desc', 'score')['items'];
             });
-
             $headerNavigationItems = array_filter($categories, function($item) {
                 return $item['has_parent'] === false && $item['score'] >= 100;
             });
 
             // Add url to categories
-            foreach ($categories as $key => $category) {
-                $categories[$key]['url'] = route(locale() . '.product.category', [$category['slug']]);
-            }
+            $categories = array_map(function ($category) {
+                $category['url'] = \App\Http\Controllers\ProductController::buildCategoryRoute($category['slug']);
+                return $category;
+            }, $categories);
 
             $setup = Cache::rememberForever('setup', function () {
                 $_setupRepository = new SetupRepository();

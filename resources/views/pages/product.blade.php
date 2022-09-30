@@ -47,23 +47,6 @@
 @endsection
 
 @section('content')
-
-    <!-- Page title -->
-    @php
-        $breadcrumbs = [];
-        $breadcrumbs[] = [
-            'url' => route(locale().'.product.list'),
-            'title' => $translations['menu.products']['text']
-        ];
-        $breadcrumbs[] = [
-            'url' => route(locale() . '.product.category', [$item['item']['category']['slug']]),
-            'title' => $item['item']['category']['name']
-        ];
-        $breadcrumbs[] = [
-            'url' => url()->current(),
-            'title' => $item['item']['name']
-        ];
-    @endphp
     @include('components.breadcrumbs')
 
     <section class="section">

@@ -60,10 +60,6 @@ export default {
             type: Array,
             required: true,
         },
-        categoryUrl: {
-            type: String,
-            required: true,
-        },
     },
     data: () => {
         return {
@@ -84,7 +80,7 @@ export default {
     },
     methods: {
         getCategoryUrl(slug) {
-            return this.categoryUrl.replace(":slug", slug);
+            return this.items.find((item) => item.slug === slug).url;
         },
         toggleItem(index) {
             this.activeItemIndex = this.activeItemIndex === index ? null : index;

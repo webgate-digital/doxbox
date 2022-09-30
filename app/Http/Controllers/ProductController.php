@@ -6,6 +6,7 @@ use App\Exceptions\NotFoundException;
 use App\Http\Requests\Filter;
 use App\Repositories\ProductRepository;
 use App\Repositories\SetupRepository;
+use App\Repositories\TranslationRepository;
 use Cache;
 use Illuminate\Http\Request;
 use Str;
@@ -53,8 +54,10 @@ class ProductController extends Controller
         return view('products.list', compact('products', 'categories', 'category', 'filterPrices', 'attributes'));
     }
 
-    public function category(Filter $request, string $categorySlug)
+    public function category(Filter $request, string $categories)
     {
+        $categories = explode('/', $categories);
+        $categorySlug = end($categories);
         try {
             $category = $this->_productRepository->category(locale(), $categorySlug)['item'];
         } catch (NotFoundException $e) {
@@ -100,38 +103,23 @@ class ProductController extends Controller
         $products = $productList['items'];
         $total = $productList['total'];
         $hasMoreProducts = count($products) < $total;
-
-        $breadcrumbs = [];
-        $currentCategory = $category;
-        do {
-            $breadcrumbs[] = [
-                'url' => route(locale() . '.product.category', ['categorySlug' => $currentCategory['slug']]),
-                'title' => $currentCategory['name'],
-            ];
-            $currentCategory = array_values(array_filter($categories, function ($item) use ($currentCategory) {
-                return $item['uuid'] == $currentCategory['parent_uuid'];
-            }))[0] ?? null;
-        } while ($currentCategory);
-
-        $breadcrumbs[] = [
-            'url' => route(locale() . '.product.list'),
-            'title' => $translations['menu.products']['text'],
-        ];
-
-        $breadcrumbs = array_reverse($breadcrumbs);
+        $breadcrumbs = $this->getBreadcrumbs($category);
 
         return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs'));
     }
 
-    public function detail(string $categorySlug, string $slug)
+    public function detail(string $categories, string $slug)
     {
         try {
             $item = $this->_productRepository->detail(locale(), session()->get('currency'), $slug);
         } catch (NotFoundException $e) {
             abort(404);
         }
-
-        return view('pages.product', compact('item'));
+        $breadcrumbs = $this->getBreadcrumbs($item['item']['category']);
+        $breadcrumbs[] = [
+            'title' => $item['item']['name']
+        ];
+        return view('pages.product', compact('item', 'breadcrumbs'));
     }
 
     public function search(Request $request)
@@ -147,5 +135,80 @@ class ProductController extends Controller
         });
 
         return view('products.search', compact('products'));
+    }
+
+    public static function getCategoriesChainString($categorySlug): string
+    {
+        $categories = Cache::rememberForever('product_categories', function () {
+            $_productRepository = new ProductRepository();
+            return $_productRepository->categories(locale())['items'];
+        });
+
+        $productCategorySlugs = [];
+        $currentCategory = self::getCategoryBySlug($categorySlug);
+        do {
+            $productCategorySlugs[] = $currentCategory['slug'];
+            $currentCategory = array_values(array_filter($categories, function ($item) use ($currentCategory) {
+                return $item['uuid'] == $currentCategory['parent_uuid'];
+            }))[0] ?? null;
+        } while ($currentCategory);
+
+        return join('/', array_reverse($productCategorySlugs));
+    }
+
+    public static function getCategoryBySlug(string $categorySlug)
+    {
+        $categories = Cache::rememberForever('product_categories', function () {
+            $_productRepository = new ProductRepository();
+            return $_productRepository->categories(locale())['items'];
+        });
+        return array_values(array_filter($categories, function ($item) use ($categorySlug) {
+            return $item['slug'] == $categorySlug;
+        }))[0] ?? null;
+    }
+
+    public function getBreadcrumbs($category) {
+        $categories = Cache::rememberForever('product_categories', function () {
+            $_productRepository = new ProductRepository();
+            return $_productRepository->categories(locale())['items'];
+        });
+        
+        $translations = Cache::rememberForever('translations_web', function () {
+            $_translationRepository = new TranslationRepository();
+            return $_translationRepository->default(locale())['items'];
+        });
+
+        $breadcrumbs = [];
+        do {
+            $breadcrumbs[] = [
+                'url' => self::buildCategoryRoute($category['slug']),
+                'title' => $category['name'],
+            ];
+            $category = array_values(array_filter($categories, function ($item) use ($category) {
+                return $item['uuid'] == $category['parent_uuid'];
+            }))[0] ?? null;
+        } while ($category);
+
+        $breadcrumbs[] = [
+            'url' => route(locale() . '.product.list'),
+            'title' => $translations['menu.products']['text'],
+        ];
+
+        return array_reverse($breadcrumbs);
+    }
+
+    public static function buildProductRoute($categorySlug, string $slug)
+    {
+        return route(locale() . '.product.detail', [
+            'slug' => $slug,
+            'categorySlugs' => self::getCategoriesChainString($categorySlug)
+        ]);
+    }
+
+    public static function buildCategoryRoute($categorySlug)
+    {
+        return route(locale() . '.product.category', [
+            'categorySlugs' => self::getCategoriesChainString($categorySlug)
+        ]);
     }
 }

@@ -25,7 +25,7 @@ class Filter extends FormRequest
     public function rules()
     {
         if (Route::currentRouteName() === locale() . '.product.category') {
-            $this->redirect = route(locale() . '.product.category', ['categorySlug' => $this->categorySlug]);
+            // $this->redirect = \App\Http\Controllers\ProductController::buildCategoryRoute($this->categorySlug);
         } else {
             $this->redirect = route(locale() . '.product.list');
         }

@@ -47,8 +47,12 @@ Route::multilingual('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::multilingual('/thank-you', [PageController::class, 'thankYou'])->name('thank_you');
 
-Route::multilingual('/product-detail', [ProductController::class, 'detail'])->name('product.detail');
-Route::multilingual('/product-category', [ProductController::class, 'category'])->name('product.category');
+Route::multilingual('/product-detail', [ProductController::class, 'detail'])
+    ->where('categorySlugs', '^[a-zA-Z0-9-_\/]+$')
+    ->name('product.detail');
+Route::multilingual('/product-category', [ProductController::class, 'category'])
+    ->where('categorySlugs', '^[a-zA-Z0-9-_\/]+$')
+    ->name('product.category');
 Route::multilingual('/product-list', [ProductController::class, 'list'])->name('product.list');
 Route::multilingual('/search', [ProductController::class, 'search'])->name('search');
 

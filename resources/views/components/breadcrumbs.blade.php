@@ -9,7 +9,11 @@
                     <img src="{{asset('images/icons/navigate_next_black_24dp.svg')}}" width="15" alt="{{$breadcrumb['title']}}">
                 </div>
                 <div class="breadcrumbs--item">
-                    <a href="{{$breadcrumb['url']}}">{{$breadcrumb['title']}}</a>
+                    @if(isset($breadcrumb['url']))
+                        <a href="{{$breadcrumb['url']}}">{{$breadcrumb['title']}}</a>
+                    @else
+                        {{$breadcrumb['title']}}
+                    @endif
                 </div>
             @endforeach
         </div>

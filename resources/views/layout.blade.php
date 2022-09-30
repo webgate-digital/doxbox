@@ -108,9 +108,7 @@
                             alt="{{ config('app.name') }}">
                     </a>
                     <div class="hidden lg:block">
-                        <v-navigation :items="{{ json_encode($categories) }}"
-                            :category-url="'{{ route(locale() . '.product.category', ['categorySlug' => ':slug']) }}'">
-                        </v-navigation>
+                        <v-navigation :items="{{ json_encode($categories) }}"/>
                     </div>
                     <div class="flex items-center justify-end relative gap-8">
                         <button type="button"
@@ -126,9 +124,7 @@
                             </div>
                         </a>
                         <ul class="main-nav--mobile" id="main-nav--mobile">
-                            <v-mobile-navigation :items="{{ json_encode($categories) }}"
-                                :category-url="'{{ route(locale() . '.product.category', ['categorySlug' => ':slug']) }}'"
-                            >
+                            <v-mobile-navigation :items="{{ json_encode($categories) }}">
                                 <ul>
                                     <li>
                                         <a href="{{ route(locale() . '.contact') }}">

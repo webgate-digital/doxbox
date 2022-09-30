@@ -3,8 +3,8 @@
 return [
 
     'faq' => 'najcastejsie-otazky',
-    'product-detail' => 'obchod/{categorySlug}/{slug}',
-    'product-category' => 'obchod/{categorySlug}',
+    'product-detail' => 'obchod/{categorySlugs}/{slug}',
+    'product-category' => 'kategoria-produktu/{categorySlugs}',
     'product-list' => 'obchod',
     'contact' => 'kontakt',
     'cart' => 'kosik',
