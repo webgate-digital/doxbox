@@ -43,6 +43,8 @@
     <link rel="mask-icon" href="{{ asset('images/favicon/safari-pinned-tab.svg" color="#000000') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
 </head>
 
 <body>
@@ -297,6 +299,9 @@
     @yield('js')
 
     <script src="{{ mix('js/app.js') }}"></script>
+    <script>
+        tippy('[data-tippy-content]');
+    </script>
 
 </body>
 

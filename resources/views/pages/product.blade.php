@@ -42,7 +42,7 @@
             {{$translations['products.contact_us_cta']['text']}}
         </a>
     @else
-        <add-to-cart uuid="{{$item['item']['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"></add-to-cart>
+        <add-to-cart uuid="{{$item['item']['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}" :variants_tree="{{json_encode($item['item']['variants_tree'])}}"></add-to-cart>
     @endif
 @endsection
 
@@ -69,7 +69,7 @@
                     <h1 class="text-heading-2xs !mb-4">{{$item['item']['name']}}</h1>
                     
                     @if($item['item']['brand'])
-                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{{$item['item']['brand']['name']}}</h2>
+                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{!!$item['item']['brand']['name']!!}</h2>
                     @endif
                     
                     <p class="product-detail--price">

@@ -1535,3 +1535,19 @@ input[type="checkbox"]:checked {
     @apply border-b;
     @apply border-gray-20;
 }
+
+.product-detail--swatches {
+    @apply flex;
+    @apply flex-col;
+    @apply gap-10;
+}
+
+.product-detail--swatch {
+    @apply flex;
+    @apply flex-col;
+    @apply gap-5;
+}
+
+.tippy-arrow {
+    display: none;
+}
