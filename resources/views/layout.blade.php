@@ -60,20 +60,22 @@
         <div class="top-nav">
             <div class="container">
                 <div class="flex items-center justify-between">
-                    <ul class="top-nav--menu">
-                        <li>
-                            <a href="{{ route(locale() . '.contact') }}">
-                                {{ $translations['menu.contact']['text'] }}
-                            </a>
-                        </li>
-                        @foreach ($headerPages as $page)
+                    @if (!str_contains(Route::currentRouteName(), 'cart'))
+                        <ul class="top-nav--menu">
                             <li>
-                                <a href="{{ route(locale() . '.page', [$page['slug']]) }}">
-                                    {{ $page['title'] }}
+                                <a href="{{ route(locale() . '.contact') }}">
+                                    {{ $translations['menu.contact']['text'] }}
                                 </a>
                             </li>
-                        @endforeach
-                    </ul>
+                            @foreach ($headerPages as $page)
+                                <li>
+                                    <a href="{{ route(locale() . '.page', [$page['slug']]) }}">
+                                        {{ $page['title'] }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                     <div class="flex-grow">
                         <a href="mailto:{{ $catalogSettings['email']['value'] }}" class="top-nav--item">
                             <img class="top-nav--icon" src="{{ asset('images/icons/email_white_24dp.svg') }}"
@@ -98,73 +100,78 @@
         <nav class="main-nav">
             <div class="container">
                 <div class="flex items-center justify-between">
-                    <button type="button" class="lg:hidden"
-                        onclick="document.getElementById('main-nav--mobile').classList.toggle('is-open');">
-                        <img src="{{ asset('images/icons/menu_white_24dp.svg') }}"
-                            alt="{{ $translations['cart.title']['text'] }}">
-                    </button>
+                    @if (!str_contains(Route::currentRouteName(), 'cart'))
+                        <button type="button" class="lg:hidden"
+                            onclick="document.getElementById('main-nav--mobile').classList.toggle('is-open');">
+                            <img src="{{ asset('images/icons/menu_white_24dp.svg') }}"
+                                alt="{{ $translations['cart.title']['text'] }}">
+                        </button>
+                    @endif
+                    
                     <a href="{{ route(locale() . '.homepage') }}" class="main-nav--logo">
                         <img class="hidden md:inline" src="{{ asset('images/logo.svg') }}" width="120"
                             alt="{{ config('app.name') }}">
                         <img class="inline md:hidden" src="{{ asset('images/logo-small.svg') }}" width="36"
                             alt="{{ config('app.name') }}">
                     </a>
-                    <div class="hidden lg:block">
-                        <v-navigation :items="{{ json_encode($categories) }}"/>
-                    </div>
-                    <div class="flex items-center justify-end relative gap-8">
-                        <button type="button"
-                            onclick="document.getElementById('search-wrapper').classList.add('opened');">
-                            <img src="{{ asset('images/icons/search_white_24dp.svg') }}"
-                                alt="{{ $translations['search.title']['text'] }}">
-                        </button>
-                        <a href="{{ route(locale() . '.cart') }}" class="flex items-center">
-                            <img src="{{ asset('images/icons/shopping_cart_white_24dp.svg') }}"
-                                alt="{{ $translations['cart.title']['text'] }}">
-                            <div class="text-small text-white">
-                                <cart-icon></cart-icon>
-                            </div>
-                        </a>
-                        <ul class="main-nav--mobile" id="main-nav--mobile">
-                            <v-mobile-navigation :items="{{ json_encode($categories) }}">
-                                <ul>
-                                    <li>
-                                        <a href="{{ route(locale() . '.contact') }}">
-                                            {{ $translations['menu.contact']['text'] }}
-                                        </a>
-                                    </li>
-                                    @foreach ($headerPages as $page)
+                    @if (!str_contains(Route::currentRouteName(), 'cart'))
+                        <div class="hidden lg:block">
+                            <v-navigation :items="{{ json_encode($categories) }}"/>
+                        </div>
+                        <div class="flex items-center justify-end relative gap-8">
+                            <button type="button"
+                                onclick="document.getElementById('search-wrapper').classList.add('opened');">
+                                <img src="{{ asset('images/icons/search_white_24dp.svg') }}"
+                                    alt="{{ $translations['search.title']['text'] }}">
+                            </button>
+                            <a href="{{ route(locale() . '.cart') }}" class="flex items-center">
+                                <img src="{{ asset('images/icons/shopping_cart_white_24dp.svg') }}"
+                                    alt="{{ $translations['cart.title']['text'] }}">
+                                <div class="text-small text-white">
+                                    <cart-icon></cart-icon>
+                                </div>
+                            </a>
+                            <ul class="main-nav--mobile" id="main-nav--mobile">
+                                <v-mobile-navigation :items="{{ json_encode($categories) }}">
+                                    <ul>
                                         <li>
-                                            <a href="{{ route(locale() . '.page', [$page['slug']]) }}">
-                                                {{ $page['title'] }}
+                                            <a href="{{ route(locale() . '.contact') }}">
+                                                {{ $translations['menu.contact']['text'] }}
                                             </a>
                                         </li>
-                                    @endforeach
-                                </ul>
-                                <div class="mobile-navigation__footer__contact">
-                                    <a href="mailto:{{ $catalogSettings['email']['value'] }}" class="top-nav--item">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16.666 3.33337H3.33268C2.41221 3.33337 1.66602 4.07957 1.66602 5.00004V15C1.66602 15.9205 2.41221 16.6667 3.33268 16.6667H16.666C17.5865 16.6667 18.3327 15.9205 18.3327 15V5.00004C18.3327 4.07957 17.5865 3.33337 16.666 3.33337ZM16.666 9.16671L11.3743 12.875C10.5486 13.4523 9.45014 13.4523 8.62435 12.875L3.33268 9.16671V7.41671L9.45768 11.7084C9.78341 11.9344 10.2153 11.9344 10.541 11.7084L16.666 7.41671V9.16671Z" fill="#131416"/>
-                                        </svg>
-                                        {{ $catalogSettings['email']['value'] }}
-                                    </a>
-                                    <a href="tel:{{ $catalogSettings['phone']['value'] }}" class="top-nav--item mr-10">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10.8333 3.74999V2.91666C10.8314 2.80116 10.8765 2.68984 10.9583 2.60832C11.0497 2.52778 11.1704 2.48858 11.2917 2.49999C14.6241 2.7222 17.2778 5.37593 17.5 8.70832C17.5068 8.824 17.4679 8.93773 17.3917 9.02499C17.3101 9.10683 17.1988 9.15195 17.0833 9.14999H16.25C16.0323 9.15069 15.8507 8.98367 15.8333 8.76666C15.6435 6.30908 13.6909 4.35652 11.2333 4.16666C11.0097 4.15771 10.8332 3.97375 10.8333 3.74999ZM10.975 5.94999C10.884 6.02993 10.8323 6.14553 10.8333 6.26666V7.09999C10.8299 7.29919 10.9708 7.47176 11.1667 7.50832C11.8367 7.63098 12.3647 8.14905 12.5 8.81666C12.5366 9.0125 12.7091 9.15337 12.9083 9.14999H13.7417C13.8628 9.15104 13.9784 9.09933 14.0583 9.00832C14.1368 8.91607 14.173 8.79519 14.1583 8.67499C13.9407 7.20819 12.7912 6.05526 11.325 5.83332C11.2024 5.82312 11.0812 5.86553 10.9917 5.94999H10.975ZM14.725 17.5C15.1692 17.5003 15.5952 17.3234 15.9083 17.0083L17.3167 15.6C17.4545 15.4632 17.5209 15.2702 17.4965 15.0775C17.472 14.8849 17.3593 14.7146 17.1917 14.6167L13.975 12.7417C13.6476 12.552 13.2335 12.6068 12.9667 12.875L11.3917 14.45C11.2623 14.5808 11.0625 14.6113 10.9 14.525L10.35 14.225C8.40772 13.181 6.8142 11.5904 5.76667 9.64999L5.475 9.09999C5.38872 8.93751 5.4192 8.73768 5.55 8.60832L7.125 7.03332C7.39319 6.76645 7.44794 6.3524 7.25833 6.02499L5.38333 2.80832C5.2854 2.64065 5.11509 2.52802 4.92247 2.50354C4.72984 2.47905 4.53677 2.54549 4.4 2.68332L2.99167 4.09166C2.67663 4.40482 2.49965 4.83079 2.5 5.27499V5.83332C2.5012 7.21144 2.84178 8.56806 3.49167 9.78332L3.7 10.1583C5.09308 12.7494 7.21729 14.8736 9.80833 16.2667L10.1833 16.475C11.4055 17.1418 12.7744 17.4941 14.1667 17.5H14.725Z" fill="#131416"/>
-                                        </svg>
-                                        {{ $catalogSettings['phone']['value'] }}
-                                    </a>
-                                </div>
-                                <div class="mobile-navigation__footer__flags">
-                                    @foreach (config('locales.supported') as $locale)
-                                        <a href="{{ route($locale . '.homepage') }}" class="top-nav--item"><img
-                                                src="{{ asset('images/flags/' . $locale . '.svg') }}" class="top-nav--flag"
-                                                width="36" alt="{{ $locale }}"></a>
-                                    @endforeach
-                                </div>
-                            </v-mobile-navigation>
-                        </ul>
-                    </div>
+                                        @foreach ($headerPages as $page)
+                                            <li>
+                                                <a href="{{ route(locale() . '.page', [$page['slug']]) }}">
+                                                    {{ $page['title'] }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="mobile-navigation__footer__contact">
+                                        <a href="mailto:{{ $catalogSettings['email']['value'] }}" class="top-nav--item">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M16.666 3.33337H3.33268C2.41221 3.33337 1.66602 4.07957 1.66602 5.00004V15C1.66602 15.9205 2.41221 16.6667 3.33268 16.6667H16.666C17.5865 16.6667 18.3327 15.9205 18.3327 15V5.00004C18.3327 4.07957 17.5865 3.33337 16.666 3.33337ZM16.666 9.16671L11.3743 12.875C10.5486 13.4523 9.45014 13.4523 8.62435 12.875L3.33268 9.16671V7.41671L9.45768 11.7084C9.78341 11.9344 10.2153 11.9344 10.541 11.7084L16.666 7.41671V9.16671Z" fill="#131416"/>
+                                            </svg>
+                                            {{ $catalogSettings['email']['value'] }}
+                                        </a>
+                                        <a href="tel:{{ $catalogSettings['phone']['value'] }}" class="top-nav--item mr-10">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.8333 3.74999V2.91666C10.8314 2.80116 10.8765 2.68984 10.9583 2.60832C11.0497 2.52778 11.1704 2.48858 11.2917 2.49999C14.6241 2.7222 17.2778 5.37593 17.5 8.70832C17.5068 8.824 17.4679 8.93773 17.3917 9.02499C17.3101 9.10683 17.1988 9.15195 17.0833 9.14999H16.25C16.0323 9.15069 15.8507 8.98367 15.8333 8.76666C15.6435 6.30908 13.6909 4.35652 11.2333 4.16666C11.0097 4.15771 10.8332 3.97375 10.8333 3.74999ZM10.975 5.94999C10.884 6.02993 10.8323 6.14553 10.8333 6.26666V7.09999C10.8299 7.29919 10.9708 7.47176 11.1667 7.50832C11.8367 7.63098 12.3647 8.14905 12.5 8.81666C12.5366 9.0125 12.7091 9.15337 12.9083 9.14999H13.7417C13.8628 9.15104 13.9784 9.09933 14.0583 9.00832C14.1368 8.91607 14.173 8.79519 14.1583 8.67499C13.9407 7.20819 12.7912 6.05526 11.325 5.83332C11.2024 5.82312 11.0812 5.86553 10.9917 5.94999H10.975ZM14.725 17.5C15.1692 17.5003 15.5952 17.3234 15.9083 17.0083L17.3167 15.6C17.4545 15.4632 17.5209 15.2702 17.4965 15.0775C17.472 14.8849 17.3593 14.7146 17.1917 14.6167L13.975 12.7417C13.6476 12.552 13.2335 12.6068 12.9667 12.875L11.3917 14.45C11.2623 14.5808 11.0625 14.6113 10.9 14.525L10.35 14.225C8.40772 13.181 6.8142 11.5904 5.76667 9.64999L5.475 9.09999C5.38872 8.93751 5.4192 8.73768 5.55 8.60832L7.125 7.03332C7.39319 6.76645 7.44794 6.3524 7.25833 6.02499L5.38333 2.80832C5.2854 2.64065 5.11509 2.52802 4.92247 2.50354C4.72984 2.47905 4.53677 2.54549 4.4 2.68332L2.99167 4.09166C2.67663 4.40482 2.49965 4.83079 2.5 5.27499V5.83332C2.5012 7.21144 2.84178 8.56806 3.49167 9.78332L3.7 10.1583C5.09308 12.7494 7.21729 14.8736 9.80833 16.2667L10.1833 16.475C11.4055 17.1418 12.7744 17.4941 14.1667 17.5H14.725Z" fill="#131416"/>
+                                            </svg>
+                                            {{ $catalogSettings['phone']['value'] }}
+                                        </a>
+                                    </div>
+                                    <div class="mobile-navigation__footer__flags">
+                                        @foreach (config('locales.supported') as $locale)
+                                            <a href="{{ route($locale . '.homepage') }}" class="top-nav--item"><img
+                                                    src="{{ asset('images/flags/' . $locale . '.svg') }}" class="top-nav--flag"
+                                                    width="36" alt="{{ $locale }}"></a>
+                                        @endforeach
+                                    </div>
+                                </v-mobile-navigation>
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </nav>

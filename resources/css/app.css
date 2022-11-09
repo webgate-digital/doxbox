@@ -383,6 +383,9 @@ iframe {
 @screen -sm {
     .main-nav {
         @apply py-6;
+        min-height: 51px;
+        @apply flex;
+        @apply items-center;
     }
 
     .main-nav--logo {
