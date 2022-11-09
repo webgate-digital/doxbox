@@ -81,7 +81,7 @@
                     <h2 class="h2">
                         {{$translations['cart.upsell_title']['text']}}
                     </h2>
-                    <div class="product-container">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                         @foreach($upsell as $product)
                             @include('components.product', ['item' => $product])
                         @endforeach
