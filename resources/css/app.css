@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 html,
 body {
     @apply text-default;
@@ -47,6 +54,7 @@ iframe {
 
 .content {
     min-height: calc(100vh - 409.187px);
+    flex: 1;
 }
 
 .section {
