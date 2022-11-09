@@ -136,3 +136,11 @@ const app = new Vue({
     $arrowLeft.addEventListener('click', () => scroll(1));
     $arrowRight.addEventListener('click', () => scroll());
 })();
+
+// Hide all 404 images
+(() => {
+    const $images = document.querySelectorAll('.category-box img');
+    $images.forEach($image => {
+        $image.addEventListener('error', () => $image.classList.add('hidden'));
+    });
+})();
