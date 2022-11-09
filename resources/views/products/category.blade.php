@@ -8,7 +8,7 @@
     <!-- Page title -->
     @include('components.breadcrumbs')
     <!-- end: Page title -->
-    <section class="p-20 bg-gray-5">
+    <section class="py-8 lg:p-20 bg-gray-5">
         <div class="container">
             @if(isset($category))
                 <h1 class="text-heading-2xs @if(!$category['description']) !mb-0 @endif lg:mb-0">

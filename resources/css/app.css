@@ -654,7 +654,7 @@ iframe {
     @apply absolute;
     @apply top-1/2;
     @apply transform;
-    @apply -translate-y-1/2;
+    transform: translateY(-50%);
     @apply z-10;
     @apply h-full;
     @apply bg-white;
@@ -666,7 +666,17 @@ iframe {
     @apply justify-center;
     @apply cursor-pointer;
     @apply transition-all;
-    aspect-ratio: 1;
+}
+
+@screen -sm {
+    width: 3rem;
+}
+
+@screen md {
+    .category-list--arrow-left,
+    .category-list--arrow-right {
+        aspect-ratio: 1;
+    }
 }
 
 .category-list--arrow-left:hover,
