@@ -45,6 +45,13 @@
                     <h5 class="text-subheading-m mt-16">
                         {{ $translations['Predajňa']['text'] }}
                     </h5>
+                    <p>
+                        {!! $translations['contact.store_name']['text'] !!}<br>
+                        {!! $translations['contact.store_address']['text'] !!}<br>
+                        <span class="text-primary">
+                            {!! $translations['contact.show_map']['text'] !!}
+                        </span>
+                    </p>
                     <p class="whitespace-pre-line">{{ $translations['contact.payment_options_text']['text'] }}</p>
                         {!! $translations['contact.opening_hours']['text'] !!}
                     </p>
@@ -54,23 +61,6 @@
     </section>
     <section class="section section--contact bg-gray-5">
         <div class="container lg:flex">
-            <div class="lg:w-1/2 flex-shrink-0">
-                <h2 class="text-subheading-xl mb-4">
-                    {{ $translations['Odpovede na najčastejšie otázky zákazníkov DOXBOX']['text'] }}
-                </h2>
-                <div class="mt-16">
-                    @foreach ($faqItems as $item)
-                        <h4 class="text-body-l text-gray-60 cursor-pointer inline-block accordion-trigger pb-2 @if (!$loop->first) mt-8 @endif" data-accordion-content-id="accordion-content-{{ $loop->index }}">
-                            {{ $item['question'] }}
-                        </h4>
-                        <div id="accordion-content-{{ $loop->index }}" class="accordion-content">
-                            <div class="accordion-content__inner pt-8">
-                                {!! $item['answer'] !!}
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
             <div class="lg:ml-[10%] mt-16 lg:mt-0">
                 <h2 class="text-subheading-xl">
                     {{ $translations['Firemné informácie']['text'] }}
