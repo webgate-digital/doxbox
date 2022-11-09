@@ -486,7 +486,7 @@ iframe {
         @apply top-0;
         @apply left-[-250px];
         @apply w-[250px];
-        @apply h-full;
+        height: 100vh;
         @apply invisible;
         @apply overflow-y-auto;
         @apply opacity-0;
@@ -496,6 +496,8 @@ iframe {
         @apply duration-300;
         @apply bg-gray-5;
         @apply z-20;
+        @apply flex;
+        @apply flex-col;
     }
 
     #filter-bar.is-open {
@@ -504,8 +506,27 @@ iframe {
         @apply opacity-100;
     }
 
-    #filter-bar>* {
+    #filter-bar form>* {
         @apply p-8;
+    }
+
+    #filter-form {
+        @apply flex;
+        @apply flex-col;
+        @apply h-full;
+        @apply gap-2
+    }
+
+    .filter-form-body {
+        @apply overflow-y-auto;
+        min-height: 0;
+    }
+
+    .filter-form-footer {
+        @apply mt-auto;
+        @apply pt-8;
+        @apply border-t;
+        @apply border-white;
     }
 }
 
