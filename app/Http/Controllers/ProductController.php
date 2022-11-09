@@ -22,46 +22,22 @@ class ProductController extends Controller
         $this->_setupRepository = $setupRepository;
     }
 
-    public function list(Filter $request)
+    private function handleList(Filter $request, $categorySlugsString = null)
     {
-        $categories = Cache::rememberForever('product_categories', function () {
-            return $this->_productRepository->categories(locale())['items'];
-        });
-
         $category = null;
-
-        $filterPrices = Cache::rememberForever('filter_prices', function () {
-            return $this->_productRepository->getFilterPrices(session()->get('currency'))['items'];
-        });
-
-        $products = Cache::rememberForever('products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices) {
-            $setup = Cache::rememberForever('setup', function () {
-                return $this->_setupRepository->list()['items'];
-            });
-            $sortAndOrder = $request->get('sort', $setup['api']['defaults']['sort']['products']);
-            $sort = implode('_', explode('_', $sortAndOrder, -1));
-            $order = Str::replaceFirst($sort . '_', '', $sortAndOrder);
-            $min_price = $request->get('min_price', $filterPrices['min_price']);
-            $max_price = $request->get('max_price', $filterPrices['max_price']);
-            $attributes = $request->get('attributes', []);
-            return $this->_productRepository->list(locale(), session()->get('currency'), 0, 0, $order, $sort, $min_price, $max_price, $attributes)['items'];
-        });
-
-        $attributes = Cache::rememberForever('product_attributes', function () {
-            return $this->_productRepository->attributes(locale())['items'];
-        });
-
-        return view('products.list', compact('products', 'categories', 'category', 'filterPrices', 'attributes'));
-    }
-
-    public function category(Filter $request, string $categories)
-    {
-        $categories = explode('/', $categories);
-        $categorySlug = end($categories);
-        try {
-            $category = $this->_productRepository->category(locale(), $categorySlug)['item'];
-        } catch (NotFoundException $e) {
-            abort(404);
+        $categorySlug = null;
+        $ogTitle = 'Produkty';
+        $ogDescription = '';
+        if ($categorySlugsString) {
+            try {
+                $categorySlugs = explode('/', $categorySlugsString);
+                $categorySlug = end($categorySlugs);
+                $category = $this->_productRepository->category(locale(), $categorySlug)['item'];
+                $ogTitle = $category['seo_title'] ?? $category['name'];
+                $ogDescription = $category['seo_description'] ?? $category['description'];
+            } catch (NotFoundException $e) {
+                abort(404);
+            }
         }
 
         $categories = Cache::rememberForever('product_categories', function () {
@@ -95,7 +71,8 @@ class ProductController extends Controller
             $min_price = $request->get('min_price', $filterPrices['min_price']);
             $max_price = $request->get('max_price', $filterPrices['max_price']);
             $attributes = $request->get('attributes', []);
-            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $category['slug']);
+            $categorySlug = $category ? $category['slug'] : null;
+            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug);
         });
 
         $availableAttributes = $productList['availableAttributes'];
@@ -105,7 +82,19 @@ class ProductController extends Controller
         $hasMoreProducts = count($products) < $total;
         $breadcrumbs = $this->getBreadcrumbs($category);
 
-        return $isAjax ? view('products.ajax.category', compact('products', 'category')) : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs'));
+        return $isAjax
+            ? view('products.ajax.category', compact('products', 'category'))
+            : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
+    }
+    
+    public function category(Filter $request, string $categorySlugs)
+    {
+        return $this->handleList($request, $categorySlugs);
+    }
+
+    public function list(Filter $request)
+    {
+        return $this->handleList($request);
     }
 
     public function detail(string $categories, string $slug)
@@ -179,15 +168,17 @@ class ProductController extends Controller
         });
 
         $breadcrumbs = [];
-        do {
-            $breadcrumbs[] = [
-                'url' => self::buildCategoryRoute($category['slug']),
-                'title' => $category['name'],
-            ];
-            $category = array_values(array_filter($categories, function ($item) use ($category) {
-                return $item['uuid'] == $category['parent_uuid'];
-            }))[0] ?? null;
-        } while ($category);
+        if ($category) {
+            do {
+                $breadcrumbs[] = [
+                    'url' => self::buildCategoryRoute($category['slug']),
+                    'title' => $category['name'],
+                ];
+                $category = array_values(array_filter($categories, function ($item) use ($category) {
+                    return $item['uuid'] == $category['parent_uuid'];
+                }))[0] ?? null;
+            } while ($category);
+        }
 
         $breadcrumbs[] = [
             'url' => route(locale() . '.product.list'),

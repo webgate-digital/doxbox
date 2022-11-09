@@ -1,6 +1,6 @@
 @extends('layout', [
-	'ogTitle' => $translations['sort.' . request()->get('sort', $setup['api']['defaults']['sort']['products'])]['text'] . ' ' . \Illuminate\Support\Str::lower($category['seo_title'] ?: $category['name']),
-	'ogDescription' => $category['seo_description'] ?? $category['description'],
+	'ogTitle' => $ogTitle,
+	'ogDescription' => $ogDescription,
 	'robots' => 'index,follow'
 ])
 
@@ -10,13 +10,23 @@
     <!-- end: Page title -->
     <section class="p-20 bg-gray-5">
         <div class="container">
-            <h1 class="text-heading-2xs @if(!$category['description']) !mb-0 @endif lg:mb-0">
-                {{ $category['name'] }}
-            </h1>
-            <p class="w-1/2 lg:mb-0">{{$category['description']}}</p>
+            @if(isset($category))
+                <h1 class="text-heading-2xs @if(!$category['description']) !mb-0 @endif lg:mb-0">
+                    {{ $category['name'] }}
+                </h1>
+            @else
+                <h1 class="text-heading-2xs lg:mb-0">
+                    Produkty
+                </h1>
+            @endif
+            <p class="w-1/2 lg:mb-0">
+                @if(isset($category))
+                    {{$category['description']}}
+                @endif
+            </p>
         </div>
 
-        @if($category['children'])
+        @if(isset($category) && $category['children'])
             @include('components.category_list')
         @endif
     </section>
@@ -33,7 +43,7 @@
                         {{$translations['filter.cta']['text']}}
                     </button>
 
-                    <a href="{{route(locale() . '.product.list')}}#list" class="mt-4 text-primary font-light text-center block">
+                    <a href="{{request()->route()->getActionName()}}#list" class="mt-4 text-primary font-light text-center block">
                         {{$translations['filter.cta_cancel']['text']}}
                     </a>
                 </div>

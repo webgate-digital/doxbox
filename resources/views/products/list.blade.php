@@ -17,13 +17,15 @@
     <!-- end: Page title -->
     <section class="p-20 bg-gray-5">
         <div class="container">
-            <h1 class="text-heading-2xs lg:mb-0">
-                {{$category['name']}}
-            </h1>
+            @if(isset($category))
+                <h1 class="text-heading-2xs lg:mb-0">
+                    {{$category['name']}}
+                </h1>
+            @endif
             <p class="w-1/2 lg:mb-0">{{$translations['products.intro']['text']}}</p>
         </div>
         
-        @if($category['children'])
+        @if($categories)
             @include('components.category_list')
         @endif
     </section>
