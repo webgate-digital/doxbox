@@ -32,7 +32,7 @@ class PageController extends Controller
         });
 
         $categories = Cache::remember('homepage_categories_list', HOUR, function () {
-            return $this->_productRepository->categories(locale(), 8)['items'];
+            return $this->_productRepository->categories(locale(), 12)['items'];
         });
 
         $brands = Cache::rememberForever('homepage_brands_list', function () {

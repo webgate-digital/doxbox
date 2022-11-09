@@ -38,7 +38,7 @@
                     {{$translations['categories.title']['text']}}
                 </h2>
                 <div class="category-container">
-                    @foreach($categories as $category)
+                    @foreach(array_slice($categories, 0, 12) as $category)
                         @include('components.category', ['item' => $category])
                     @endforeach
                 </div>
