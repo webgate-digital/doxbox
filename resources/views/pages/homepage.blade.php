@@ -2,6 +2,11 @@
 
 @section('content')
     <main>
+        @if($translations['notification.show']['text'] === 'true')
+            <a class="py-5 px-4 text-center w-full block text-white text-subheading-s" href="{{$translations['notification.link']['text']}}" style="background-color: {{ $translations['notification.color']['text'] }}">
+                {{$translations['notification.text']['text']}}
+            </a>
+        @endif
 
         <section class="big-banner" style="--bg-image: url({{asset('images/slide-1.png')}})">
             <div class="container">
