@@ -437,17 +437,17 @@
                                 </div>
                             @endif
                             <input type="hidden" name="toc" value="1">
-                            <div class="text-small border-t mt-8 pt-8 mb-4">
+                            <div class="flex gap-3 text-small border-t mt-8 pt-8 mb-4">
                                 <input type="hidden" name="newsletter" value="0">
-                                <input class="" id="newsletter"
+                                <input class="flex-shrink-0 !w-8 !h-8" id="newsletter"
                                        name="newsletter" type="checkbox" value="1"
                                        @if(old('newsletter', false)) checked="checked" @endif>
                                 <label class=""
                                        for="newsletter">{{$translations['cart.newsletter_accept']['text']}}</label>
                             </div>
-                            <div class="text-small mb-4">
+                            <div class="flex gap-3 text-small mb-4">
                                 <input type="hidden" name="heureka_allowed" value="1">
-                                <input class="" id="heureka_allowed"
+                                <input class="flex-shrink-0 !w-8 !h-8" id="heureka_allowed"
                                        name="heureka_allowed" type="checkbox" value="0"
                                        @if(!old('heureka_allowed', true)) checked="checked" @endif>
                                 <label class=""

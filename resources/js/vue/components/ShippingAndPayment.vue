@@ -112,10 +112,10 @@
                 <img src="/images/icons/sync_black_24dp.svg" class="animate-spin mx-auto">
             </div>
             <template v-else>
-                <div v-if="shippingType && paymentType && !paymentLoading">
-                    <input class="ml-4 mr-2" v-model="toc" type="checkbox" id="toc">
+                <div class="flex gap-1" v-if="shippingType && paymentType && !paymentLoading">
+                    <input class="flex-shrink-0 !w-8 !h-8 ml-4 mr-2" v-model="toc" type="checkbox" id="toc">
                     <label class="" :class="{'text-danger underline': tocError}" for="toc">
-                        <small>
+                        <small class="block">
                             {{ translations['cart.gdpr_accept_start'] }}
                             <a :href="tocLink" target="_blank"
                                class="text-secondary"><b>{{ translations['cart.gdpr_accept_toc'] }}</b></a>
