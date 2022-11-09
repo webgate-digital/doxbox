@@ -617,9 +617,13 @@ iframe {
     @apply bg-gray-10;
 }
 
-.category-box img {
-    @apply w-[72px];
+.category-box--image {
     @apply h-[72px];
+}
+
+.category-box--image img {
+    @apply w-[72px];
+    @apply h-full;
     @apply object-contain;
 }
 
