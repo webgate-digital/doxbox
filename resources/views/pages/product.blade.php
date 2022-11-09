@@ -51,7 +51,7 @@
 
     <section class="section">
         <div class="container">
-            <div class="flex flex-wrap -mx-4">
+            <div class="flex flex-wrap -mx-4 flex flex-col-reverse md:flex-row">
                 <div class="w-full lg:w-1/2 px-4 order-2 lg:order-1">
                     <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true" data-thumbmargin="8" data-ratio="1">
                         <a href="{{$item['item']['image_url']}}">
@@ -74,12 +74,12 @@
                     
                     <p class="product-detail--price">
                         
-                        <span @if($item['item']['retail_discount']) class="text-success leading-none" @endif>
+                        <span @if($item['item']['retail_discount']) class="text-success text-subheading-xl leading-none" @endif>
                             {{$item['item']['retail_price_discounted_formatted']}}
                         </span>
 
                         @if($item['item']['retail_discount'])
-                            <span class="product-detail--price-old leading-none">
+                            <span class="product-detail--price-old leading-none text-body-xl">
                                 {{$item['item']['retail_price_formatted']}}
                             </span>
                         @endif
@@ -137,8 +137,8 @@
                 <div class="product-detail--separator"></div>
                 <div class="mt-16 product-detail--tabs">
                     <h3 class="text-subheading-xl mb-10">{{$translations['product.related_products']['text']}}</h3>
-                    <div class="product-container">
-                        @foreach(array_slice($item['related']['items'], 0, 3) as $product)
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                        @foreach(array_slice($item['related']['items'], 0, 4) as $product)
                             @include('components.product', ['item' => $product])
                         @endforeach
                     </div>

@@ -827,14 +827,12 @@ iframe {
 /* product detail */
 
 .product-detail--price {
-    @apply font-bold;
     @apply mb-8;
     @apply flex;
     @apply items-center;
 }
 
 .product-detail--price-old {
-    @apply font-medium;
     @apply line-through;
     @apply mx-4;
 }
