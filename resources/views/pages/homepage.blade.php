@@ -8,7 +8,7 @@
                 <h1 class="text-heading-xl mb-10">
                     {{$translations['slider.sale']['text']}}
                 </h1>
-                <a href="https://frontstore.theshop.sk" class="button button--primary rounded-lg button--inline">
+                <a href="{{route(locale() . '.product.list')}}" class="button button--primary rounded-lg button--inline">
                     {{$translations['slider.go_to_shop']['text']}}
                 </a>
             </div>
@@ -48,7 +48,7 @@
         <section class="section">
             <div class="container">
                 <h2 class="text-heading-2xs md:mb-20 mb-6">
-                    Značky {{--  TODO: translate --}}
+                    {{$translations['brands.title']['text']}}
                 </h2>
                 <div class="category-container">
                     @foreach($brands as $brand)
@@ -60,65 +60,77 @@
 
         <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(/images/promo-1.png)">
             <div>
-                <h2 class="text-heading-xs leading-none">Headline</h2>
+                <h2 class="text-heading-xs leading-none">
+                    {!!$translations['homepage.product.1.title']['text']!!}
+                </h2>
                 <p class="text-body-xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {!!$translations['homepage.product.1.description']['text']!!}
                 </p>
-                <a href="#" class="button button--primary button--inline rounded-lg">
-                    Lorem ipsum
+                <a href="{{$translations['homepage.product.1.link']['text']}}" class="button button--primary button--inline rounded-lg">
+                    {!!$translations['homepage.product.1.cta']['text']!!}
                 </a>
             </div>
         </div>
         
         <div class="promo-section">
             <div class="bg-gray-5" style="--bg-image: url(/images/promo-2.png)">
-                <h2 class="text-heading-xs leading-none">Headline</h2>
+                <h2 class="text-heading-xs leading-none">
+                    {!!$translations['homepage.product.2.title']['text']!!}
+                </h2>
                 <p class="text-body-xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {!!$translations['homepage.product.2.description']['text']!!}
                 </p>
-                <a href="#" class="button button--primary button--inline rounded-lg">
-                    Lorem ipsum
+                <a href="{{$translations['homepage.product.2.link']['text']}}" class="button button--primary button--inline rounded-lg">
+                    {!!$translations['homepage.product.2.cta']['text']!!}
                 </a>
             </div>
             <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-3.png)">
-                <h2 class="text-heading-xs leading-none">Headline</h2>
+                <h2 class="text-heading-xs leading-none">
+                    {!!$translations['homepage.product.3.title']['text']!!}
+                </h2>
                 <p class="text-body-xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {!!$translations['homepage.product.3.description']['text']!!}
                 </p>
-                <a href="#" class="button button--primary button--inline rounded-lg">
-                    Lorem ipsum
+                <a href="{{$translations['homepage.product.3.link']['text']}}" class="button button--primary button--inline rounded-lg">
+                    {!!$translations['homepage.product.3.cta']['text']!!}
                 </a>
             </div>
             
             <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-4.png)">
-                <h2 class="text-heading-xs leading-none">Headline</h2>
+                <h2 class="text-heading-xs leading-none">
+                    {!!$translations['homepage.product.4.title']['text']!!}
+                </h2>
                 <p class="text-body-xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {!!$translations['homepage.product.4.description']['text']!!}
                 </p>
-                <a href="#" class="button button--primary button--inline rounded-lg">
-                    Lorem ipsum
+                <a href="{{$translations['homepage.product.4.link']['text']}}" class="button button--primary button--inline rounded-lg">
+                    {!!$translations['homepage.product.4.cta']['text']!!}
                 </a>
             </div>
 
             <div class="bg-gray-5" style="--bg-image: url(/images/promo-5.png)">
-                <h2 class="text-heading-xs leading-none">Headline</h2>
+                <h2 class="text-heading-xs leading-none">
+                    {!!$translations['homepage.product.5.title']['text']!!}
+                </h2>
                 <p class="text-body-xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {!!$translations['homepage.product.5.description']['text']!!}
                 </p>
-                <a href="#" class="button button--primary button--inline rounded-lg">
-                    Lorem ipsum
+                <a href="{{$translations['homepage.product.5.link']['text']}}" class="button button--primary button--inline rounded-lg">
+                    {!!$translations['homepage.product.5.cta']['text']!!}
                 </a>
             </div>
         </div>
 
         <div class="promo-section promo-section--big bg-secondary text-white mb-32">
             <div>
-                <h2 class="text-heading-xs leading-none">Headline</h2>
+                <h2 class="text-heading-xs leading-none">
+                    {!!$translations['homepage.product.6.title']['text']!!}
+                </h2>
                 <p class="text-body-xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {!!$translations['homepage.product.6.description']['text']!!}
                 </p>
-                <a href="#" class="button button--primary button--inline rounded-lg">
-                    Lorem ipsum
+                <a href="{{$translations['homepage.product.6.link']['text']}}" class="button button--primary button--inline rounded-lg">
+                    {!!$translations['homepage.product.6.cta']['text']!!}
                 </a>
             </div>
         </div>
