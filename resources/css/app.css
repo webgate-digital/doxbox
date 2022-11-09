@@ -567,6 +567,7 @@ iframe {
     @apply py-32;
     object-fit: cover;
     background-image: var(--bg-image);
+    @apply text-white;
 
     aspect-ratio: 16 / 9;
 }
