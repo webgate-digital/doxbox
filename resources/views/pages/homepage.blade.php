@@ -11,10 +11,10 @@
         <section class="big-banner" style="--bg-image: url({{asset('images/slide-1.png')}})">
             <div class="container">
                 <h1 class="text-heading-xl mb-10">
-                    {{$translations['slider.sale']['text']}}
+                    {!! $translations['slider.sale']['text'] !!}
                 </h1>
                 <a href="{{route(locale() . '.product.list')}}" class="button button--primary rounded-lg button--inline">
-                    {{$translations['slider.go_to_shop']['text']}}
+                    {!! $translations['slider.go_to_shop']['text'] !!}
                 </a>
             </div>
         </section>
