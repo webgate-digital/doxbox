@@ -99,6 +99,9 @@ export default {
             return this.cart.getCount();
         }
     },
+    mounted() {
+        this.cart.update();
+    },
     methods: {
         async addToCart(item) {
             this.countError = null;

@@ -11,13 +11,15 @@
                             :key="variantValueName">
                             <div v-if="variantName === 'Farba'"
                                 :data-tippy-content="`${variantName}: ${variantValueName}`"
+                                :class="{ disabled: isVariantDisabled(variantName, variantValueName) }"
                                 class="border rounded-full h-16 w-16 cursor-pointer" :style="{
                                     backgroundColor: getHexColorByColorName(variantValueName),
-                                    opacity: variantSelection[variantName] === variantValueName ? 1 : 0.5
+                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.5
                                 }" @click="setVariant(variantName, variantValueName)"></div>
                             <div v-else :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                class="border opacity-50 hover:opacity-100 py-3 px-6 rounded-lg cursor-pointer" :style="{
-                                    opacity: variantSelection[variantName] === variantValueName ? 1 : 0.5
+                                class="border opacity-50 hover:opacity-100 py-3 px-6 rounded-lg cursor-pointer"
+                                :class="{ disabled: isVariantDisabled(variantName, variantValueName) }" :style="{
+                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.5
                                 }" @click="setVariant(variantName, variantValueName)">
                                 {{ variantValueName }}
                             </div>
@@ -39,7 +41,7 @@
                 +
             </button>
             <button class="button button--primary rounded-xl ml-16 !w-auto !px-16 flex-grow md:flex-grow-0"
-                @click="addToCart()">
+                :class="{ disabled: isAddToCartDisabled }" @click="addToCart()">
                 <template v-if="!loading && !error">
                     {{ translations['Do košíka'] }}
                 </template>
@@ -65,7 +67,8 @@ export default {
     props: {
         uuid: String,
         variants_tree: Object,
-        translations: Object
+        translations: Object,
+        variants: Array,
     },
     data: () => {
         return {
@@ -88,7 +91,7 @@ export default {
                 return this.uuid;
             }
 
-            let variantTemp = {...this.variants_tree};
+            let variantTemp = { ...this.variants_tree };
             Object.entries(this.variantSelection).forEach(([variantName, variantValueName]) => {
                 if (variantValueName) {
                     variantTemp = variantTemp[variantName][variantValueName];
@@ -96,19 +99,57 @@ export default {
             });
 
             return variantTemp.uuid || this.uuid;
+        },
+        isAddToCartDisabled() {
+            const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
+            return numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length;
         }
     },
     methods: {
+        isVariantDisabled(variantName, variantValueName) {
+
+            // If this is a variant that is already selected, it is not disabled
+            if (this.variantSelection[variantName] === variantValueName) {
+                return false;
+            }
+
+            // If all variants are selected, it is disabled
+            if (Object.values(this.variantSelection).every(value => value !== null)) {
+                return true;
+            }
+
+            // If this is a variant of the same type as the selected variant, it is not disabled
+            if (this.variantSelection[variantName] !== null) {
+                return false;
+            }
+
+            let variantTemp = { ...this.variants_tree };
+            Object.entries(this.variantSelection).forEach(([variantName, variantValueName]) => {
+                if (variantValueName) {
+                    variantTemp = variantTemp[variantName][variantValueName];
+                }
+            });
+
+            const uuid = variantTemp[variantName][variantValueName].uuid;
+            const product = this.variants.find(variant => variant.uuid === uuid);
+
+            return product?.count === 0 || product?.is_available_for_order == 0;
+        },
+        cartesianProduct(...a) {
+            return a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+        },
         addQuantity() {
             this.quantity++;
         },
-
         removeQuantity() {
             if (this.quantity > 1) {
                 this.quantity--;
             }
         },
         async addToCart() {
+            if (this.isAddToCartDisabled) {
+                return;
+            }
             if (!this.loading) {
                 this.loading = true;
                 this.error = false;
@@ -147,14 +188,25 @@ export default {
             return map[colorName] ?? null;
         },
         setVariant(variantName, variantValueName) {
-            let newVariantSelection = {...this.variantSelection};
+            if (this.isVariantDisabled(variantName, variantValueName)) {
+                return;
+            }
+
+            let newVariantSelection = { ...this.variantSelection };
 
             newVariantSelection[variantName] = this.variantSelection[variantName] === variantValueName
-            ? null
-            : newVariantSelection[variantName] = variantValueName;
+                ? null
+                : newVariantSelection[variantName] = variantValueName;
 
             this.variantSelection = newVariantSelection;
         }
     }
 }
 </script>
+
+<style scoped>
+.disabled {
+    opacity: 0.1 !important;
+    cursor: not-allowed;
+}
+</style>
