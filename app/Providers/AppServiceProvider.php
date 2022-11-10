@@ -69,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
                 $_productRepository = new ProductRepository();
                 return $_productRepository->categories(locale(), 0, 0, 'desc', 'score')['items'];
             });
+
             $headerNavigationItems = array_filter($categories, function($item) {
                 return $item['has_parent'] === false && $item['score'] >= 100;
             });
