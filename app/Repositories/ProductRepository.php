@@ -20,22 +20,25 @@ class ProductRepository
     private const CATEGORY_URL = '/product-categories/detail';
     private const ATTRIBUTES_URL = '/product-attributes';
     protected $client;
-    protected $headers;
+
+    private function headers()
+    {
+        return [
+            'Accept' => 'application/json',
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
+        ];
+    }
 
     public function __construct()
     {
         $this->client = new Client(['http_errors' => false]);
-        $this->headers = [
-            'Accept' => 'application/json',
-            'Catalog' => config('frontstore.catalog'),
-            'Token' => config('frontstore.api_key')
-        ];
     }
 
     public function list(string $locale, string $currency, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'score', int $min_price = 0, int $max_price = PHP_INT_MAX, array $attributes = [], string $category = null): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'limit' => $limit,
                 'offset' => $offset,
@@ -56,7 +59,7 @@ class ProductRepository
     public function search(string $locale, string $currency, string $keyword): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SEARCH_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -70,7 +73,7 @@ class ProductRepository
     public function categories(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'score'): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::CATEGORIES_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'limit' => $limit,
                 'offset' => $offset,
@@ -86,7 +89,7 @@ class ProductRepository
     public function attributes(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'created_at'): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::ATTRIBUTES_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'limit' => $limit,
                 'offset' => $offset,
@@ -102,7 +105,7 @@ class ProductRepository
     public function brands(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'name'): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::BRANDS_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'limit' => $limit,
                 'offset' => $offset,
@@ -117,7 +120,7 @@ class ProductRepository
     public function detail(string $locale, string $currency, string $slug): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::DETAIL_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -131,7 +134,7 @@ class ProductRepository
     public function category(string $locale, string $slug): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::CATEGORY_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'slug' => $slug
@@ -144,7 +147,7 @@ class ProductRepository
     public function getFilterPrices(string $currency): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::FILTER_PRICES_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'currency' => $currency,
             ]
@@ -156,7 +159,7 @@ class ProductRepository
     public function availability(string $locale, string $currency, string $uuid): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::AVAILABILITY_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -170,7 +173,7 @@ class ProductRepository
     public function upsell(string $locale, string $currency, array $cart): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::UPSELL_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,

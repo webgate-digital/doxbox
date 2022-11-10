@@ -11,16 +11,21 @@ class TranslationRepository
     private const DEFAULT_URL = '/language-lines';
     private const VALIDATION_URL = '/language-lines/validation';
 
+    private function headers()
+    {
+        return [
+            'Accept' => 'application/json',
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
+        ];
+    }
+
     public function validation(string $locale): array
     {
         $client = new Client(['http_errors' => false]);
 
         $response = $client->get(config('frontstore.api_endpoint') . self::VALIDATION_URL, [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Catalog' => config('frontstore.catalog'),
-                'Token' => config('frontstore.api_key')
-            ],
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'type' => 'default'
@@ -45,11 +50,7 @@ class TranslationRepository
         $client = new Client(['http_errors' => false]);
 
         $response = $client->get(config('frontstore.api_endpoint') . self::DEFAULT_URL, [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Catalog' => config('frontstore.catalog'),
-                'Token' => config('frontstore.api_key')
-            ],
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'type' => 'default'

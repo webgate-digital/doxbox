@@ -40,19 +40,19 @@ class ProductController extends Controller
             }
         }
 
-        $categories = Cache::rememberForever('product_categories', function () {
+        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
             return $this->_productRepository->categories(locale())['items'];
         });
 
-        $filterPrices = Cache::rememberForever('filter_prices', function () {
+        $filterPrices = Cache::rememberForever(locale() . '_filter_prices', function () {
             return $this->_productRepository->getFilterPrices(session()->get('currency'))['items'];
         });
 
-        $attributes = Cache::rememberForever('product_attributes', function () {
+        $attributes = Cache::rememberForever(locale() . '_product_attributes', function () {
             return $this->_productRepository->attributes(locale())['items'];
         });
 
-        $translations = Cache::rememberForever('translations_web', function () {
+        $translations = Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];
         });
@@ -61,8 +61,8 @@ class ProductController extends Controller
         $limit = config('frontstore.defaults.limit.products');
         $page = $isAjax ? $request->get('page', 1) : 0;
         $offset = $isAjax ? ($page - 1) * $limit : 0;
-        $productList = Cache::rememberForever('products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices, $category, $limit, $offset) {
-            $setup = Cache::rememberForever('setup', function () {
+        $productList = Cache::rememberForever(locale() . '_products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices, $category, $limit, $offset) {
+            $setup = Cache::rememberForever(locale() . '_setup', function () {
                 return $this->_setupRepository->list()['items'];
             });
             $sortAndOrder = $request->get('sort', $setup['api']['defaults']['sort']['products']);
@@ -119,7 +119,7 @@ class ProductController extends Controller
 
         $keyword = $request->get('kw');
 
-        $products = Cache::rememberForever('products_search_' . $keyword, function () use ($keyword) {
+        $products = Cache::rememberForever(locale() . '_products_search_' . $keyword, function () use ($keyword) {
             return $this->_productRepository->search(locale(), session()->get('currency'), $keyword)['items'];
         });
 
@@ -128,7 +128,7 @@ class ProductController extends Controller
 
     public static function getCategoriesChainString($categorySlug): string
     {
-        $categories = Cache::rememberForever('product_categories', function () {
+        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
             $_productRepository = new ProductRepository();
             return $_productRepository->categories(locale())['items'];
         });
@@ -147,7 +147,7 @@ class ProductController extends Controller
 
     public static function getCategoryBySlug(string $categorySlug)
     {
-        $categories = Cache::rememberForever('product_categories', function () {
+        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
             $_productRepository = new ProductRepository();
             return $_productRepository->categories(locale())['items'];
         });
@@ -157,12 +157,12 @@ class ProductController extends Controller
     }
 
     public function getBreadcrumbs($category) {
-        $categories = Cache::rememberForever('product_categories', function () {
+        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
             $_productRepository = new ProductRepository();
             return $_productRepository->categories(locale())['items'];
         });
         
-        $translations = Cache::rememberForever('translations_web', function () {
+        $translations = Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];
         });

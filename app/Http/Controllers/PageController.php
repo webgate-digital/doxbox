@@ -27,15 +27,16 @@ class PageController extends Controller
 
     public function homepage()
     {
-        $products = Cache::remember('homepage_products_list', HOUR, function () {
+        $products = Cache::remember(locale() . '_homepage_products_list', HOUR, function () {
+            
             return $this->_productRepository->list(locale(), session()->get('currency'), 8)['items'];
         });
 
-        $categories = Cache::remember('homepage_categories_list', HOUR, function () {
+        $categories = Cache::remember(locale() . '_homepage_categories_list', HOUR, function () {
             return $this->_productRepository->categories(locale(), 12)['items'];
         });
 
-        $brands = Cache::rememberForever('homepage_brands_list', function () {
+        $brands = Cache::rememberForever(locale() . '_homepage_brands_list', function () {
             return $this->_productRepository->brands(locale(), 8)['items'];
         });
 
@@ -44,7 +45,7 @@ class PageController extends Controller
 
     public function page(string $slug)
     {
-        $item = Cache::rememberForever('page_' . $slug, function () use ($slug) {
+        $item = Cache::rememberForever(locale() . '_page_' . $slug, function () use ($slug) {
             try {
                 return $this->_pageRepository->detail(locale(), session()->get('currency'), $slug)['item'];
             } catch (NotFoundException | ValidationException $e) {
@@ -57,7 +58,7 @@ class PageController extends Controller
 
     public function blog()
     {
-        $supplier = Cache::rememberForever('blog_articles', function () {
+        $supplier = Cache::rememberForever(locale() . '_blog_articles', function () {
             $_settingRepository = new SettingRepository();
             return $_settingRepository->supplier()['items'];
         });
@@ -67,12 +68,12 @@ class PageController extends Controller
 
     public function contact()
     {
-        $supplier = Cache::rememberForever('supplier_settings', function () {
+        $supplier = Cache::rememberForever(locale() . '_supplier_settings', function () {
             $_settingRepository = new SettingRepository();
             return $_settingRepository->supplier()['items'];
         });
 
-        $translations = Cache::rememberForever('translations_web', function () {
+        $translations = Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];
         });

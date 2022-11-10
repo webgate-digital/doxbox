@@ -24,22 +24,25 @@ class SetupRepository
     private const MALL_AVAILABILITY_XML = '/xml/mall-availability';
     private const SITEMAP_URL = '/sitemap';
     private $client;
-    private $headers;
+
+    private function headers()
+    {
+        return [
+            'Accept' => 'application/json',
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
+        ];
+    }
 
     public function __construct()
     {
         $this->client = new Client(['http_errors' => false]);
-        $this->headers = [
-            'Accept' => 'application/json',
-            'Catalog' => config('frontstore.catalog'),
-            'Token' => config('frontstore.api_key')
-        ];
     }
 
     public function list(): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
-            'headers' => $this->headers
+            'headers' => $this->headers()
         ]);
 
         return $this->response($response);
@@ -48,7 +51,7 @@ class SetupRepository
     public function voucherAvailability(string $voucher, string $currency): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::VOUCHER_AVAILABILITY, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'voucher' => $voucher,
                 'currency' => $currency
@@ -61,7 +64,7 @@ class SetupRepository
     public function contactSubmit(string $fullname, string $email, string $message): array
     {
         $response = $this->client->post(config('frontstore.api_endpoint') . self::CONTACT_SUBMIT, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'fullname' => $fullname,
                 'email' => $email,
@@ -75,7 +78,7 @@ class SetupRepository
     public function formatPrice(float $price, string $currency): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::FORMAT_PRICE, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'price' => $price,
                 'currency' => $currency
@@ -88,7 +91,7 @@ class SetupRepository
     public function getShippingCountries(string $locale, string $currency): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SHIPPING_COUNTRIES_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency
@@ -101,7 +104,7 @@ class SetupRepository
     public function getShippingTypes(string $locale, string $currency, string $country): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SHIPPING_TYPES_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -115,7 +118,7 @@ class SetupRepository
     public function getPayments(string $locale, string $currency, string $country): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::PAYMENTS, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -129,7 +132,7 @@ class SetupRepository
     public function facebookXML(string $locale, string $currency, string $productUrl)
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::FACEBOOK_XML, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -148,7 +151,7 @@ class SetupRepository
     public function googleXML(string $locale, string $currency, string $productUrl)
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::GOOGLE_XML, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -167,7 +170,7 @@ class SetupRepository
     public function heurekaXML(string $locale, string $currency, string $productUrl)
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::HEUREKA_XML, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -186,7 +189,7 @@ class SetupRepository
     public function mallXML(string $locale, string $currency)
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::MALL_XML, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency
@@ -204,7 +207,7 @@ class SetupRepository
     public function mallAvailabilityXML(string $locale, string $currency)
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::MALL_AVAILABILITY_XML, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency
@@ -222,7 +225,7 @@ class SetupRepository
     public function sitemap(string $locale, string $homepage_url, string $blog_url, string $products_url, string $contact_url, string $product_url, string $category_url, string $article_url, string $article_category_url)
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SITEMAP_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'homepage_url' => $homepage_url,
@@ -247,7 +250,7 @@ class SetupRepository
     public function getPaymentTypes(string $locale, string $currency, string $country, string $shipping): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::PAYMENT_TYPES_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,

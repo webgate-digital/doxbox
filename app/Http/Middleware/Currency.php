@@ -24,14 +24,10 @@ class Currency
      */
     public function handle($request, Closure $next)
     {
-        $currencyInSession = session()->get('currency', null);
-
-        if (!$currencyInSession) {
-            $setup = Cache::rememberForever('setup', function () {
-                return $this->_setupRepository->list()['items'];
-            });
-            session()->put('currency', $setup['catalog']['currencies'][0]);
-        }
+        $setup = Cache::rememberForever(locale() . '_setup', function () {
+            return $this->_setupRepository->list()['items'];
+        });
+        $request->session()->put('currency', $setup['catalog']['currencies'][0]);
 
         return $next($request);
     }

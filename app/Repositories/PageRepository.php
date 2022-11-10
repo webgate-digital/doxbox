@@ -12,16 +12,21 @@ class PageRepository
     private const LIST_URL = '/pages';
     private const LIST_DETAIL = '/pages/detail';
 
+    private function headers()
+    {
+        return [
+            'Accept' => 'application/json',
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
+        ];
+    }
+
     public function list(string $locale, string $currency, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'score', bool $header = false, bool $footer = false, bool $toc = false, bool $gdpr = false): array
     {
         $client = new Client(['http_errors' => false]);
 
         $response = $client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Catalog' => config('frontstore.catalog'),
-                'Token' => config('frontstore.api_key')
-            ],
+            'headers' => $this->headers(),
             'query' => [
                 'limit' => $limit,
                 'offset' => $offset,
@@ -54,11 +59,7 @@ class PageRepository
         $client = new Client(['http_errors' => false]);
 
         $response = $client->get(config('frontstore.api_endpoint') . self::LIST_DETAIL, [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Catalog' => config('frontstore.catalog'),
-                'Token' => config('frontstore.api_key')
-            ],
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,

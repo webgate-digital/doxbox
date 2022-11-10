@@ -28,7 +28,7 @@ class ShippingCountry
 
         if (!$shippingCountryInSession) {
 
-            $items = Cache::rememberForever('shipping_countries', function () {
+            $items = Cache::rememberForever(locale() . '_shipping_countries', function () {
                 return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
             });
 

@@ -42,7 +42,7 @@ class CartController extends Controller
     public function index()
     {
         $voucher = session()->get('voucher', null);
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
         $shippingCountry = $shippingCountries[session()->get('shipping_country')];
@@ -67,7 +67,7 @@ class CartController extends Controller
     {
         $this->removeVoucher(false);
 
-        $translations = \Cache::rememberForever('translations_web', function () {
+        $translations = \Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];
         });
@@ -87,7 +87,7 @@ class CartController extends Controller
     {
         session()->forget('voucher');
 
-        $translations = \Cache::rememberForever('translations_web', function () {
+        $translations = \Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];
         });
@@ -99,7 +99,7 @@ class CartController extends Controller
 
     public function initShipping()
     {
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
 
@@ -111,7 +111,7 @@ class CartController extends Controller
             $paymentTypes = $this->_setupRepository->getPaymentTypes(locale(), session()->get('currency'), session()->get('shipping_country'), session()->get('shipping_type'))['items'];
         }
 
-        $packetaSettings = Cache::rememberForever('packeta_settings', function () {
+        $packetaSettings = Cache::rememberForever(locale() . '_packeta_settings', function () {
             $_settingRepository = new SettingRepository();
             return $_settingRepository->packeta()['items'];
         });
@@ -132,7 +132,7 @@ class CartController extends Controller
 
     public function shippingAndPayment()
     {
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
 
@@ -145,7 +145,7 @@ class CartController extends Controller
 
     public function selectShippingCountry(Request $request)
     {
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
 
@@ -228,7 +228,7 @@ class CartController extends Controller
     public function checkout()
     {
         $voucher = session()->get('voucher', null);
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
         $shippingCountry = $shippingCountries[session()->get('shipping_country')];
@@ -238,7 +238,7 @@ class CartController extends Controller
         $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName]);
         $user = null;
 
-        $checkoutSupportPage = Cache::rememberForever('page_' . 'prispevky-pre-utulky', function () {
+        $checkoutSupportPage = Cache::rememberForever(locale() . '_page_' . 'prispevky-pre-utulky', function () {
             try {
                 return $this->_pageRepository->detail(locale(), session()->get('currency'), 'prispevky-pre-utulky')['item'];
             } catch (NotFoundException $e) {
@@ -254,7 +254,7 @@ class CartController extends Controller
     public function order(Checkout $request)
     {
         $voucher = session()->get('voucher', null);
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
         $shippingCountry = $shippingCountries[session()->get('shipping_country')];
@@ -311,7 +311,7 @@ class CartController extends Controller
     public function update()
     {
         $voucher = session()->get('voucher', null);
-        $shippingCountries = Cache::rememberForever('shipping_countries', function () {
+        $shippingCountries = Cache::rememberForever(locale() . '_shipping_countries', function () {
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
         $shippingCountry = $shippingCountries[session()->get('shipping_country')];

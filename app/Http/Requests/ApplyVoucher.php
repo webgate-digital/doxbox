@@ -32,7 +32,7 @@ class ApplyVoucher extends FormRequest
 
     public function messages()
     {
-        $translations = Cache::rememberForever('translations_validation', function () {
+        $translations = Cache::rememberForever(locale() . '_translations_validation', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->validation(locale())['items'];
         });

@@ -13,22 +13,25 @@ class CartRepository
     private const CHECKOUT_URL = '/checkout';
     private const VALIDATE_CARDPAY = '/validate-cardpay';
     protected $client;
-    protected $headers;
+
+    private function headers()
+    {
+        return [
+            'Accept' => 'application/json',
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
+        ];
+    }
 
     public function __construct()
     {
         $this->client = new Client(['http_errors' => false]);
-        $this->headers = [
-            'Accept' => 'application/json',
-            'Catalog' => config('frontstore.catalog'),
-            'Token' => config('frontstore.api_key')
-        ];
     }
 
     public function list(string $locale, string $currency, array $cart, array $multipack, string $voucher = null, string $shippingCountry = null, string $shipping = null, string $payment = null, array $checkoutSupport = []): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,

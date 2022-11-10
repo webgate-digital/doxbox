@@ -14,22 +14,25 @@ class BlogArticleRepository
     protected const DETAIL_URL = '/blog/detail';
     protected const CATEGORY_URL = '/blog/category';
     protected $client;
-    protected $headers;
 
     public function __construct()
     {
         $this->client = new Client(['http_errors' => false]);
-        $this->headers = [
+    }
+
+    private function headers()
+    {
+        return [
             'Accept' => 'application/json',
-            'Catalog' => config('frontstore.catalog'),
-            'Token' => config('frontstore.api_key')
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
         ];
     }
 
     public function list(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'score'): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'currency' => session()->get('currency'),
                 'limit' => $limit,
@@ -46,7 +49,7 @@ class BlogArticleRepository
     public function category(string $locale, string $currency, string $slug): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::CATEGORY_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
@@ -60,7 +63,7 @@ class BlogArticleRepository
     public function detail(string $locale, string $currency, string $slug): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::DETAIL_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,

@@ -15,22 +15,25 @@ class SettingRepository
     private const DOCUMENTS_URL = '/settings/documents';
     private const GTM_URL = '/settings/gtm';
     private $client;
-    private $headers;
+
+    private function headers()
+    {
+        return [
+            'Accept' => 'application/json',
+            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
+            'Token' => config('frontstore.api_key')[locale()]
+        ];
+    }
 
     public function __construct()
     {
         $this->client = new Client(['http_errors' => false]);
-        $this->headers = [
-            'Accept' => 'application/json',
-            'Catalog' => config('frontstore.catalog'),
-            'Token' => config('frontstore.api_key')
-        ];
     }
 
     public function catalog(): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::CATALOG_URL, [
-            'headers' => $this->headers
+            'headers' => $this->headers()
         ]);
 
         return $this->response($response);
@@ -39,7 +42,7 @@ class SettingRepository
     public function documents(): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::DOCUMENTS_URL, [
-            'headers' => $this->headers
+            'headers' => $this->headers()
         ]);
 
         return $this->response($response);
@@ -48,7 +51,7 @@ class SettingRepository
     public function supplier(): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SUPPLIER_URL, [
-            'headers' => $this->headers
+            'headers' => $this->headers()
         ]);
 
         return $this->response($response);
@@ -57,7 +60,7 @@ class SettingRepository
     public function gtm(): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::GTM_URL, [
-            'headers' => $this->headers
+            'headers' => $this->headers()
         ]);
 
         return $this->response($response);
@@ -66,7 +69,7 @@ class SettingRepository
     public function packeta(): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::PACKETA_URL, [
-            'headers' => $this->headers
+            'headers' => $this->headers()
         ]);
 
         return $this->response($response);

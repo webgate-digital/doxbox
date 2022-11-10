@@ -35,37 +35,37 @@ class AppServiceProvider extends ServiceProvider
         }
 
         view()->composer('*', function ($view) {
-            $catalogSettings = Cache::rememberForever('catalog_settings', function () {
+            $catalogSettings = Cache::rememberForever(locale() . '_catalog_settings', function () {
                 $_settingRepository = new SettingRepository();
                 return $_settingRepository->catalog()['items'];
             });
 
-            $documentSettings = Cache::rememberForever('document_settings', function () {
+            $documentSettings = Cache::rememberForever(locale() . '_document_settings', function () {
                 $_settingRepository = new SettingRepository();
                 return $_settingRepository->documents()['items'];
             });
 
-            $supplierSettings = Cache::rememberForever('supplier_settings', function () {
+            $supplierSettings = Cache::rememberForever(locale() . '_supplier_settings', function () {
                 $_settingRepository = new SettingRepository();
                 return $_settingRepository->supplier()['items'];
             });
 
-            $translations = Cache::rememberForever('translations_web', function () {
+            $translations = Cache::rememberForever(locale() . '_translations_web', function () {
                 $_translationRepository = new TranslationRepository();
                 return $_translationRepository->default(locale())['items'];
             });
 
-            $headerPages = Cache::rememberForever('pages_header', function () {
+            $headerPages = Cache::rememberForever(locale() . '_pages_header', function () {
                 $_pageRepository = new PageRepository();
                 return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', true, false, false, false)['items'];
             });
 
-            $footerPages = Cache::rememberForever('pages_footer', function () {
+            $footerPages = Cache::rememberForever(locale() . '_pages_footer', function () {
                 $_pageRepository = new PageRepository();
                 return $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', false, true, false, false)['items'];
             });
 
-            $categories = Cache::rememberForever('header_navigation_items', function () {
+            $categories = Cache::rememberForever(locale() . '_header_navigation_items', function () {
                 $_productRepository = new ProductRepository();
                 return $_productRepository->categories(locale(), 0, 0, 'desc', 'score')['items'];
             });
@@ -80,12 +80,12 @@ class AppServiceProvider extends ServiceProvider
                 return $category;
             }, $categories);
 
-            $setup = Cache::rememberForever('setup', function () {
+            $setup = Cache::rememberForever(locale() . '_setup', function () {
                 $_setupRepository = new SetupRepository();
                 return $_setupRepository->list()['items'];
             });
 
-            $gdprPage = Cache::rememberForever('gdpr_page', function () {
+            $gdprPage = Cache::rememberForever(locale() . '_gdpr_page', function () {
                 $_pageRepository = new PageRepository();
                 $list = $_pageRepository->list(locale(), session()->get('currency'), 0, 0, 'desc', 'score', false, false, false, true)['items'];
                 if (isset($list[0])) {
