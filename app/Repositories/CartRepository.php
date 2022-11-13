@@ -92,7 +92,7 @@ class CartRepository
         ];
 
         $response = $this->client->post(config('frontstore.api_endpoint') . self::CHECKOUT_URL, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'form_params' => $query
         ]);
 
@@ -104,7 +104,7 @@ class CartRepository
         $data['currency'] = $currency;
 
         $response = $this->client->get(config('frontstore.api_endpoint') . self::VALIDATE_CARDPAY, [
-            'headers' => $this->headers,
+            'headers' => $this->headers(),
             'query' => $data
         ]);
 
