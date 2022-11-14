@@ -256,9 +256,9 @@
                         <div class="w-full lg:w-1/4 mt-8 lg:mt-0">
                             <h3 class="text-subheading-l">{{ $translations['footer.info.title']['text'] }}</h3>
                             <p class="my-4 lg:my-10">
-                                {{ $supplierSettings['name']['value'] }}<br>
-                                {{ $supplierSettings['address']['value'] }}<br>
-                                {{ $supplierSettings['zip']['value'] }}, {{ $supplierSettings['city']['value'] }}<br>
+                                Kazanská 20<br>
+                                Podunajské Biskupice<br>
+                                82106, Bratislava<br>
                                 <a class='text-primary'
                                     href="{{ $translations['footer.info.google_maps.url']['text'] }}"
                                     target="_blank">
