@@ -106,15 +106,15 @@ class PageController extends Controller
     public function thankYou(Request $request)
     {
         $order = session()->get('order', null);
+        $order['packeta-selector-branch-name'] = session()->get('packeta-selector-branch-name');
 
         if (!$order) {
             abort(404);
         }
 
         session()->forget('order');
+        session()->forget('packeta-selector-branch-name');
         $params = $request->all();
-
-        Log::info('Order data: ' . json_encode($order));
 
         return view('pages.thank_you', compact('order', 'params'));
     }

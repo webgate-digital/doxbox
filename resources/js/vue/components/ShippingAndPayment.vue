@@ -218,19 +218,16 @@ export default {
         },
         async selectShipping(event, uuid) {
             event.preventDefault();
-            if (!uuid.includes('PACKETA') && !uuid.includes('ULOZENKA')) {
-                await this.changeShipping(uuid);
+            if (uuid.includes('ULOZENKA')) {
+                this.showUlozenka()
+            } else if (uuid.includes('PACKETA')) {
+                this.shippingType = uuid;
+                Packeta.Widget.pick(this.packetaApiKey, this.showSelectedPickupPoint, {
+                    country: this.shippingCountry.toLowerCase(),
+                    language: this.locale
+                })
             } else {
-                if (uuid.includes('PACKETA')) {
-                    Packeta.Widget.pick(this.packetaApiKey, this.showSelectedPickupPoint, {
-                        country: this.shippingCountry.toLowerCase(),
-                        language: this.locale
-                    })
-                }
-
-                if (uuid.includes('ULOZENKA')) {
-                    this.showUlozenka()
-                }
+                await this.changeShipping(uuid);
             }
         },
         async changeShipping(uuid) {

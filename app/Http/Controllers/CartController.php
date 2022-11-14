@@ -289,9 +289,6 @@ class CartController extends Controller
                 'multipack',
                 'toc_accepted'
             ]);
-            session()->forget('ulozenka-branch');
-            session()->forget('packeta-selector-branch-name');
-            session()->forget('packeta-selector-branch-id');
 
             return redirect()->to($order['redirect']);
         } catch (ValidationException | UnauthorizedException | NotFoundException | Exception $e) {

@@ -79,7 +79,7 @@
                                 @endphp
                                 {!! str_replace('%address%', $address, $translations['cart.thank_you.shipping.courier']['text']) !!}
                             @elseif($order['shipping']['uuid'] === 'SK_PACKETA_0_10000')
-                                {!! $translations['cart.thank_you.shipping.packeta']['text'] !!}
+                                {!! str_replace('%address%', $order['packeta-selector-branch-name'], $translations['cart.thank_you.shipping.packeta']['text']) !!}
                             @elseif($order['shipping']['uuid'] === 'SK_PERSONAL_0_99999')
                                 {!! $translations['cart.thank_you.shipping.pickup']['text'] !!}
                             @endif
