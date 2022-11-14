@@ -45,7 +45,15 @@
                             <span class="text-subheading-l">{{ $translations['Platba']['text'] }}</span>
                         </div>
                         <div class="text-body-m mt-6">
-                            Objednávka je zaplatená - Apple Pay.
+                            @if($order['payment']['uuid'] === 'SK_CARD_PAYPAL_0_99999')
+                                {!! $translations['cart.thank_you.payment.paypal']['text'] !!}
+                            @elseif($order['payment']['uuid'] === 'SK_CARD_GPWEBPAY_0_99999')
+                                {!! $translations['cart.thank_you.payment.gpwebpay']['text'] !!}
+                            @elseif($order['payment']['uuid'] === 'SK_CASH_0_20000')
+                                {!! $translations['cart.thank_you.payment.cash']['text'] !!}
+                            @elseif($order['payment']['uuid'] === 'SK_COD_10_10')
+                                {!! $translations['cart.thank_you.payment.cod']['text'] !!}
+                            @endif
                         </div>
                     </div>
                     <div class="p-6 bg-gray-5 rounded-lg mt-4 md:mt-10">
@@ -60,7 +68,21 @@
                             <span class="text-subheading-l">{{ $translations['Doručenie']['text'] }}</span>
                         </div>
                         <div class="text-body-m mt-6">
-                            Kuriérom na adresu Bajkalská 19, 82103 Bratislava.
+                            @if($order['shipping']['uuid'] === 'SK_COURIER_123KURIER_0_99999')
+                                @php
+                                    $isDifferentShipping = $order['customer']['delivery_street'] !== null;
+                                    if($isDifferentShipping) {
+                                        $address = "{$order['customer']['delivery_street']} {$order['customer']['delivery_house_number']}, {$order['customer']['delivery_city']}, {$order['customer']['delivery_zip']}";
+                                    } else {
+                                        $address = "{$order['customer']['street']} {$order['customer']['house_number']}, {$order['customer']['city']}, {$order['customer']['zip']}";
+                                    }
+                                @endphp
+                                {!! str_replace('%address%', $address, $translations['cart.thank_you.shipping.courier']['text']) !!}
+                            @elseif($order['shipping']['uuid'] === 'SK_PACKETA_0_10000')
+                                {!! $translations['cart.thank_you.shipping.packeta']['text'] !!}
+                            @elseif($order['shipping']['uuid'] === 'SK_PERSONAL_0_99999')
+                                {!! $translations['cart.thank_you.shipping.pickup']['text'] !!}
+                            @endif
                         </div>
                     </div>
                     <div class="p-6 bg-gray-5 rounded-lg mt-4 md:mt-10">
@@ -168,7 +190,7 @@
                             <td></td>
                             <td>
                                 <div>{{ $order['payment']['price_formatted'] }}</div>
-                                <div>Apple Pay</div>
+                                <div>{{ $order['payment']['name'] }}</div>
                             </td>
                         </tr>
                         <tr>

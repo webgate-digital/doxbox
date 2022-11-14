@@ -59,4 +59,5 @@
 @endsection
 
 @section('js')
+    <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
 @endsection

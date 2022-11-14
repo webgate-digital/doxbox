@@ -114,6 +114,8 @@ class PageController extends Controller
         session()->forget('order');
         $params = $request->all();
 
+        Log::info('Order data: ' . json_encode($order));
+
         return view('pages.thank_you', compact('order', 'params'));
     }
 

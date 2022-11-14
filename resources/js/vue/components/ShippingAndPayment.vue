@@ -19,7 +19,7 @@
             <!--            Shipping-->
             <h2 class="h2 mt-8">{{ translations['cart.choose_shipping_title'] }}
             </h2>
-            <div class="list-item cursor-pointer" v-for="item in shippingTypes" @click="selectShipping(item.uuid)">
+            <div class="list-item cursor-pointer" v-for="item in shippingTypes" @click="selectShipping($event, item.uuid)">
                 <input type="radio" v-model="shippingType" :value="item.uuid" :id="item.uuid + '_shipping'"
                        class="list-item--radio">
                 <label :for="item.uuid + '_shipping'"
@@ -216,7 +216,8 @@ export default {
 
             })
         },
-        async selectShipping(uuid) {
+        async selectShipping(event, uuid) {
+            event.preventDefault();
             if (!uuid.includes('PACKETA') && !uuid.includes('ULOZENKA')) {
                 await this.changeShipping(uuid);
             } else {
