@@ -24,7 +24,7 @@
                         {{ $translations['bola úspešne vytvorená']['text'] }}.
                     </p>
                     <p>
-                        {!! str_replace('%email%', 'email', $translations['cart.thank_you.info']['text']) !!}
+                        {!! str_replace('%email%', $order['customer']['email'], $translations['cart.thank_you.info']['text']) !!}
                     </p>
                     <h3 class="text-subheading-xl my-4">
                         {{ $translations['Čo bude nasledovať?']['text'] }}
