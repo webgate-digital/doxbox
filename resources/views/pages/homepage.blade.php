@@ -50,19 +50,6 @@
             </div>
         </section>
 
-        <section class="section">
-            <div class="container">
-                <h2 class="text-heading-2xs md:mb-20 mb-6">
-                    {{$translations['brands.title']['text']}}
-                </h2>
-                <div class="category-container">
-                    @foreach($brands as $brand)
-                        @include('components.category', ['item' => $brand])
-                    @endforeach
-                </div>
-            </div>
-        </section>
-
         <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(/images/promo-1.webp)">
             <div>
                 <h2 class="text-heading-xs leading-none">

@@ -19,23 +19,12 @@ $breadcrumbs[] = [
     <!-- end: Page title -->
     <section class="section">
         <div class="container">
-            <div class="flex flex-wrap items-center -mx-4">
-                <div class="w-full lg:w-1/3 px-4">
-                    <h1 class="text-heading-2xs lg:mb-0">
-                        {{$translations['search.title']['text'].': ' . request()->get('kw')}}
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <div class="product-container mb-32 lg:mb-0">
+            <h1 class="text-heading-2xs mb-8">
+                {{$translations['search.title']['text']}}: {{request()->get('kw')}}
+            </h1>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($products as $product)
-                    <div class="w-1/2 lg:w-1/3">
-                        @include('components.product', ['item' => $product])
-                    </div>
+                    @include('components.product', ['item' => $product])
                 @endforeach
             </div>
         </div>
