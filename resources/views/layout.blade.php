@@ -303,6 +303,8 @@
         </div>
     </div>
 
+    @include('cookie-consent::index')
+
     @yield('js')
 
     <script src="{{ mix('js/app.js') }}"></script>

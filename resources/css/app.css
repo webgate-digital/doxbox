@@ -1600,3 +1600,21 @@ input[type="checkbox"]:checked {
 .tippy-arrow {
     display: none;
 }
+
+.cookie-consent {
+    @apply fixed;
+    @apply bottom-0;
+    @apply left-0;
+    @apply right-0;
+    @apply z-50;
+    @apply bg-gray-80;
+    @apply px-6;
+    @apply py-4;
+}
+
+.cookie-consent__message {
+    @apply text-body-s;
+    @apply text-center;
+    @apply text-white;
+    @apply m-0;
+}
