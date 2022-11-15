@@ -8,7 +8,7 @@
             </a>
         @endif
 
-        <section class="big-banner" style="--bg-image: url({{asset('images/slide-1.png')}})">
+        <section class="big-banner" style="--bg-image: url({{asset('images/slide-1.webp')}})">
             <div class="container">
                 <h1 class="text-heading-xl mb-10">
                     {!! $translations['slider.sale']['text'] !!}
