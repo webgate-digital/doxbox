@@ -5,7 +5,11 @@
                 @foreach ($categories as $categoryItem)
                     <a href="{{ \App\Http\Controllers\ProductController::buildCategoryRoute($categoryItem['slug']) }}"
                         class="category-list--item @if (isset($category) && ($categoryItem['slug'] === $category['slug'])) active @endif">
-                        <img src="{{ $categoryItem['image_url'] }}" alt="{{ $categoryItem['name'] }}">
+                        <div class="category-list--item--image">
+                            @if($categoryItem['image_url'] != '-')
+                                <img src="{{$categoryItem['image_url']}}" alt="{{$categoryItem['name']}}">
+                            @endif
+                        </div>
                         <h3>{{ $categoryItem['name'] }}</h3>
                     </a>
                 @endforeach
