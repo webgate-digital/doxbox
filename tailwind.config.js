@@ -60,7 +60,7 @@ module.exports = {
                 'subheading-m': '1.2rem',
                 'subheading-s': '1.2rem',
                 'subheading-xs': '1.2rem',
-                'body-xl': '1.8rem',
+                'body-xl': ['1.8rem', {lineHeight: 1.3}],
                 'body-l': '1.6rem',
                 'body-m': ['1.4rem', {lineHeight: '2.2rem'}],
                 'body-s': '1.3rem',
