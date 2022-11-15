@@ -63,7 +63,7 @@
             </div>
         </section>
 
-        <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(/images/promo-1.png)">
+        <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(/images/promo-1.webp)">
             <div>
                 <h2 class="text-heading-xs leading-none">
                     {!!$translations['homepage.product.1.title']['text']!!}
@@ -78,7 +78,7 @@
         </div>
         
         <div class="promo-section">
-            <div class="bg-gray-5" style="--bg-image: url(/images/promo-2.png)">
+            <div class="bg-gray-5" style="--bg-image: url(/images/promo-2.webp)">
                 <h2 class="text-heading-xs leading-none">
                     {!!$translations['homepage.product.2.title']['text']!!}
                 </h2>
@@ -89,7 +89,7 @@
                     {!!$translations['homepage.product.2.cta']['text']!!}
                 </a>
             </div>
-            <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-3.png)">
+            <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-3.webp)">
                 <h2 class="text-heading-xs leading-none">
                     {!!$translations['homepage.product.3.title']['text']!!}
                 </h2>
@@ -101,7 +101,7 @@
                 </a>
             </div>
             
-            <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-4.png)">
+            <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-4.webp)">
                 <h2 class="text-heading-xs leading-none">
                     {!!$translations['homepage.product.4.title']['text']!!}
                 </h2>
@@ -113,7 +113,7 @@
                 </a>
             </div>
 
-            <div class="bg-gray-5" style="--bg-image: url(/images/promo-5.png)">
+            <div class="bg-gray-5" style="--bg-image: url(/images/promo-5.webp)">
                 <h2 class="text-heading-xs leading-none">
                     {!!$translations['homepage.product.5.title']['text']!!}
                 </h2>
@@ -126,7 +126,7 @@
             </div>
         </div>
 
-        <div class="promo-section promo-section--big bg-secondary text-white mb-32">
+        <div class="promo-section promo-section--big bg-secondary text-white mb-32" style="--bg-image: url(/images/promo-6.webp)">
             <div>
                 <h2 class="text-heading-xs leading-none">
                     {!!$translations['homepage.product.6.title']['text']!!}
