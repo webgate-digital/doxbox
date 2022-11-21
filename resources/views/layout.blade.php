@@ -131,6 +131,10 @@
                                     <cart-icon></cart-icon>
                                 </div>
                             </a>
+                            <a href="{{route(locale() . '.customer.profile')}}" class="ml-4 flex items-center">
+                                <img src="{{ asset('images/icons/account-circle.svg') }}">
+                                {{$translations['customer.title']['text']}}
+                            </a>
                             <ul class="main-nav--mobile" id="main-nav--mobile">
                                 <v-mobile-navigation :items="{{ json_encode($categories) }}">
                                     <ul>

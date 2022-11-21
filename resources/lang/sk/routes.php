@@ -16,9 +16,14 @@ return [
     'thank-you' => 'objednavka-prijata/dakujeme-za-objednavku',
     'payment-failed' => 'platba-nebola-uspesna',
     'search' => 'vyhladavanie',
-    'login-form' => 'prihlasenie',
-    'customer-profile' => 'zakaznik/profil',
+    'login' => 'prihlasenie',
+    'login' => 'prihlasenie',
+    'register' => 'registracia',
+    'forgotten-password' => 'zabudnute-heslo',
+    'reset-password' => 'reset-hesla',
+    'customer-profile' => 'zakaznik',
     'customer-orders' => 'zakaznik/moje-objednavky',
+    'customer-order' => 'zakaznik/moje-objednavky/{orderUuid}/{token}',
     'page' => '{slug}',
 
 ];
