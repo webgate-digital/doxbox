@@ -211,20 +211,19 @@
                     <tbody>
                         <tr>
                             <td>{{ $translations['Meno']['text'] }}</td>
-                            <td>{{ $order['customer']['delivery_name'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['delivery_name'] ?? $order['customer']['name'] ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['Ulica']['text'] }}</td>
-                            <td>{{ $order['customer']['delivery_street'] ?? '-' }}
-                                {{ $order['customer']['delivery_house_number'] ?? '' }}</td>
+                            <td>{{ $order['customer']['delivery_street'] ?? $order['customer']['street'] ?? '-' }} {{ $order['customer']['delivery_house_number'] ?? $order['customer']['house_number'] ?? '' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['PSČ']['text'] }}</td>
-                            <td>{{ $order['customer']['delivery_zip'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['delivery_zip'] ?? $order['customer']['zip'] ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['Mesto']['text'] }}</td>
-                            <td>{{ $order['customer']['delivery_city'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['delivery_city'] ?? $order['customer']['city'] ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['Telefón']['text'] }}</td>
@@ -244,45 +243,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>{{ $translations['Názov firmy']['text'] }}</td>
-                            <td>{{ $order['customer']['company_name'] ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $translations['IČO']['text'] }}</td>
-                            <td>{{ $order['customer']['company_tax_id'] ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $translations['DIČ']['text'] }}</td>
-                            <td>{{ $order['customer']['company_vat_id'] ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $translations['IČ DPH']['text'] }}</td>
-                            <td>{{ $order['customer']['company_vat_id'] ?? '-' }}</td>
-                        </tr>
+                        @if(isset($order['customer']['company_name']))
+                            <tr>
+                                <td>{{ $translations['Názov firmy']['text'] }}</td>
+                                <td>{{ $order['customer']['company_name'] ?? '-' }}</td>
+                            </tr>
+                        @endif
+                        @if(isset($order['customer']['company_id']))
+                            <tr>
+                                <td>{{ $translations['IČO']['text'] }}</td>
+                                <td>{{ $order['customer']['company_id'] ?? '-' }}</td>
+                            </tr>
+                        @endif
+                        @if(isset($order['customer']['company_tax_id']))
+                            <tr>
+                                <td>{{ $translations['DIČ']['text'] }}</td>
+                                <td>{{ $order['customer']['company_tax_id'] ?? '-' }}</td>
+                            </tr>
+                        @endif
+                        @if(isset($order['customer']['company_vat_id']))
+                            <tr>
+                                <td>{{ $translations['IČ DPH']['text'] }}</td>
+                                <td>{{ $order['customer']['company_vat_id'] ?? '-' }}</td>
+                            </tr>
+                        @endif
                         <tr>
                             <td>{{ $translations['Meno']['text'] }}</td>
-                            <td>{{ $order['customer']['name'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['company_name'] ?? $order['customer']['name'] ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['Ulica']['text'] }}</td>
-                            <td>{{ $order['customer']['company_address'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['company_address'] ?? ($order['customer']['street'] . " " . $order['customer']['house_number']) ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['PSČ']['text'] }}</td>
-                            <td>{{ $order['customer']['company_zip'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['company_zip'] ?? $order['customer']['zip'] ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>{{ $translations['Mesto']['text'] }}</td>
-                            <td>{{ $order['customer']['company_city'] ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $translations['Telefón']['text'] }}</td>
-                            <td>{{ $order['customer']['phone'] ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $translations['Email']['text'] }}</td>
-                            <td>{{ $order['customer']['email'] ?? '-' }}</td>
+                            <td>{{ $order['customer']['company_city'] ?? $order['customer']['city'] ?? '-' }}</td>
                         </tr>
                     </tbody>
                 </table>
