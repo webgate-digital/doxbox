@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Throwable;
+use App\Repositories\TranslationRepository;
 
 class OrderController extends Controller
 {
@@ -20,8 +21,9 @@ class OrderController extends Controller
         }
 
         $orders = $response['item'];
+        $me = session()->get('me');
 
-        return view('customer.orders.index', compact('orders'));
+        return view('customer.orders.index', compact('orders', 'me'));
     }
 
     public function show($orderUuid, $token)
@@ -33,6 +35,7 @@ class OrderController extends Controller
         }
 
         $order = $response['item'];
+        $order['packeta-selector-branch-name'] = $order['packeta-branch-name'];
 
         return view('customer.orders.show', compact('order'));
     }

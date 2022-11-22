@@ -76,7 +76,9 @@ Route::get('/cache', function () {
 //Auth & customer block
 
 Route::group(['middleware' => ['auth.custom']], function () {
-    Route::multilingual('/customer-profile', [CustomerController::class, 'profile'])->name('customer.profile');
+    Route::multilingual('/customer-profile', function() {
+        return redirect()->route(locale() . '.orders.index');
+    })->name('customer.profile');
     Route::multilingual('/customer-orders', [OrderController::class, 'index'])->name('orders.index');
     Route::multilingual('/customer-order', [OrderController::class, 'show'])->name('orders.show');
     Route::multilingual('/logout', [AuthController::class, 'logout'])->name('logout')->method('post');
@@ -88,11 +90,11 @@ Route::multilingual('/login', [AuthController::class, 'login'])->name('login.pos
 Route::multilingual('/register', [AuthController::class, 'registerForm'])->name('register');
 Route::multilingual('/register', [AuthController::class, 'register'])->name('register.post')->method('post');
 
-Route::multilingual('/forgotten-password', [AuthController::class, 'forgottenPasswordForm'])->name('forgotten-password-form');
-Route::multilingual('/forgotten-password', [AuthController::class, 'forgottenPassword'])->name('forgotten-password')->method('post');
+Route::multilingual('/forgotten-password', [AuthController::class, 'forgottenPasswordForm'])->name('forgotten_password');
+Route::multilingual('/forgotten-password', [AuthController::class, 'requestPasswordReset'])->name('forgotten_password.post')->method('post');
 
-Route::multilingual('/reset-password', [AuthController::class, 'resetPasswordForm'])->name('reset-password-form');
-Route::multilingual('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password')->method('post');
+Route::multilingual('/reset-password', [AuthController::class, 'passwordResetForm'])->name('password.reset.form');
+Route::multilingual('/reset-password', [AuthController::class, 'passwordReset'])->name('request.password.reset')->method('post');
 
 //END Auth & customer block
 

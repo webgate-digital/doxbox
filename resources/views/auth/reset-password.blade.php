@@ -27,7 +27,7 @@
 
             {{--            Password reset form--}}
 
-            <form action="{{route(locale().'.password.reset')}}" method="post">
+            <form action="{{route(locale().'.request.password.reset')}}" method="post">
                 @csrf
                 <div class="form--group">
                     <label class="form--label"
@@ -37,7 +37,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form--group">
+                <div class="form--group mt-4">
                     <label class="form--label"
                            for="password">{{ $translations['customer.form.password']['text'] }} *</label>
                     <input type="password" name="password" id="password" class="form--input">
@@ -45,7 +45,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form--group">
+                <div class="form--group mt-4">
                     <label class="form--label"
                            for="password_confirmation">{{ $translations['customer.form.password_confirmation']['text'] }} *</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" class="form--input">
@@ -54,7 +54,9 @@
                     @enderror
                 </div>
                 <input type="hidden" name="token" value="{{ request()->get('token') }}">
-                <button type="submit" class="button">{{ $translations['auth.reset_password.cta']['text'] }}</button>
+                <button type="submit" class="button button--primary rounded-lg mt-4">
+                    {{ $translations['auth.reset_password.cta']['text'] }}
+                </button>
             </form>
 
             {{--            END  Password reset form--}}

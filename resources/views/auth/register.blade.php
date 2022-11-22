@@ -31,7 +31,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form--group">
+                <div class="form--group mt-4">
                     <label class="form--label"
                            for="email">E-mail *</label>
                     <input type="text" name="email" id="email" class="form--input" value="{{old('email')}}">
@@ -39,7 +39,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form--group">
+                <div class="form--group mt-4">
                     <label class="form--label"
                            for="password">{{$translations['customer.form.password']['text']}} *</label>
                     <input type="password" name="password" id="password" class="form--input">
@@ -47,7 +47,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form--group">
+                <div class="form--group mt-4">
                     <label class="form--label"
                            for="password_confirmation">{{$translations['customer.form.password_confirmation']['text']}} *</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" class="form--input">
@@ -56,7 +56,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="button">{{$translations['auth.registration.cta']['text']}}</button>
+                <button type="submit" class="button button--primary rounded-lg mt-4">{{$translations['auth.registration.cta']['text']}}</button>
             </form>
             <div class="mt-8">
                 <div class="text-h4">

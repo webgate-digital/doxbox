@@ -46,7 +46,7 @@
                                 *</label>
                             <input type="text" name="name" id="name" class="checkout-form--input"
 
-                                   value="{{old('name', $user ? $user->name : null)}}">
+                                   value="{{old('name', $user ? $user['name'] : null)}}">
                             @error('name')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -58,7 +58,8 @@
                                     *</label>
                                 <input type="text" id="email" name="email"
                                        class="checkout-form--input"
-                                       value="{{old('email', $user ? $user->email : null)}}">
+                                       value="{{old('email', $user ? $user['email'] : null)}}"
+                                       @if($user) readonly @endif>
                                 @error('email')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -68,7 +69,7 @@
                                     *</label>
                                 <input type="text" id="phone" name="phone" class="checkout-form--input"
 
-                                       value="{{old('phone', $user ? $user->phone : null)}}">
+                                       value="{{old('phone', $user ? $user['phone'] : null)}}">
                                 @error('phone')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -81,7 +82,7 @@
                                     *</label>
                                 <input type="text" id="street" name="street" class="checkout-form--input"
 
-                                       value="{{old('street', $user ? $user->street : null)}}">
+                                       value="{{old('street', $user ? $user['street'] : null)}}">
                                 @error('street')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -92,7 +93,7 @@
                                     *</label>
                                 <input type="text" id="house_number" name="house_number" class="checkout-form--input"
 
-                                       value="{{old('house_number', $user ? $user->house_number : null)}}">
+                                       value="{{old('house_number', $user ? $user['house_number'] : null)}}">
                                 @error('house_number')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -104,7 +105,7 @@
                                     *</label>
                                 <input type="text" id="city" name="city" class="checkout-form--input"
 
-                                       value="{{old('city', $user ? $user->city : null)}}">
+                                       value="{{old('city', $user ? $user['city'] : null)}}">
                                 @error('city')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -114,7 +115,7 @@
                                     *</label>
                                 <input type="text" id="zip" name="zip" class="checkout-form--input"
 
-                                       value="{{old('zip', $user ? $user->zip : null)}}">
+                                       value="{{old('zip', $user ? $user['zip'] : null)}}">
                                 @error('zip')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -125,13 +126,13 @@
                             <label class="checkout-form--label" for="country">{{$translations['cart.country']['text']}}
                                 *</label>
                             <input type="hidden" name="country"
-                                   value="{{old('country', $user ? $user->country : $shippingCountry['name'])}}">
+                                   value="{{old('country', $user ? $user['country'] : $shippingCountry['name'])}}">
                             <input type="text" id="country" name=""
                                    class="checkout-form--input"
 
                                    disabled
                                    readonly
-                                   value="{{old('country', $user ? $user->country : $shippingCountry['name'])}}">
+                                   value="{{old('country', $user ? $user['country'] : $shippingCountry['name'])}}">
                             <small class="">{{$translations['cart.country_change']['text']}}
                                 <a href="{{route(locale() . '.cart.shipping')}}"
                                    class="text-secondary">{{$translations['cart.shipping_and_payment_title']['text']}}</a></small>
@@ -155,7 +156,7 @@
                                 <input type="text" id="company_name" name="company_name"
                                        class="checkout-form--input"
 
-                                       value="{{old('company_name', $user ? $user->company_name : null)}}">
+                                       value="{{old('company_name', $user ? $user['company_name'] : null)}}">
                                 @error('company_name')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -167,7 +168,7 @@
                                     <input type="text" id="company_id" name="company_id"
                                            class="checkout-form--input"
 
-                                           value="{{old('company_id', $user ? $user->company_id : null)}}">
+                                           value="{{old('company_id', $user ? $user['company_id'] : null)}}">
                                     @error('company_id')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -178,7 +179,7 @@
                                     <input type="text" id="company_tax_id" name="company_tax_id"
                                            class="checkout-form--input"
 
-                                           value="{{old('company_tax_id', $user ? $user->company_tax_id : null)}}">
+                                           value="{{old('company_tax_id', $user ? $user['company_tax_id'] : null)}}">
                                     @error('company_tax_id')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -189,7 +190,7 @@
                                     <input type="text" id="company_vat_id" name="company_vat_id"
                                            class="checkout-form--input"
 
-                                           value="{{old('company_vat_id', $user ? $user->company_vat_id : null)}}">
+                                           value="{{old('company_vat_id', $user ? $user['company_vat_id'] : null)}}">
                                     @error('company_vat_id')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -202,7 +203,7 @@
                                 <input type="text" id="company_address" name="company_address"
                                        class="checkout-form--input"
 
-                                       value="{{old('company_address', $user ? $user->company_address : null)}}">
+                                       value="{{old('company_address', $user ? $user['company_address'] : null)}}">
                                 @error('company_address')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -213,7 +214,7 @@
                                 <input type="text" id="company_city" name="company_city"
                                        class="checkout-form--input"
 
-                                       value="{{old('company_city', $user ? $user->company_city : null)}}">
+                                       value="{{old('company_city', $user ? $user['company_city'] : null)}}">
                                 @error('company_city')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -224,7 +225,7 @@
                                 <input type="text" id="company_zip" name="company_zip"
                                        class="checkout-form--input"
 
-                                       value="{{old('company_zip', $user ? $user->company_zip : null)}}">
+                                       value="{{old('company_zip', $user ? $user['company_zip'] : null)}}">
                                 @error('company_zip')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -236,7 +237,7 @@
                                 <input type="text" id="company_country" name="company_country"
                                        class="checkout-form--input"
 
-                                       value="{{old('company_country', $user ? $user->company_country : null)}}">
+                                       value="{{old('company_country', $user ? $user['company_country'] : null)}}">
                                 @error('company_country')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -258,7 +259,7 @@
                                 </label>
                                 <input type="text" name="shipping_name" id="shipping_name" class="checkout-form--input"
 
-                                       value="{{old('shipping_name', $user ? $user->shipping_name : null)}}">
+                                       value="{{old('shipping_name', $user ? $user['shipping_name'] : null)}}">
                                 @error('shipping_name')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -271,7 +272,7 @@
                                     <input type="text" id="shipping_street" name="shipping_street"
                                            class="checkout-form--input"
 
-                                           value="{{old('shipping_street', $user ? $user->shipping_street : null)}}">
+                                           value="{{old('shipping_street', $user ? $user['shipping_street'] : null)}}">
                                     @error('shipping_street')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -283,7 +284,7 @@
                                     <input type="text" id="shipping_house_number" name="shipping_house_number"
                                            class="checkout-form--input"
 
-                                           value="{{old('shipping_house_number', $user ? $user->shipping_house_number : null)}}">
+                                           value="{{old('shipping_house_number', $user ? $user['shipping_house_number'] : null)}}">
                                     @error('shipping_house_number')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -297,7 +298,7 @@
                                     <input type="text" id="shipping_city" name="shipping_city"
                                            class="checkout-form--input"
 
-                                           value="{{old('shipping_city', $user ? $user->shipping_city : null)}}">
+                                           value="{{old('shipping_city', $user ? $user['shipping_city'] : null)}}">
                                     @error('shipping_city')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -309,7 +310,7 @@
                                     <input type="text" id="shipping_zip" name="shipping_zip"
                                            class="checkout-form--input"
 
-                                           value="{{old('shipping_zip', $user ? $user->shipping_zip : null)}}">
+                                           value="{{old('shipping_zip', $user ? $user['shipping_zip'] : null)}}">
                                     @error('shipping_zip')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
@@ -321,12 +322,12 @@
                                        for="shipping_country">{{$translations['cart.country']['text']}}
                                 </label>
                                 <input type="hidden" name="shipping_country"
-                                       value="{{old('shipping_country', $user ? $user->shipping_country : $shippingCountry['name'])}}">
+                                       value="{{old('shipping_country', $user ? $user['shipping_country'] : $shippingCountry['name'])}}">
                                 <input type="text" id="shipping_country" name=""
                                        class="checkout-form--input"
                                        disabled
                                        readonly
-                                       value="{{old('shipping_country', $user ? $user->shipping_country : $shippingCountry['name'])}}">
+                                       value="{{old('shipping_country', $user ? $user['shipping_country'] : $shippingCountry['name'])}}">
                                 <small class="">{{$translations['cart.country_change']['text']}}
                                     <a href="{{route(locale() . '.cart.shipping')}}"
                                        class="text-secondary">{{$translations['cart.shipping_and_payment_title']['text']}}</a></small>

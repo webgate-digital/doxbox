@@ -37,7 +37,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form--group">
+                <div class="form--group mt-4">
                     <label class="form--label"
                            for="password">{{$translations['customer.form.password']['text']}} *</label>
                     <input type="password" name="password" id="password" class="form--input">
@@ -45,14 +45,14 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <button type="submit" class="button">{{$translations['auth.login.cta']['text']}}</button>
+                <button type="submit" class="button button--primary rounded-lg mt-4">{{$translations['auth.login.cta']['text']}}</button>
             </form>
             <div class="mt-8 flex justify-between">
                 <div class="text-h4">
                      <a href="{{ route(locale() . '.register') }}" class="text-secondary">{{$translations['auth.registration.cta']['text']}}</a>
                 </div>
                 <div class="text-h4">
-                    <a href="{{ route(locale() . '.forgotten-password-form') }}" class="text-secondary">{{$translations['auth.forgot_your_password.cta']['text']}}</a>
+                    <a href="{{ route(locale() . '.forgotten_password') }}" class="text-secondary">{{$translations['auth.forgot_your_password.cta']['text']}}</a>
                 </div>
             </div>
 

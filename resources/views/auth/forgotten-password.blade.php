@@ -27,7 +27,7 @@
 
             {{--            Password reset form--}}
 
-            <form action="{{route(locale().'.request.password.reset')}}" method="post">
+            <form action="{{route(locale().'.forgotten_password.post')}}" method="post">
                 @csrf
                 <div class="form--group">
                     <label class="form--label"
@@ -37,7 +37,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <button type="submit" class="button">{{ $translations['auth.request_password_recovery.cta']['text'] }}</button>
+                <button type="submit" class="button button--primary rounded-lg mt-4">{{ $translations['auth.request_password_recovery.cta']['text'] }}</button>
             </form>
 
             {{--            END  Password reset form--}}
