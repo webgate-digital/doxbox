@@ -131,11 +131,7 @@
 
                                    disabled
                                    readonly
-<<<<<<< Updated upstream
-                                   value="{{old('country', $user ? $user->country : $shippingCountry['name'])}}">
-=======
                                    value="{{old('country', $shippingCountry['name'])}}">
->>>>>>> Stashed changes
                             <small class="">{{$translations['cart.country_change']['text']}}
                                 <a href="{{route(locale() . '.cart.shipping')}}"
                                    class="text-secondary">{{$translations['cart.shipping_and_payment_title']['text']}}</a></small>
