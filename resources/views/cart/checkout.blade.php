@@ -126,13 +126,13 @@
                             <label class="checkout-form--label" for="country">{{$translations['cart.country']['text']}}
                                 *</label>
                             <input type="hidden" name="country"
-                                   value="{{old('country', $user ? $user['country'] : $shippingCountry['name'])}}">
+                                   value="{{old('country', $shippingCountry['name'])}}">
                             <input type="text" id="country" name=""
                                    class="checkout-form--input"
 
                                    disabled
                                    readonly
-                                   value="{{old('country', $user ? $user['country'] : $shippingCountry['name'])}}">
+                                   value="{{old('country', $shippingCountry['name'])}}">
                             <small class="">{{$translations['cart.country_change']['text']}}
                                 <a href="{{route(locale() . '.cart.shipping')}}"
                                    class="text-secondary">{{$translations['cart.shipping_and_payment_title']['text']}}</a></small>
