@@ -236,7 +236,7 @@ class CartController extends Controller
         $checkoutSupportName = session()->get('checkout_support_name', '');
 
         $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName]);
-        $user = null;
+        $user = session()->get('me', null);
 
         $checkoutSupportPage = Cache::rememberForever(locale() . '_page_' . 'prispevky-pre-utulky', function () {
             try {

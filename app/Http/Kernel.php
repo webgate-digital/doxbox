@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Currency;
+use App\Http\Middleware\CustomAuth;
 use App\Http\Middleware\EmptyCart;
 use App\Http\Middleware\EmptyShipping;
 use App\Http\Middleware\ShippingCountry;
@@ -66,6 +67,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.custom' => CustomAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

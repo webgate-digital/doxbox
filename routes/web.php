@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PageController;
@@ -69,6 +72,31 @@ Route::get('/cache', function () {
     \Illuminate\Support\Facades\Cache::flush();
     return redirect()->route(locale() . '.homepage');
 });
+
+//Auth & customer block
+
+Route::group(['middleware' => ['auth.custom']], function () {
+    Route::multilingual('/customer-profile', function() {
+        return redirect()->route(locale() . '.orders.index');
+    })->name('customer.profile');
+    Route::multilingual('/customer-orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::multilingual('/customer-order', [OrderController::class, 'show'])->name('orders.show');
+    Route::multilingual('/logout', [AuthController::class, 'logout'])->name('logout')->method('post');
+});
+
+Route::multilingual('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::multilingual('/login', [AuthController::class, 'login'])->name('login.post')->method('post');
+
+Route::multilingual('/register', [AuthController::class, 'registerForm'])->name('register');
+Route::multilingual('/register', [AuthController::class, 'register'])->name('register.post')->method('post');
+
+Route::multilingual('/forgotten-password', [AuthController::class, 'forgottenPasswordForm'])->name('forgotten_password');
+Route::multilingual('/forgotten-password', [AuthController::class, 'requestPasswordReset'])->name('forgotten_password.post')->method('post');
+
+Route::multilingual('/reset-password', [AuthController::class, 'passwordResetForm'])->name('password.reset.form');
+Route::multilingual('/reset-password', [AuthController::class, 'passwordReset'])->name('request.password.reset')->method('post');
+
+//END Auth & customer block
 
 Route::multilingual('/home', [PageController::class, 'homepage'])->name('homepage');
 

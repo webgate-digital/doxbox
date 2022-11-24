@@ -983,6 +983,7 @@ iframe {
     @apply border;
     @apply border-grey;
     @apply p-4;
+    @apply rounded-lg;
 }
 
 .form--input:focus {
@@ -1490,7 +1491,7 @@ input[type="checkbox"]:checked {
     @apply text-body-l;
 }
 
-.section--cart table {
+table {
     @apply border-collapse;
     @apply w-full;
     border-spacing: 0;
@@ -1498,89 +1499,89 @@ input[type="checkbox"]:checked {
     height: fit-content;
 }
 
-.section--cart table thead {
+table thead {
     @apply text-subheading-l;
     @apply text-left;
     @apply bg-gray-10;
 }
 
-.section--cart table th,
-.section--cart table td {
+table th,
+table td {
     @apply py-4;
     @apply px-6;
     @apply align-top;
 }
 
-.section--cart table tbody {
+table tbody {
     @apply text-body-l;
 }
 
-.section--cart table tbody div {
+table tbody div {
     @apply text-primary;
 }
 
-.section--cart table tbody small {
+table tbody small {
     @apply block;
     @apply text-body-s;
     @apply mt-1;
 }
 
-.section--cart table tbody td:not(:first-child),
-.section--cart table tfoot td:not(:first-child) {
+table tbody td:not(:first-child),
+table tfoot td:not(:first-child) {
     @apply text-right;
 }
 
-.section--cart table tfoot {
+table tfoot {
     @apply font-bold;
     @apply text-subheading-l;
 }
 
-.section--cart table tfoot tr:last-child td {
+table tfoot tr:last-child td {
     @apply border-b;
     @apply border-gray-20;
 }
 
-.section--cart table tfoot tr:last-child td:first-child,
-.section--cart table:not(.section--cart table:has(tfoot)) tr:last-child td:first-child {
+table tfoot tr:last-child td:first-child,
+table:not(table:has(tfoot)) tr:last-child td:first-child {
     @apply border-l;
     @apply border-gray-20;
     @apply rounded-bl-lg;
 }
 
-.section--cart table tfoot tr:last-child td:last-child,
-.section--cart table:not(.section--cart table:has(tfoot)) tr:last-child td:last-child {
+table tfoot tr:last-child td:last-child,
+table:not(table:has(tfoot)) tr:last-child td:last-child {
     @apply border-r;
     @apply rounded-br-lg;
 }
 
-.section--cart table thead tr:first-child th:first-child {
+table thead tr:first-child th:first-child {
     @apply border-t;
     @apply border-l;
     @apply border-gray-20;
     @apply rounded-tl-lg;
 }
 
-.section--cart table thead tr:first-child th:last-child {
+table thead tr:first-child th:last-child {
     @apply border-t;
     @apply border-r;
     @apply border-gray-20;
     @apply rounded-tr-lg;
 }
 
-.section--cart table tbody td:first-child,
-.section--cart table tfoot td:first-child {
+table tbody td:first-child,
+table tfoot td:first-child {
     @apply border-l;
     @apply border-gray-20;
 }
 
-.section--cart table tbody td:last-child,
-.section--cart table tfoot td:last-child {
+table tbody td:last-child,
+table tfoot td:last-child {
     @apply border-r;
     @apply border-gray-20;
 }
 
-.section--cart table tbody tr td,
-.section--cart table tfoot tr:not(:last-child) td {
+table tbody tr td,
+table tfoot tr:not(:last-child) td {
     @apply border-b;
     @apply border-gray-20;
 }
