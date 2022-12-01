@@ -1619,3 +1619,7 @@ table tfoot tr:not(:last-child) td {
     @apply text-white;
     @apply m-0;
 }
+
+.narrow-container {
+    max-width: 610px;
+}

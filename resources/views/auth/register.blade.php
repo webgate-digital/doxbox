@@ -9,7 +9,7 @@
     @endif
 
     <section class="section">
-        <div class="container">
+        <div class="container container--narrow">
 
             {{--            Page title--}}
 
