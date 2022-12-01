@@ -108,7 +108,7 @@ class ProductController extends Controller
         $breadcrumbs[] = [
             'title' => $item['item']['name']
         ];
-        // dd($item);
+
         return view('pages.product', compact('item', 'breadcrumbs'));
     }
 
