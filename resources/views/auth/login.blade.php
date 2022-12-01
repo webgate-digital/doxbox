@@ -49,10 +49,10 @@
             </form>
             <div class="mt-8 flex justify-between">
                 <div class="text-h4">
-                     <a href="{{ route(locale() . '.register') }}" class="text-secondary">{{$translations['auth.registration.cta']['text']}}</a>
+                     <a href="{{ route(locale() . '.register') }}" class="text-primary">{{$translations['auth.registration.cta']['text']}}</a>
                 </div>
                 <div class="text-h4">
-                    <a href="{{ route(locale() . '.forgotten_password') }}" class="text-secondary">{{$translations['auth.forgot_your_password.cta']['text']}}</a>
+                    <a href="{{ route(locale() . '.forgotten_password') }}" class="text-primary">{{$translations['auth.forgot_your_password.cta']['text']}}</a>
                 </div>
             </div>
 
