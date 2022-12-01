@@ -47,7 +47,7 @@ class Checkout extends FormRequest
             'company_name' => 'nullable|required_with:company_id,company_tax_id,company_vat_id,company_address,company_city,company_zip,company_state,company_country',
             'company_id' => 'nullable|required_with:company_name,company_tax_id,company_vat_id,company_address,company_city,company_zip,company_state,company_country',
             'company_tax_id' => 'nullable|required_with:company_name,company_id,company_vat_id,company_address,company_city,company_zip,company_state,company_country',
-            'company_vat_id' => 'nullable|required_with:company_name,company_id,company_tax_id,company_address,company_city,company_zip,company_state,company_country|vat_number|vat_number_exist|vat_number_format',
+            'company_vat_id' => 'nullable|vat_number|vat_number_exist|vat_number_format',
             'company_address' => 'nullable|required_with:company_name,company_id,company_tax_id,company_vat_id,company_city,company_zip,company_state,company_country',
             'company_city' => 'nullable|required_with:company_name,company_id,company_tax_id,company_vat_id,company_address,company_zip,company_state,company_country',
             'company_zip' => 'nullable|required_with:company_name,company_id,company_tax_id,company_vat_id,company_address,company_city,company_state,company_country',
