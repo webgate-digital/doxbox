@@ -69,6 +69,7 @@ export default {
         variants_tree: Object,
         translations: Object,
         variants: Array,
+        is_available_for_order: Boolean,
     },
     data: () => {
         return {
@@ -102,7 +103,7 @@ export default {
         },
         isAddToCartDisabled() {
             const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
-            return numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length;
+            return !this.is_available_for_order || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length);
         }
     },
     methods: {

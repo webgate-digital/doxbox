@@ -42,7 +42,13 @@
             {{$translations['products.contact_us_cta']['text']}}
         </a>
     @else
-        <add-to-cart uuid="{{$item['item']['uuid']}}" :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}" :variants_tree="{{json_encode($item['item']['variants_tree'])}}" :variants="{{json_encode($item['item']['variants'])}}"></add-to-cart>
+        <add-to-cart
+            uuid="{{$item['item']['uuid']}}"
+            :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"
+            :variants_tree="{{json_encode($item['item']['variants_tree'])}}"
+            :variants="{{json_encode($item['item']['variants'])}}"
+            :is_available_for_order="{{$item['item']['is_available_for_order']}}"
+        ></add-to-cart>
     @endif
 @endsection
 
