@@ -103,7 +103,8 @@ export default {
         },
         isAddToCartDisabled() {
             const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
-            return !this.is_available_for_order || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length);
+            return (this.count == 0 && this.is_available_for_order == 0)
+                || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length);
         }
     },
     methods: {
@@ -134,7 +135,7 @@ export default {
             const uuid = variantTemp[variantName][variantValueName].uuid;
             const product = this.variants.find(variant => variant.uuid === uuid);
 
-            return product?.count === 0 || product?.is_available_for_order == 0;
+            return product?.count == 0 && product?.is_available_for_order == 0;
         },
         cartesianProduct(...a) {
             return a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
