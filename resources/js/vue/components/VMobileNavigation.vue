@@ -23,7 +23,7 @@
                     <div class="mobile-navigation__item__content" :ref="'item-' + index"
                         :style="{height: index === activeItemIndex ? $refs['item-' + index][0].scrollHeight + 'px' : '0px'}">
                         <template v-if="item.children">
-                            <template v-for="item in item.children">
+                            <template v-for="item in getChildren(item)">
                                 <div class="mobile-navigation__item__content__item" :key="item.uuid">
                                     <a :href="getCategoryUrl(item.slug)"
                                         class="mobile-navigation__item__content__item__link">
@@ -31,7 +31,7 @@
                                     </a>
                                     <template v-if="item.children && item.children.length > 0">
                                         <ul class="mobile-navigation__item__content__item__sublist">
-                                            <li v-for="child in item.children" :key="child.uuid">
+                                            <li v-for="child in getChildren(item)" :key="child.uuid">
                                                 <a :href="getCategoryUrl(child.slug)"
                                                     class="mobile-navigation__item__content__item__sublist__item">
                                                     {{ child.name }}
@@ -75,7 +75,9 @@ export default {
             return this.items[this.activeItemIndex];
         },
         activeItemHasNestedChildren() {
-            return this.activeItem?.children.some((item) => item.children.length);
+            const childrenIds = this.activeItem?.children?.map((item) => item.uuid);
+            const childrenCategories = this.items.filter(item => childrenIds.includes(item.uuid));
+            return childrenCategories.some((item) => item.children?.length > 0);
         },
     },
     methods: {
@@ -88,6 +90,13 @@ export default {
         resetActiveItem() {
             this.activeItemIndex = null;
         },
+        getChildren(category){
+            const childrenIDs = category.children.map(item => item.uuid);
+            const childrenCategories = this.items.filter(item => childrenIDs.includes(item.uuid));
+            return childrenCategories
+                .sort((a, b) => a.score - b.score)
+                .filter(item => item.score >= 100);
+        }
     },
 };
 </script>

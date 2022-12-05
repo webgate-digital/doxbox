@@ -22,7 +22,7 @@
           'grid-flow-row': !activeItemHasNestedChildren,
           'gap-y-16': activeItemHasNestedChildren,
         }">
-          <template v-for="item in activeItem.children">
+          <template v-for="item in getChildren(activeItem)">
             <div :key="item.uuid" class="main-nav__flyout--item">
               <a :href="getCategoryUrl(item.slug)" class="main-nav__flyout--link" :class="{
                 'text-subheading-m': activeItemHasNestedChildren,
@@ -32,7 +32,7 @@
               </a>
               <template v-if="item.children && item.children.length > 0">
                 <ul class="main-nav__flyout--menu">
-                  <li v-for="child in item.children" :key="child.uuid">
+                  <li :key="child.uuid" v-for="child in getChildren(item)">
                     <a :href="getCategoryUrl(child.slug)" class="text-body-m main-nav__flyout--link">
                       {{ child.name }}
                     </a>
@@ -70,7 +70,9 @@ export default {
       return this.items[this.activeItemIndex];
     },
     activeItemHasNestedChildren() {
-      return this.activeItem?.children.some((item) => item.children.length);
+      const childrenIds = this.activeItem?.children?.map((item) => item.uuid);
+      const childrenCategories = this.items.filter(item => childrenIds.includes(item.uuid));
+      return childrenCategories.some((item) => item.children?.length > 0);
     },
   },
   methods: {
@@ -103,7 +105,14 @@ export default {
       }
     },
     getCategoryUrl(slug) {
-      return this.items.find((item) => item.slug === slug).url;
+      return this.items.find((item) => item.slug === slug)?.url;
+    },
+    getChildren(category){
+      const childrenIDs = category.children.map(item => item.uuid);
+      const childrenCategories = this.items.filter(item => childrenIDs.includes(item.uuid));
+      return childrenCategories
+        .sort((a, b) => a.score - b.score)
+        .filter(item => item.score >= 100);
     }
   }
 };
