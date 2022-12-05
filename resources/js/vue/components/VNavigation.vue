@@ -70,8 +70,7 @@ export default {
       return this.items[this.activeItemIndex];
     },
     activeItemHasNestedChildren() {
-      const childrenIds = this.activeItem?.children?.map((item) => item.uuid);
-      const childrenCategories = this.items.filter(item => childrenIds.includes(item.uuid));
+      const childrenCategories = this.getChildren(this.activeItem);
       return childrenCategories.some((item) => item.children?.length > 0);
     },
   },
