@@ -71,7 +71,7 @@ export default {
     },
     activeItemHasNestedChildren() {
       const childrenCategories = this.getChildren(this.activeItem);
-      return childrenCategories.some((item) => item.children?.length > 0);
+      return childrenCategories.some((item) => this.getChildren(item).length > 0);
     },
   },
   methods: {
