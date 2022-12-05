@@ -80,7 +80,7 @@ export default {
     },
     methods: {
         getCategoryUrl(slug) {
-            return this.items.find((item) => item.slug === slug).url;
+            return this.items.find((item) => item.slug === slug)?.url;
         },
         toggleItem(index) {
             this.activeItemIndex = this.activeItemIndex === index ? null : index;
