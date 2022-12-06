@@ -276,6 +276,11 @@ class CartController extends Controller
         $data['error_url'] = route(locale() . '.cart.checkout') . '?error=true';
         $data['cart'] = $cart;
 
+        $agreedToNewsletter = $request->get('newsletter', false);
+        if ($agreedToNewsletter) {
+            \App\Http\Controllers\PageController::registerToNewsletter($request->get('email'));
+        }
+
         try {
             $order = $this->_cartRepository->checkout($data);
             \session()->put('order', $order['item']);

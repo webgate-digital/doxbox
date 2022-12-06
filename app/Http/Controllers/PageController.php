@@ -130,26 +130,12 @@ class PageController extends Controller
     }
 
     public function newsletter(Request $request)
-    {
-        $mailchimpApiKey = env('MAILCHIMP_API_KEY');
-        $mailchimpListId = env('MAILCHIMP_LIST_ID');
-        $mailchimpApiEndpoint = env('MAILCHIMP_API_ENDPOINT');
-        
+    {   
         $email = $request->get('email', null);
-        
-        abort_if(!$email || !$mailchimpApiKey || !$mailchimpListId, 400);
+        abort_if(!$email, 400);
 
-        $client = new \GuzzleHttp\Client();
         try {
-            $response = $client->request('POST', $mailchimpApiEndpoint . '/lists/' . $mailchimpListId . '/members', [
-                'headers' => [
-                    'Authorization' => 'Basic ' . base64_encode('user:' . $mailchimpApiKey),
-                ],
-                'json' => [
-                    'email_address' => $email,
-                    'status' => 'subscribed',
-                ],
-            ]);
+            $response = $this->registerToNewsletter($email);
 
             return response()->json([
                 'status' => 'success',
@@ -170,5 +156,30 @@ class PageController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    public static function registerToNewsletter($email)
+    {
+        $mailchimpApiKey = env('MAILCHIMP_API_KEY');
+        $mailchimpListId = env('MAILCHIMP_LIST_ID');
+        $mailchimpApiEndpoint = env('MAILCHIMP_API_ENDPOINT');
+        
+        if (!$mailchimpApiKey || !$mailchimpListId) {
+            return;
+        }
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', $mailchimpApiEndpoint . '/lists/' . $mailchimpListId . '/members', [
+            'headers' => [
+                'Authorization' => 'Basic ' . base64_encode('user:' . $mailchimpApiKey),
+            ],
+            'json' => [
+                'email_address' => $email,
+                'status' => 'subscribed',
+            ],
+        ]);
+
+        return $response;
     }
 }
