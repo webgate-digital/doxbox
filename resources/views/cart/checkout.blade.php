@@ -477,7 +477,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function () {
+        /* $(document).ready(function () {
             $('#checkout-form input[type=text]').on('keyup', function () {
                 localStorage.setItem('checkout_' + $(this).attr('id'), $(this).val())
             })
@@ -497,6 +497,6 @@
                     $(this).val(localStorage.getItem('checkout_' + $(this).attr('id')));
                 }
             })
-        })
+        }) */
     </script>
 @endsection
