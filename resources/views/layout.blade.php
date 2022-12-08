@@ -106,11 +106,12 @@
                                 alt="{{ $catalogSettings['phone']['value'] }}" width="16">
                             {{ $catalogSettings['phone']['value'] }}
                         </a>
-                        @foreach (config('locales.supported') as $locale)
-                            <a href="{{ route($locale . '.homepage') }}" class="top-nav--item"><img
-                                    src="{{ asset('images/flags/' . $locale . '.svg') }}" class="top-nav--flag"
-                                    width="22" alt="{{ $locale }}"></a>
-                        @endforeach
+                        <a href="https://idoxbox.cz" class="top-nav--item">
+                            <img src="/images/flags/sk.svg" width="22" alt="sk" class="top-nav--flag">
+                        </a>
+                        <a href="https://doxbox.sk" class="top-nav--item">
+                            <img src="/images/flags/cs.svg" width="22" alt="cs" class="top-nav--flag">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -184,11 +185,12 @@
                                         </a>
                                     </div>
                                     <div class="mobile-navigation__footer__flags">
-                                        @foreach (config('locales.supported') as $locale)
-                                            <a href="{{ route($locale . '.homepage') }}" class="top-nav--item"><img
-                                                    src="{{ asset('images/flags/' . $locale . '.svg') }}" class="top-nav--flag"
-                                                    width="36" alt="{{ $locale }}"></a>
-                                        @endforeach
+                                        <a href="https://idoxbox.cz" class="top-nav--item">
+                                            <img src="/images/flags/sk.svg" width="36" alt="sk" class="top-nav--flag">
+                                        </a>
+                                        <a href="https://doxbox.sk" class="top-nav--item">
+                                            <img src="/images/flags/cs.svg" width="36" alt="cs" class="top-nav--flag">
+                                        </a>
                                     </div>
                                 </v-mobile-navigation>
                             </ul>

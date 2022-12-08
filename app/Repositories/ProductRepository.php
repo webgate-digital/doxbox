@@ -25,8 +25,8 @@ class ProductRepository
     {
         return [
             'Accept' => 'application/json',
-            'Catalog' => config('frontstore.catalog') . str_replace("CS", "CZ", strtoupper(locale())),
-            'Token' => config('frontstore.api_key')[locale()]
+            'Catalog' => config('frontstore.catalog'),
+            'Token' => config('frontstore.api_key')
         ];
     }
 
