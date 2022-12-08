@@ -122,7 +122,7 @@ export default {
             }
 
             // If all variants are selected, it is disabled
-            if (Object.values(this.variantSelection).every(value => value !== null)) {
+            if (Object.values(this.variantSelection).every(value => value !== null) && Object.values(this.variantSelection).length > 1) {
                 return true;
             }
 
