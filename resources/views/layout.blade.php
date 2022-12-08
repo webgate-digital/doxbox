@@ -143,15 +143,15 @@
                                 <img src="{{ asset('images/icons/search_white_24dp.svg') }}"
                                     alt="{{ $translations['search.title']['text'] }}">
                             </button>
+                            <a href="{{route(locale() . '.customer.profile')}}" class="flex items-center">
+                                <img src="{{ asset('images/icons/account-circle.svg') }}">
+                            </a>
                             <a href="{{ route(locale() . '.cart') }}" class="flex items-center">
                                 <img src="{{ asset('images/icons/shopping_cart_white_24dp.svg') }}"
                                     alt="{{ $translations['cart.title']['text'] }}">
                                 <div class="text-small text-white">
                                     <cart-icon></cart-icon>
                                 </div>
-                            </a>
-                            <a href="{{route(locale() . '.customer.profile')}}" class="ml-4 flex items-center">
-                                <img src="{{ asset('images/icons/account-circle.svg') }}">
                             </a>
                             <ul class="main-nav--mobile" id="main-nav--mobile">
                                 <v-mobile-navigation :items="{{ json_encode($categories) }}">
