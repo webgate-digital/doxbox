@@ -28,6 +28,11 @@
                 </div>
             </div>
         </div>
+        <template v-if="order_availability && order_availability !== ''">
+            <div class="mb-4 mt-8">
+                {{order_availability}}
+            </div>
+        </template>
         <div class="flex items-center mb-4 mt-8">
             <button type="button"
                 class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary !text-xl"
@@ -70,6 +75,7 @@ export default {
         translations: Object,
         variants: Array,
         is_available_for_order: Boolean,
+        order_availability: String,
     },
     data: () => {
         return {

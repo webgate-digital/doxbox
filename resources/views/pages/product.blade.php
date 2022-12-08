@@ -49,6 +49,7 @@
             :variants="{{json_encode($item['item']['variants'])}}"
             :count="{{$item['item']['count']}}"
             :is_available_for_order="{{$item['item']['is_available_for_order']}}"
+            :order_availability="'{{$item['item']['order_availability']}}'"
         ></add-to-cart>
     @endif
 @endsection
