@@ -188,6 +188,7 @@ iframe {
 .button--primary {
     @apply bg-primary;
     @apply text-white;
+    @apply transition-all;
 }
 
 .button--ghost {
@@ -198,11 +199,11 @@ iframe {
 }
 
 .button--primary:hover {
-    @apply bg-secondary;
+    background-color: #2445CD;
 }
 
 .button--secondary {
-    @apply bg-secondary;
+    background-color: #2445CD;
 }
 
 .button--secondary:hover {
