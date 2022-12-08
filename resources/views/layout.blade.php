@@ -144,7 +144,7 @@
                                     alt="{{ $translations['search.title']['text'] }}">
                             </button>
                             <a href="{{route(locale() . '.customer.profile')}}" class="flex items-center">
-                                <img src="{{ asset('images/icons/account-circle.svg') }}">
+                                <img src="{{ asset('images/icons/account.svg') }}">
                             </a>
                             <a href="{{ route(locale() . '.cart') }}" class="flex items-center">
                                 <img src="{{ asset('images/icons/shopping_cart_white_24dp.svg') }}"
