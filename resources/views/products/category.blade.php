@@ -27,7 +27,7 @@
         </div>
 
         @if(isset($category) && $category['children'])
-            @include('components.category_list')
+            @include('components.category_list', ['items' => $category['children']])
         @endif
     </section>
 

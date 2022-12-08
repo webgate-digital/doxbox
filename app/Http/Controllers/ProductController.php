@@ -40,10 +40,6 @@ class ProductController extends Controller
             }
         }
 
-        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
-            return $this->_productRepository->categories(locale())['items'];
-        });
-
         $filterPrices = Cache::rememberForever(locale() . '_filter_prices', function () {
             return $this->_productRepository->getFilterPrices(session()->get('currency'))['items'];
         });
@@ -84,7 +80,7 @@ class ProductController extends Controller
 
         return $isAjax
             ? view('products.ajax.category', compact('products', 'category'))
-            : view('products.category', compact('category', 'categorySlug', 'categories', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
+            : view('products.category', compact('category', 'categorySlug', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
     }
     
     public function category(Filter $request, string $categorySlugs)
