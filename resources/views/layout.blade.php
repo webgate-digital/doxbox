@@ -106,10 +106,10 @@
                                 alt="{{ $catalogSettings['phone']['value'] }}" width="16">
                             {{ $catalogSettings['phone']['value'] }}
                         </a>
-                        <a href="https://idoxbox.cz" class="top-nav--item">
+                        <a href="https://doxbox.sk" class="top-nav--item">
                             <img src="/images/flags/sk.svg" width="22" alt="sk" class="top-nav--flag">
                         </a>
-                        <a href="https://doxbox.sk" class="top-nav--item">
+                        <a href="https://idoxbox.cz" class="top-nav--item">
                             <img src="/images/flags/cs.svg" width="22" alt="cs" class="top-nav--flag">
                         </a>
                     </div>
@@ -185,10 +185,10 @@
                                         </a>
                                     </div>
                                     <div class="mobile-navigation__footer__flags">
-                                        <a href="https://idoxbox.cz" class="top-nav--item">
+                                        <a href="https://doxbox.sk" class="top-nav--item">
                                             <img src="/images/flags/sk.svg" width="36" alt="sk" class="top-nav--flag">
                                         </a>
-                                        <a href="https://doxbox.sk" class="top-nav--item">
+                                        <a href="https://idoxbox.cz" class="top-nav--item">
                                             <img src="/images/flags/cs.svg" width="36" alt="cs" class="top-nav--flag">
                                         </a>
                                     </div>
