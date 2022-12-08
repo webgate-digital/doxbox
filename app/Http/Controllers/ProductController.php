@@ -132,6 +132,11 @@ class ProductController extends Controller
 
         $productCategorySlugs = [];
         $currentCategory = self::getCategoryBySlug($categorySlug);
+
+        if (!$currentCategory) {
+            return false;
+        }
+
         do {
             $productCategorySlugs[] = $currentCategory['slug'];
             $currentCategory = array_values(array_filter($categories, function ($item) use ($currentCategory) {
@@ -187,16 +192,24 @@ class ProductController extends Controller
 
     public static function buildProductRoute($categorySlug, string $slug)
     {
+        $categorySlugs = self::getCategoriesChainString($categorySlug);
+        if (!$categorySlugs) {
+            return "#";
+        }
         return route(locale() . '.product.detail', [
             'slug' => $slug,
-            'categorySlugs' => self::getCategoriesChainString($categorySlug)
+            'categorySlugs' => $categorySlugs
         ]);
     }
 
     public static function buildCategoryRoute($categorySlug)
     {
+        $categorySlugs = self::getCategoriesChainString($categorySlug);
+        if (!$categorySlugs) {
+            return "#";
+        }
         return route(locale() . '.product.category', [
-            'categorySlugs' => self::getCategoriesChainString($categorySlug)
+            'categorySlugs' => $categorySlugs
         ]);
     }
 }
