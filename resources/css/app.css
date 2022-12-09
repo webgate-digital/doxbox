@@ -794,14 +794,17 @@ iframe {
     @apply border;
     @apply border-gray-5;
     @apply rounded-lg;
-    aspect-ratio: 1;
+    @apply h-0;
+    @apply pb-[100%];
 }
 
 .product-box--image img {
+    @apply absolute;
+    @apply top-0;
+    @apply left-0;
     @apply w-full;
     @apply h-full;
     @apply object-contain;
-    aspect-ratio: 1;
 }
 
 .product-box--name {
