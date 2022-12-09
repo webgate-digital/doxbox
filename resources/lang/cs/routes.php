@@ -4,7 +4,7 @@ return [
 
     'faq' => 'nejcastejsi-otazky',
     'product-detail' => 'obchod/{categorySlugs}/{slug}',
-    'product-category' => 'obchod/{categorySlugs}',
+    'product-category' => 'kategorie-produktu/{categorySlugs}',
     'product-list' => 'obchod',
     'contact' => 'kontakt',
     'cart' => 'kosik',
