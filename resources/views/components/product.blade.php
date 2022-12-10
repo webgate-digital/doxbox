@@ -1,5 +1,5 @@
 
-<a href="{{\App\Http\Controllers\ProductController::buildProductRoute($item['category']['slug'], $item['slug'])}}" class="product-box">
+<a href="{{\App\Http\Controllers\ProductController::buildProductRoute($item)}}" class="product-box">
     <div class="product-box--image">
         <img src="{{$item['image_url']}}" alt="{{$item['name']}}">
         <div class="product-box--cta button button--primary">

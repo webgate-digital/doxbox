@@ -190,8 +190,14 @@ class ProductController extends Controller
         return array_reverse($breadcrumbs);
     }
 
-    public static function buildProductRoute($categorySlug, string $slug)
+    public static function buildProductRoute($item)
     {
+        $category = $item['category'];
+        if (!$category) {
+            return "#";
+        }
+        $categorySlug = $item['category']['slug'];
+        $slug = $item['slug'];
         $categorySlugs = self::getCategoriesChainString($categorySlug);
         if (!$categorySlugs) {
             return "#";
