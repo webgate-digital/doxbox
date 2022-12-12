@@ -109,8 +109,9 @@ export default {
     getChildren(category){
       const childrenIDs = category.children.map(item => item.uuid);
       const childrenCategories = this.items.filter(item => childrenIDs.includes(item.uuid));
+      console.log(childrenCategories);
       return childrenCategories
-        .sort((a, b) => a.score - b.score)
+        .sort((a, b) => b.score - a.score)
         .filter(item => item.score >= 100);
     }
   }
