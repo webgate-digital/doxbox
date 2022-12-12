@@ -472,8 +472,11 @@ iframe {
 }
 
 .main-nav__flyout--menu {
-    @apply mt-8;
     @apply mb-0;
+}
+
+.main-nav__flyout--menu li:first-child {
+    @apply mt-8;
 }
 
 .main-nav__flyout--menu li:not(:last-child) {
