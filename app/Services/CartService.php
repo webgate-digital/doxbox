@@ -20,11 +20,11 @@ class CartService
     /**
      * @param string $uuid
      * @param int $quantity
-     * @return bool
+     * @return bool|array
      * @throws \App\Exceptions\UnauthorizedException
      * @throws \App\Exceptions\ValidationException
      */
-    public function add(string $uuid, int $quantity): bool
+    public function add(string $uuid, int $quantity): bool|array
     {
         try {
             $product = $this->_productRepository->availability(locale(), session()->get('currency'), $uuid)['item'];
@@ -42,7 +42,8 @@ class CartService
             session()->push('cart', $product['uuid']);
         }
 
-        return true;
+        // Return product data needed for Google Tag Manager
+        return $product;
     }
 
     public function addMultipack(string $uuid, int $quantity, array $options): bool

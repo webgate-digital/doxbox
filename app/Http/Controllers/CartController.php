@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Str;
 use Exception;
+use GoogleTagManager;
 
 class CartController extends Controller
 {
@@ -59,6 +60,29 @@ class CartController extends Controller
         }
 
         $step = 1;
+
+        // Implement dataLayer for Google Tag Manager (ecommerce)
+        $dataLayer = GoogleTagManager::getDataLayer();
+        $dataLayer->set('event', 'eec.checkout');
+        $dataLayer->set('ecommerce', [
+            'currencyCode' => session()->get('currency'),
+            'checkout' => [
+                'actionField' => [
+                    'step' => $step,
+                    'option' => $shippingCountry['name'],
+                ],
+                'products' => array_map(function ($item) {
+                    $categoryString = \App\Http\Controllers\ProductController::getCategoryChainString($item['meta']['category_slug']);
+                    return [
+                        'id' => '', // TODO: $item['sku'],
+                        'name' => $item['meta']['name'],
+                        'price' => $item['meta']['price'],
+                        'category' => $categoryString,
+                        'quantity' => $item['count'],
+                    ];
+                }, $cart['items'] ?? []),
+            ],
+        ]);
 
         return view('cart.index', compact('cart', 'upsell', 'shippingCountry', 'voucher', 'step'));
     }
@@ -305,9 +329,28 @@ class CartController extends Controller
 
     public function add(AddToCart $request)
     {
-        if (!$this->_cartService->add($request->get('uuid'), $request->get('quantity'))) {
+        $uuid = $request->get('uuid');
+        $quantity = $request->get('quantity', 1);
+        $product = $this->_cartService->add($uuid, $quantity);
+        if ($product === false) {
             abort(400);
         }
+
+        $categoryString = \App\Http\Controllers\ProductController::getCategoryChainString($product['category']['slug']);
+        $response = [
+            'quantity' => $quantity,
+            'sku' => $product['sku'],
+            'currency' => $product['currency'],
+            'name' => $product['name'],
+            'retail_price' => $product['retail_price'],
+            'category' => [
+                'name' => $product['category']['name'],
+                'slug' => $product['category']['slug'],
+            ],
+            'category_path' => $categoryString,
+        ];
+
+        return response()->json($response);
     }
 
     public function update()

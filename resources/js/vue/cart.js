@@ -36,7 +36,23 @@ export default {
     async addItem(uuid, quantity) {
         await axios.post('/cart/add', {uuid: uuid, quantity: quantity})
             .then(response => {
-
+                const data = response.data;
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'eec.add',
+                    ecommerce: {
+                        currencyCode: data.currency.toUpperCase(),
+                        add: {
+                            products: [{
+                                id: data.sku,
+                                name: data.name,
+                                price: data.retail_price,
+                                category: data.category_path,
+                                quantity: data.quantity
+                            }]
+                        }
+                    }
+                });
             })
             .catch((err) => {
                 throw err;

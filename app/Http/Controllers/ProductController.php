@@ -10,6 +10,7 @@ use App\Repositories\TranslationRepository;
 use Cache;
 use Illuminate\Http\Request;
 use Str;
+use GoogleTagManager;
 
 class ProductController extends Controller
 {
@@ -76,7 +77,7 @@ class ProductController extends Controller
         $products = $productList['items'];
         $total = $productList['total'];
         $hasMoreProducts = count($products) < $total;
-        $breadcrumbs = $this->getBreadcrumbs($category);
+        $breadcrumbs = self::getBreadcrumbs($category);
 
         return $isAjax
             ? view('products.ajax.category', compact('products', 'category'))
@@ -100,10 +101,28 @@ class ProductController extends Controller
         } catch (NotFoundException $e) {
             abort(404);
         }
-        $breadcrumbs = $this->getBreadcrumbs($item['item']['category']);
+        $breadcrumbs = self::getBreadcrumbs($item['item']['category']);
         $breadcrumbs[] = [
             'title' => $item['item']['name']
         ];
+
+        // Implement dataLayer for Google Tag Manager (ecommerce)
+        $categoryString = self::getCategoryChainString($item['item']['category']['slug']);
+        $dataLayer = GoogleTagManager::getDataLayer();
+        $dataLayer->set('event', 'eec.detail');
+        $dataLayer->set('ecommerce', [
+            'detail' => [
+                'currency' => strtoupper($item['item']['currency']),
+                'products' => [
+                    [
+                        'id' => $item['item']['sku'],
+                        'name' => $item['item']['name'],
+                        'price' => $item['item']['retail_price'],
+                        'category' => $categoryString,
+                    ]
+                ]
+            ]
+        ]);
 
         return view('pages.product', compact('item', 'breadcrumbs'));
     }
@@ -158,7 +177,18 @@ class ProductController extends Controller
         }))[0] ?? null;
     }
 
-    public function getBreadcrumbs($category) {
+    public static function getCategoryBy($key, $value)
+    {
+        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
+            $_productRepository = new ProductRepository();
+            return $_productRepository->categories(locale())['items'];
+        });
+        return array_values(array_filter($categories, function ($item) use ($key, $value) {
+            return $item[$key] == $value;
+        }))[0] ?? null;
+    }
+
+    public static function getBreadcrumbs($category) {
         $categories = Cache::rememberForever(locale() . '_product_categories', function () {
             $_productRepository = new ProductRepository();
             return $_productRepository->categories(locale())['items'];
@@ -217,5 +247,17 @@ class ProductController extends Controller
         return route(locale() . '.product.category', [
             'categorySlugs' => $categorySlugs
         ]);
+    }
+
+    public static function getCategoryChainString($categorySlug, $separator="/"): string
+    {
+        $category = self::getCategoryBySlug($categorySlug);
+        $breadcrumbs = self::getBreadcrumbs($category);
+        $categoryChain = array_slice($breadcrumbs, 1); // remove first item (home)
+        $categoryNames = array_map(function ($item) {
+            return $item['title'];
+        }, $categoryChain);
+        $categoryString = join($separator, $categoryNames);
+        return $categoryString;
     }
 }

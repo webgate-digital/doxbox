@@ -74,7 +74,7 @@ export default {
         variants_tree: Object,
         translations: Object,
         variants: Array,
-        is_available_for_order: Boolean,
+        is_available_for_order: Number,
         order_availability: String,
     },
     data: () => {
