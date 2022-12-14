@@ -15,13 +15,17 @@
         {{$item['name']}}
     </h4>
     <p class="product-box--price">
-        <span @if($item['retail_discount']) class="text-success" @endif>
-            {{$item['retail_price_discounted_formatted']}}
-        </span>
-        @if($item['retail_discount'])
-            <span class="product-box--price-old">
-                {{$item['retail_price_formatted']}}
-            </span>
-        @endif
+        @php
+            $allProducts = array_merge($item['variants'], [$item]);
+            $productWithMinPrice = collect($allProducts)->sortBy('retail_price_discounted')->first();
+            $productWithMaxPrice = collect($allProducts)->sortBy('retail_price_discounted')->last();
+            $priceString = '';
+            if($productWithMinPrice['retail_price_discounted'] == $productWithMaxPrice['retail_price_discounted']) {
+                $priceString = $productWithMinPrice['retail_price_discounted_formatted'];
+            } else {
+                $priceString = $productWithMinPrice['retail_price_discounted_formatted'] . ' - ' . $productWithMaxPrice['retail_price_discounted_formatted'];
+            }
+        @endphp
+        {{$priceString}}
     </p>
 </a>

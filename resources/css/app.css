@@ -867,6 +867,7 @@ iframe {
     @apply mb-8;
     @apply flex;
     @apply items-center;
+    @apply text-body-xl;
 }
 
 .product-detail--price-old {

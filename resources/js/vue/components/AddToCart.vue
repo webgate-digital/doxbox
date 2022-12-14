@@ -28,9 +28,9 @@
                 </div>
             </div>
         </div>
-        <template v-if="order_availability && order_availability !== ''">
+        <template v-if="item.order_availability && item.order_availability !== ''">
             <div class="mb-4 mt-8">
-                {{order_availability}}
+                {{ item.order_availability }}
             </div>
         </template>
         <div class="flex items-center mb-4 mt-8">
@@ -70,12 +70,10 @@ import cart from "../cart";
 export default {
     name: "AddToCart",
     props: {
-        uuid: String,
         variants_tree: Object,
         translations: Object,
         variants: Array,
-        is_available_for_order: Boolean,
-        order_availability: String,
+        item: Object,
     },
     data: () => {
         return {
@@ -95,7 +93,7 @@ export default {
             const isSelectedVariant = Object.values(this.variantSelection).some(value => value !== null);
 
             if (!isSelectedVariant) {
-                return this.uuid;
+                return this.item.uuid;
             }
 
             let variantTemp = { ...this.variants_tree };
@@ -107,41 +105,50 @@ export default {
 
             return variantTemp.uuid || this.uuid;
         },
+        selectedProduct() {
+            const uuid = this._uuid ?? this.item.uuid;
+            const product = [this.item, ...this.variants].find(product => product.uuid === uuid);
+            return product;
+        },
         isAddToCartDisabled() {
             const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
-            return (this.count == 0 && this.is_available_for_order == 0)
+            return (this.item.count == 0 && this.item.is_available_for_order == 0)
                 || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length);
         }
     },
     methods: {
         isVariantDisabled(variantName, variantValueName) {
 
-            // If this is a variant that is already selected, it is not disabled
+            // If this is a variant that is already selected, it is not disabled (so it can be deselected)
             if (this.variantSelection[variantName] === variantValueName) {
                 return false;
             }
 
             // If all variants are selected, it is disabled
-            if (Object.values(this.variantSelection).every(value => value !== null) && Object.values(this.variantSelection).length > 1) {
+            if (Object.values(this.variantSelection).every(value => value !== null)) {
                 return true;
             }
 
-            // If this is a variant of the same type as the selected variant, it is not disabled
-            if (this.variantSelection[variantName] !== null) {
-                return false;
+            let variantTemp = { ...this.variants_tree };
+            Object.entries(this.variantSelection)
+                .filter(([_, tempVariantValueName]) => tempVariantValueName !== null)
+                .forEach(([tempVariantName, tempVariantValueName]) => {
+                    if (tempVariantValueName) {
+                        variantTemp = variantTemp[tempVariantName][tempVariantValueName];
+                    }
+                });
+
+            const uuid = variantTemp.uuid ?? (variantTemp[variantName] ? variantTemp[variantName][variantValueName].uuid : null);
+
+            if (uuid) {
+                const product = this.variants.find(variant => variant.uuid === uuid);
+                return !this.isProductAvailable(product);
             }
 
-            let variantTemp = { ...this.variants_tree };
-            Object.entries(this.variantSelection).forEach(([variantName, variantValueName]) => {
-                if (variantValueName) {
-                    variantTemp = variantTemp[variantName][variantValueName];
-                }
-            });
-
-            const uuid = variantTemp[variantName][variantValueName].uuid;
-            const product = this.variants.find(variant => variant.uuid === uuid);
-
-            return product?.count == 0 && product?.is_available_for_order == 0;
+            return false;
+        },
+        isProductAvailable(product) {
+            return product.count > 0 || product.is_available_for_order == 1;
         },
         cartesianProduct(...a) {
             return a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
@@ -207,6 +214,20 @@ export default {
                 : newVariantSelection[variantName] = variantValueName;
 
             this.variantSelection = newVariantSelection;
+        }
+    },
+    watch: {
+        selectedProduct() {
+            const $price = document.querySelector('.product-detail--price');
+            if ($price) {
+                const oldPrice = this.selectedProduct.retail_price_formatted;
+                const newPrice = this.selectedProduct.retail_price_discounted_formatted;
+                if (oldPrice !== newPrice) {
+                    $price.innerHTML = `${newPrice} <span class="product-detail--price-old">${oldPrice}</span>`;
+                } else {
+                    $price.innerHTML = newPrice;
+                }
+            }
         }
     }
 }
