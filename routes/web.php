@@ -108,4 +108,4 @@ Route::post('/reset-cache', [PageController::class, 'resetCache']);
 
 Route::post("/newsletter", [PageController::class, 'newsletter'])->name('newsletter.store');
 
-Route::get("/xml/facebook", [PageController::class, 'facebookXML'])->name('facebook.xml');
+/* Route::get("/xml/facebook", [PageController::class, 'facebookXML'])->name('facebook.xml'); */
