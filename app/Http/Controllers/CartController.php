@@ -74,7 +74,7 @@ class CartController extends Controller
                 'products' => array_map(function ($item) {
                     $categoryString = \App\Http\Controllers\ProductController::getCategoryChainString($item['meta']['category_slug']);
                     return [
-                        'id' => '', // TODO: $item['sku'],
+                        'id' => $item['meta']['sku'],
                         'name' => $item['meta']['name'],
                         'price' => $item['meta']['price'],
                         'category' => $categoryString,
