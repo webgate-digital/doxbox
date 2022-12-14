@@ -10,16 +10,21 @@
                         <div v-for="([variantValueName]) in Object.entries(variantTree).reverse()"
                             :key="variantValueName">
                             <div v-if="variantName === 'Farba'"
-                                :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                :class="{ disabled: isVariantDisabled(variantName, variantValueName) }"
-                                class="border select-none rounded-full h-16 w-16 cursor-pointer" :style="{
+                                :data-tippy-content="`${variantName}: ${variantValueName}`" :class="{
+                                    variant: true,
+                                    disabled: isVariantDisabled(variantName, variantValueName),
+                                    selected: variantSelection[variantName] === variantValueName
+                                }"
+                                class="select-none rounded-full h-16 w-16 cursor-pointer"
+                                :style="{
                                     backgroundColor: getHexColorByColorName(variantValueName),
-                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.32
-                                }" @click="setVariant(variantName, variantValueName)"></div>
+                                }" @click="setVariant(variantName, variantValueName)">
+                            </div>
                             <div v-else :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                class="border select-none opacity-50 hover:opacity-100 py-3 px-6 rounded-lg cursor-pointer"
-                                :class="{ disabled: isVariantDisabled(variantName, variantValueName) }" :style="{
-                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.32
+                                class="select-none py-3 px-6 rounded-lg cursor-pointer" :class="{
+                                    variant: true,
+                                    disabled: isVariantDisabled(variantName, variantValueName),
+                                    selected: variantSelection[variantName] === variantValueName
                                 }" @click="setVariant(variantName, variantValueName)">
                                 {{ variantValueName }}
                             </div>
@@ -28,12 +33,17 @@
                 </div>
             </div>
         </div>
+        <div class="mt-4" :style="{ visibility: isCleared ? 'hidden' : 'visible' }">
+            <span class="text-primary cursor-pointer" @click="resetVariants">
+                {{ translations['Resetovať'] }}
+            </span>
+        </div>
         <template v-if="item.order_availability && item.order_availability !== ''">
-            <div class="mb-4 mt-8">
+            <div class="mt-8">
                 {{ item.order_availability }}
             </div>
         </template>
-        <div class="flex items-center mb-4 mt-8">
+        <div class="flex items-center mb-4 mt-2">
             <button type="button"
                 class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary !text-xl"
                 @click="removeQuantity">
@@ -82,8 +92,7 @@ export default {
         }
     },
     created() {
-        // Set variant selection to null
-        this.variantKeys.forEach(variantKey => Vue.set(this.variantSelection, variantKey, null));
+        this.resetVariants();
 
         // If this is a variable product, set the cheapest available variant as the default selection
         if (this.isVariableProduct) {
@@ -91,7 +100,7 @@ export default {
             const cheapestAvailableVariation = combinations.reduce((accumulator, current) => {
                 const accumulatorProduct = this.getProductByCombination(accumulator);
                 const currentProduct = this.getProductByCombination(current);
-                
+
                 const isCurrentProductAvailable = currentProduct && this.isProductAvailable(currentProduct);
                 if (!isCurrentProductAvailable) {
                     return accumulator;
@@ -131,6 +140,12 @@ export default {
         isVariableProduct() {
             return this.variantKeys.length > 0;
         },
+        isCleared() {
+            return Object.values(this.variantSelection).every(value => value === null);
+        },
+        hasSelectedAllVariants() {
+            return Object.values(this.variantSelection).every(value => value !== null);
+        },
     },
     methods: {
         isVariantDisabled(variantName, variantValueName) {
@@ -141,11 +156,14 @@ export default {
             }
 
             // Check if after selecting this variant, there is still a product available
-            const variantTemp = {
+            const selection = {
                 ...this.variantSelection,
                 [variantName]: variantValueName
             };
-            const product = this.getProductByCombination(Object.values(variantTemp));
+
+            const product = this.hasSelectedAllVariants
+                ? this.getProductByCombination(Object.values(selection))
+                : this.item;
             return product ? !this.isProductAvailable(product) : true;
         },
         isProductAvailable(product) {
@@ -234,6 +252,9 @@ export default {
                     : `<span class="text-success">${newPrice}</span>
                        <span class="product-detail--price-old">${oldPrice}</span>`;
             }
+        },
+        resetVariants() {
+            this.variantKeys.forEach(variantKey => Vue.set(this.variantSelection, variantKey, null));
         }
     },
     watch: {
@@ -245,8 +266,50 @@ export default {
 </script>
 
 <style scoped>
-.disabled {
-    opacity: 0.1 !important;
+.variant {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #7C7E80;
+}
+
+.variant.disabled {
+    opacity: 0.6;
     cursor: not-allowed;
+}
+
+.variant.selected {
+    cursor: pointer;
+    border-color: black;
+    border-width: 2px;
+}
+
+.variant.selected:not(.rounded-full) {
+    margin: -1px;
+}
+
+.variant::before,
+.variant::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #FB4E4E;
+    opacity: 0;
+}
+
+.variant::before {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.variant::after {
+    right: 0;
+    transform: rotate(-45deg);
+}
+
+.variant.disabled::before,
+.variant.disabled::after {
+    opacity: 1;
 }
 </style>

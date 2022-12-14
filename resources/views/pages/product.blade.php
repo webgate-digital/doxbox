@@ -44,7 +44,11 @@
     @else
         <add-to-cart
         :item="{{json_encode($item['item'])}}"
-            :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"
+            :translations="{{json_encode([
+                'Do košíka' => $translations['cart.cta_add']['text'],
+                'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text'],
+                'Resetovať' => $translations['cart.reset']['text'],
+            ])}}"
         ></add-to-cart>
     @endif
 @endsection
