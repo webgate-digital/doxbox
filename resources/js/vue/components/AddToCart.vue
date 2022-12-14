@@ -1,25 +1,25 @@
 <template>
     <div>
         <div class="product-detail--swatches">
-            <div v-for="([variantName, variantTree]) in Object.entries(variants_tree)" :key="variantName">
+            <div v-for="([variantName, variantTree]) in Object.entries(item.variants_tree)" :key="variantName">
                 <div class="product-detail--swatch">
                     <div class="text-subheading-m">
                         {{ variantName }}
                     </div>
                     <div class="flex gap-4">
-                        <div v-for="([variantValueName, variant]) in Object.entries(variantTree).reverse()"
+                        <div v-for="([variantValueName]) in Object.entries(variantTree).reverse()"
                             :key="variantValueName">
                             <div v-if="variantName === 'Farba'"
                                 :data-tippy-content="`${variantName}: ${variantValueName}`"
                                 :class="{ disabled: isVariantDisabled(variantName, variantValueName) }"
-                                class="border rounded-full h-16 w-16 cursor-pointer" :style="{
+                                class="border select-none rounded-full h-16 w-16 cursor-pointer" :style="{
                                     backgroundColor: getHexColorByColorName(variantValueName),
-                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.5
+                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.32
                                 }" @click="setVariant(variantName, variantValueName)"></div>
                             <div v-else :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                class="border opacity-50 hover:opacity-100 py-3 px-6 rounded-lg cursor-pointer"
+                                class="border select-none opacity-50 hover:opacity-100 py-3 px-6 rounded-lg cursor-pointer"
                                 :class="{ disabled: isVariantDisabled(variantName, variantValueName) }" :style="{
-                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.5
+                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.32
                                 }" @click="setVariant(variantName, variantValueName)">
                                 {{ variantValueName }}
                             </div>
@@ -70,9 +70,7 @@ import cart from "../cart";
 export default {
     name: "AddToCart",
     props: {
-        variants_tree: Object,
         translations: Object,
-        variants: Array,
         item: Object,
     },
     data: () => {
@@ -84,37 +82,55 @@ export default {
         }
     },
     created() {
-        Object.keys(this.variants_tree).forEach(key => {
-            this.variantSelection[key] = null;
-        });
+        // Set variant selection to null
+        this.variantKeys.forEach(variantKey => Vue.set(this.variantSelection, variantKey, null));
+
+        // If this is a variable product, set the cheapest available variant as the default selection
+        if (this.isVariableProduct) {
+            const combinations = this.variantValueCombinations;
+            const cheapestAvailableVariation = combinations.reduce((accumulator, current) => {
+                const accumulatorProduct = this.getProductByCombination(accumulator);
+                const currentProduct = this.getProductByCombination(current);
+                
+                const isCurrentProductAvailable = currentProduct && this.isProductAvailable(currentProduct);
+                if (!isCurrentProductAvailable) {
+                    return accumulator;
+                }
+
+                const isCurrentProductCheaper = Number(currentProduct.retail_price_discounted) < Number(accumulatorProduct.retail_price_discounted);
+                return isCurrentProductCheaper ? current : accumulator;
+            }, combinations[0]);
+
+            this.variantKeys.forEach((variantKey, index) => Vue.set(this.variantSelection, variantKey, cheapestAvailableVariation[index]));
+        }
+    },
+    mounted() {
+        this.updatePrice();
     },
     computed: {
-        _uuid() {
-            const isSelectedVariant = Object.values(this.variantSelection).some(value => value !== null);
-
-            if (!isSelectedVariant) {
-                return this.item.uuid;
-            }
-
-            let variantTemp = { ...this.variants_tree };
-            Object.entries(this.variantSelection).forEach(([variantName, variantValueName]) => {
-                if (variantValueName) {
-                    variantTemp = variantTemp[variantName][variantValueName];
-                }
-            });
-
-            return variantTemp.uuid || this.uuid;
-        },
         selectedProduct() {
-            const uuid = this._uuid ?? this.item.uuid;
-            const product = [this.item, ...this.variants].find(product => product.uuid === uuid);
-            return product;
+            const selectedCombination = Object.values(this.variantSelection);
+            return this.isVariableProduct && selectedCombination.every(value => value) && selectedCombination.length === this.variantKeys.length
+                ? this.getProductByCombination(selectedCombination)
+                : this.item;
         },
         isAddToCartDisabled() {
             const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
             return (this.item.count == 0 && this.item.is_available_for_order == 0)
-                || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length);
-        }
+                || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.item.variants_tree).length);
+        },
+        products() {
+            return [this.item, ...this.item.variants];
+        },
+        variantKeys() {
+            return Object.keys(this.item.variants_tree);
+        },
+        variantValueCombinations() {
+            return this.cartesianProduct(...this.variantKeys.map(variantKey => Object.keys(this.item.variants_tree[variantKey])));
+        },
+        isVariableProduct() {
+            return this.variantKeys.length > 0;
+        },
     },
     methods: {
         isVariantDisabled(variantName, variantValueName) {
@@ -124,34 +140,20 @@ export default {
                 return false;
             }
 
-            // If all variants are selected, it is disabled
-            if (Object.values(this.variantSelection).every(value => value !== null)) {
-                return true;
-            }
-
-            let variantTemp = { ...this.variants_tree };
-            Object.entries(this.variantSelection)
-                .filter(([_, tempVariantValueName]) => tempVariantValueName !== null)
-                .forEach(([tempVariantName, tempVariantValueName]) => {
-                    if (tempVariantValueName) {
-                        variantTemp = variantTemp[tempVariantName][tempVariantValueName];
-                    }
-                });
-
-            const uuid = variantTemp.uuid ?? (variantTemp[variantName] ? variantTemp[variantName][variantValueName].uuid : null);
-
-            if (uuid) {
-                const product = this.variants.find(variant => variant.uuid === uuid);
-                return !this.isProductAvailable(product);
-            }
-
-            return false;
+            // Check if after selecting this variant, there is still a product available
+            const variantTemp = {
+                ...this.variantSelection,
+                [variantName]: variantValueName
+            };
+            const product = this.getProductByCombination(Object.values(variantTemp));
+            return product ? !this.isProductAvailable(product) : true;
         },
         isProductAvailable(product) {
             return product.count > 0 || product.is_available_for_order == 1;
         },
         cartesianProduct(...a) {
-            return a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+            const result = a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
+            return typeof result[0] === 'string' ? result.map(item => [item]) : result;
         },
         addQuantity() {
             this.quantity++;
@@ -169,7 +171,7 @@ export default {
                 this.loading = true;
                 this.error = false;
                 try {
-                    await cart.addItem(this._uuid, this.quantity);
+                    await cart.addItem(this.selectedProduct.uuid, this.quantity);
                     this.error = false;
                 } catch (e) {
                     this.error = true;
@@ -198,6 +200,7 @@ export default {
                 "Lime Green": "#00FF00",
                 "Ružová": "#FF00FF",
                 "Sky Blue": "#87CEEB",
+                'Modrá': '#0000FF',
             }
 
             return map[colorName] ?? null;
@@ -207,27 +210,35 @@ export default {
                 return;
             }
 
-            let newVariantSelection = { ...this.variantSelection };
-
-            newVariantSelection[variantName] = this.variantSelection[variantName] === variantValueName
-                ? null
-                : newVariantSelection[variantName] = variantValueName;
+            let newVariantSelection = {
+                ...this.variantSelection,
+                [variantName]: variantValueName
+            };
 
             this.variantSelection = newVariantSelection;
+        },
+        getProductByCombination(combination) {
+            let item = this.item.variants_tree;
+            this.variantKeys.forEach((variantKey, index) => item = item[variantKey][combination[index]]);
+            return this.products.find(product => product.uuid === item.uuid);
+        },
+        updatePrice() {
+            const $price = document.querySelector('.product-detail--price');
+            if ($price && this.selectedProduct) {
+                const {
+                    retail_price_formatted: oldPrice,
+                    retail_price_discounted_formatted: newPrice
+                } = this.selectedProduct;
+                $price.innerHTML = oldPrice === newPrice
+                    ? $price.innerHTML = newPrice
+                    : `<span class="text-success">${newPrice}</span>
+                       <span class="product-detail--price-old">${oldPrice}</span>`;
+            }
         }
     },
     watch: {
         selectedProduct() {
-            const $price = document.querySelector('.product-detail--price');
-            if ($price) {
-                const oldPrice = this.selectedProduct.retail_price_formatted;
-                const newPrice = this.selectedProduct.retail_price_discounted_formatted;
-                if (oldPrice !== newPrice) {
-                    $price.innerHTML = `${newPrice} <span class="product-detail--price-old">${oldPrice}</span>`;
-                } else {
-                    $price.innerHTML = newPrice;
-                }
-            }
+            this.updatePrice();
         }
     }
 }
