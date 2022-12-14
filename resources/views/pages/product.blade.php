@@ -43,13 +43,12 @@
         </a>
     @else
         <add-to-cart
-            uuid="{{$item['item']['uuid']}}"
-            :translations="{{json_encode(['Do košíka' => $translations['cart.cta_add']['text'], 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text']])}}"
-            :variants_tree="{{json_encode($item['item']['variants_tree'])}}"
-            :variants="{{json_encode($item['item']['variants'])}}"
-            :count="{{$item['item']['count']}}"
-            :is_available_for_order="{{$item['item']['is_available_for_order']}}"
-            :order_availability="'{{$item['item']['order_availability']}}'"
+        :item="{{json_encode($item['item'])}}"
+            :translations="{{json_encode([
+                'Do košíka' => $translations['cart.cta_add']['text'],
+                'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text'],
+                'Resetovať' => $translations['cart.reset']['text'],
+            ])}}"
         ></add-to-cart>
     @endif
 @endsection
@@ -80,17 +79,11 @@
                         <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{!!$item['item']['brand']['name']!!}</h2>
                     @endif
                     
-                    <p class="product-detail--price">
+                    <p class="product-detail--price text-subheading-xl">
                         
-                        <span @if($item['item']['retail_discount']) class="text-success text-subheading-xl leading-none" @endif>
+                        <span @if($item['item']['retail_discount']) class="text-success leading-none" @endif>
                             {{$item['item']['retail_price_discounted_formatted']}}
                         </span>
-
-                        @if($item['item']['retail_discount'])
-                            <span class="product-detail--price-old leading-none text-body-xl">
-                                {{$item['item']['retail_price_formatted']}}
-                            </span>
-                        @endif
 
                         @if($item['item']['badge'])
                             <span class="product-detail--badge" style="--badge-font-color: {{$item['item']['badge']['font_color']}}; --badge-background-color: {{$item['item']['badge']['background_color']}};">

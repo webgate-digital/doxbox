@@ -1,25 +1,30 @@
 <template>
     <div>
         <div class="product-detail--swatches">
-            <div v-for="([variantName, variantTree]) in Object.entries(variants_tree)" :key="variantName">
+            <div v-for="([variantName, variantTree]) in Object.entries(item.variants_tree)" :key="variantName">
                 <div class="product-detail--swatch">
                     <div class="text-subheading-m">
                         {{ variantName }}
                     </div>
                     <div class="flex gap-4">
-                        <div v-for="([variantValueName, variant]) in Object.entries(variantTree).reverse()"
+                        <div v-for="([variantValueName]) in Object.entries(variantTree).reverse()"
                             :key="variantValueName">
                             <div v-if="variantName === 'Farba'"
-                                :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                :class="{ disabled: isVariantDisabled(variantName, variantValueName) }"
-                                class="border rounded-full h-16 w-16 cursor-pointer" :style="{
+                                :data-tippy-content="`${variantName}: ${variantValueName}`" :class="{
+                                    variant: true,
+                                    disabled: isVariantDisabled(variantName, variantValueName),
+                                    selected: variantSelection[variantName] === variantValueName
+                                }"
+                                class="select-none rounded-full h-16 w-16 cursor-pointer"
+                                :style="{
                                     backgroundColor: getHexColorByColorName(variantValueName),
-                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.5
-                                }" @click="setVariant(variantName, variantValueName)"></div>
+                                }" @click="setVariant(variantName, variantValueName)">
+                            </div>
                             <div v-else :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                class="border opacity-50 hover:opacity-100 py-3 px-6 rounded-lg cursor-pointer"
-                                :class="{ disabled: isVariantDisabled(variantName, variantValueName) }" :style="{
-                                    opacity: (variantSelection[variantName] === variantValueName) ? 1 : 0.5
+                                class="select-none py-3 px-6 rounded-lg cursor-pointer" :class="{
+                                    variant: true,
+                                    disabled: isVariantDisabled(variantName, variantValueName),
+                                    selected: variantSelection[variantName] === variantValueName
                                 }" @click="setVariant(variantName, variantValueName)">
                                 {{ variantValueName }}
                             </div>
@@ -28,12 +33,17 @@
                 </div>
             </div>
         </div>
-        <template v-if="order_availability && order_availability !== ''">
-            <div class="mb-4 mt-8">
-                {{order_availability}}
+        <div class="mt-4" :style="{ visibility: isCleared ? 'hidden' : 'visible' }">
+            <span class="text-primary cursor-pointer" @click="resetVariants">
+                {{ translations['Resetovať'] }}
+            </span>
+        </div>
+        <template v-if="item.order_availability && item.order_availability !== ''">
+            <div class="mt-8">
+                {{ item.order_availability }}
             </div>
         </template>
-        <div class="flex items-center mb-4 mt-8">
+        <div class="flex items-center mb-4 mt-2">
             <button type="button"
                 class="button border border-primary aspect-square !w-16 !h-16 !p-0 rounded-lg text-primary !text-xl"
                 @click="removeQuantity">
@@ -70,12 +80,8 @@ import cart from "../cart";
 export default {
     name: "AddToCart",
     props: {
-        uuid: String,
-        variants_tree: Object,
         translations: Object,
-        variants: Array,
-        is_available_for_order: Number,
-        order_availability: String,
+        item: Object,
     },
     data: () => {
         return {
@@ -86,65 +92,86 @@ export default {
         }
     },
     created() {
-        Object.keys(this.variants_tree).forEach(key => {
-            this.variantSelection[key] = null;
-        });
+        this.resetVariants();
+
+        // If this is a variable product, set the cheapest available variant as the default selection
+        if (this.isVariableProduct) {
+            const combinations = this.variantValueCombinations;
+            const cheapestAvailableVariation = combinations.reduce((accumulator, current) => {
+                const accumulatorProduct = this.getProductByCombination(accumulator);
+                const currentProduct = this.getProductByCombination(current);
+
+                const isCurrentProductAvailable = currentProduct && this.isProductAvailable(currentProduct);
+                if (!isCurrentProductAvailable) {
+                    return accumulator;
+                }
+
+                const isCurrentProductCheaper = Number(currentProduct.retail_price_discounted) < Number(accumulatorProduct.retail_price_discounted);
+                return isCurrentProductCheaper ? current : accumulator;
+            }, combinations[0]);
+
+            this.variantKeys.forEach((variantKey, index) => Vue.set(this.variantSelection, variantKey, cheapestAvailableVariation[index]));
+        }
+    },
+    mounted() {
+        this.updatePrice();
     },
     computed: {
-        _uuid() {
-            const isSelectedVariant = Object.values(this.variantSelection).some(value => value !== null);
-
-            if (!isSelectedVariant) {
-                return this.uuid;
-            }
-
-            let variantTemp = { ...this.variants_tree };
-            Object.entries(this.variantSelection).forEach(([variantName, variantValueName]) => {
-                if (variantValueName) {
-                    variantTemp = variantTemp[variantName][variantValueName];
-                }
-            });
-
-            return variantTemp.uuid || this.uuid;
+        selectedProduct() {
+            const selectedCombination = Object.values(this.variantSelection);
+            return this.isVariableProduct && selectedCombination.every(value => value) && selectedCombination.length === this.variantKeys.length
+                ? this.getProductByCombination(selectedCombination)
+                : this.item;
         },
         isAddToCartDisabled() {
             const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
-            return (this.count == 0 && this.is_available_for_order == 0)
-                || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.variants_tree).length);
-        }
+            return (this.item.count == 0 && this.item.is_available_for_order == 0)
+                || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.item.variants_tree).length);
+        },
+        products() {
+            return [this.item, ...this.item.variants];
+        },
+        variantKeys() {
+            return Object.keys(this.item.variants_tree);
+        },
+        variantValueCombinations() {
+            return this.cartesianProduct(...this.variantKeys.map(variantKey => Object.keys(this.item.variants_tree[variantKey])));
+        },
+        isVariableProduct() {
+            return this.variantKeys.length > 0;
+        },
+        isCleared() {
+            return Object.values(this.variantSelection).every(value => value === null);
+        },
+        hasSelectedAllVariants() {
+            return Object.values(this.variantSelection).every(value => value !== null);
+        },
     },
     methods: {
         isVariantDisabled(variantName, variantValueName) {
 
-            // If this is a variant that is already selected, it is not disabled
+            // If this is a variant that is already selected, it is not disabled (so it can be deselected)
             if (this.variantSelection[variantName] === variantValueName) {
                 return false;
             }
 
-            // If all variants are selected, it is disabled
-            if (Object.values(this.variantSelection).every(value => value !== null) && Object.values(this.variantSelection).length > 1) {
-                return true;
-            }
+            // Check if after selecting this variant, there is still a product available
+            const selection = {
+                ...this.variantSelection,
+                [variantName]: variantValueName
+            };
 
-            // If this is a variant of the same type as the selected variant, it is not disabled
-            if (this.variantSelection[variantName] !== null) {
-                return false;
-            }
-
-            let variantTemp = { ...this.variants_tree };
-            Object.entries(this.variantSelection).forEach(([variantName, variantValueName]) => {
-                if (variantValueName) {
-                    variantTemp = variantTemp[variantName][variantValueName];
-                }
-            });
-
-            const uuid = variantTemp[variantName][variantValueName].uuid;
-            const product = this.variants.find(variant => variant.uuid === uuid);
-
-            return product?.count == 0 && product?.is_available_for_order == 0;
+            const product = this.hasSelectedAllVariants
+                ? this.getProductByCombination(Object.values(selection))
+                : this.item;
+            return product ? !this.isProductAvailable(product) : true;
+        },
+        isProductAvailable(product) {
+            return product.count > 0 || product.is_available_for_order == 1;
         },
         cartesianProduct(...a) {
-            return a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+            const result = a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
+            return typeof result[0] === 'string' ? result.map(item => [item]) : result;
         },
         addQuantity() {
             this.quantity++;
@@ -162,7 +189,7 @@ export default {
                 this.loading = true;
                 this.error = false;
                 try {
-                    await cart.addItem(this._uuid, this.quantity);
+                    await cart.addItem(this.selectedProduct.uuid, this.quantity);
                     this.error = false;
                 } catch (e) {
                     this.error = true;
@@ -191,6 +218,7 @@ export default {
                 "Lime Green": "#00FF00",
                 "Ružová": "#FF00FF",
                 "Sky Blue": "#87CEEB",
+                'Modrá': '#0000FF',
             }
 
             return map[colorName] ?? null;
@@ -200,21 +228,88 @@ export default {
                 return;
             }
 
-            let newVariantSelection = { ...this.variantSelection };
-
-            newVariantSelection[variantName] = this.variantSelection[variantName] === variantValueName
-                ? null
-                : newVariantSelection[variantName] = variantValueName;
+            let newVariantSelection = {
+                ...this.variantSelection,
+                [variantName]: variantValueName
+            };
 
             this.variantSelection = newVariantSelection;
+        },
+        getProductByCombination(combination) {
+            let item = this.item.variants_tree;
+            this.variantKeys.forEach((variantKey, index) => item = item[variantKey][combination[index]]);
+            return this.products.find(product => product.uuid === item.uuid);
+        },
+        updatePrice() {
+            const $price = document.querySelector('.product-detail--price');
+            if ($price && this.selectedProduct) {
+                const {
+                    retail_price_formatted: oldPrice,
+                    retail_price_discounted_formatted: newPrice
+                } = this.selectedProduct;
+                $price.innerHTML = oldPrice === newPrice
+                    ? $price.innerHTML = newPrice
+                    : `<span class="text-success">${newPrice}</span>
+                       <span class="product-detail--price-old">${oldPrice}</span>`;
+            }
+        },
+        resetVariants() {
+            this.variantKeys.forEach(variantKey => Vue.set(this.variantSelection, variantKey, null));
+        }
+    },
+    watch: {
+        selectedProduct() {
+            this.updatePrice();
         }
     }
 }
 </script>
 
 <style scoped>
-.disabled {
-    opacity: 0.1 !important;
+.variant {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #7C7E80;
+}
+
+.variant.disabled {
+    opacity: 0.6;
     cursor: not-allowed;
+}
+
+.variant.selected {
+    cursor: pointer;
+    border-color: black;
+    border-width: 2px;
+}
+
+.variant.selected:not(.rounded-full) {
+    margin: -1px;
+}
+
+.variant::before,
+.variant::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #FB4E4E;
+    opacity: 0;
+}
+
+.variant::before {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.variant::after {
+    right: 0;
+    transform: rotate(-45deg);
+}
+
+.variant.disabled::before,
+.variant.disabled::after {
+    opacity: 1;
 }
 </style>

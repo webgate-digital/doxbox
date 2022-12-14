@@ -7,6 +7,7 @@ use App\Exceptions\ValidationException;
 use App\Repositories\PageRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
+use App\Repositories\SetupRepository;
 use App\Repositories\TranslationRepository;
 use Cache;
 use Exception;
@@ -19,11 +20,13 @@ class PageController extends Controller
 {
     private $_productRepository;
     private $_pageRepository;
+    private $_setupRepository;
 
-    public function __construct(ProductRepository $productRepository, PageRepository $pageRepository)
+    public function __construct(ProductRepository $productRepository, PageRepository $pageRepository, SetupRepository $setupRepository)
     {
         $this->_productRepository = $productRepository;
         $this->_pageRepository = $pageRepository;
+        $this->_setupRepository = new SetupRepository();
     }
 
     public function homepage()
@@ -215,5 +218,12 @@ class PageController extends Controller
         ]);
 
         return $response;
+    }
+
+    public function facebookXML()
+    {
+        $productUrl = route(locale() . '.product.detail', ['categorySlugs' => '--CATEGORY--', 'slug' => '--PRODUCT--']);
+        $view = $this->_setupRepository->facebookXML(locale(), session()->get('currency'), $productUrl);
+        return $view;
     }
 }
