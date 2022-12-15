@@ -33,11 +33,11 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4" :style="{ visibility: isCleared ? 'hidden' : 'visible' }">
+        <!-- <div class="mt-4" :style="{ visibility: isCleared ? 'hidden' : 'visible' }">
             <span class="text-primary cursor-pointer" @click="resetVariants">
                 {{ translations['Resetovať'] }}
             </span>
-        </div>
+        </div> -->
         <template v-if="item.order_availability && item.order_availability !== ''">
             <div class="mt-8">
                 {{ item.order_availability }}
