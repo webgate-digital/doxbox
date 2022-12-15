@@ -140,12 +140,7 @@ class SetupRepository
             ]
         ]);
 
-        $xml = $this->response($response);
-
-        $content = $xml['content'];
-        $header = $xml['header'];
-
-        return response()->view('facebook', compact('header', 'content'))->header('Content-Type', 'text/xml');
+        return $this->response($response);
     }
 
     public function googleXML(string $locale, string $currency, string $productUrl)

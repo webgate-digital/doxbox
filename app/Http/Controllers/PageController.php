@@ -188,8 +188,15 @@ class PageController extends Controller
 
     public function facebookXML()
     {
-        $productUrl = route(locale() . '.product.detail', ['categorySlugs' => '--CATEGORY--', 'slug' => '--PRODUCT--']);
-        $view = $this->_setupRepository->facebookXML(locale(), session()->get('currency'), $productUrl);
+        $xml = Cache::rememberForever(locale() . '_facebook_xml', function () {
+            $productUrl = route(locale() . '.product.detail', ['categorySlugs' => '--CATEGORY--', 'slug' => '--PRODUCT--']);
+            return $this->_setupRepository->facebookXML(locale(), session()->get('currency'), $productUrl);
+        });
+
+        $content = $xml['content'];
+        $header = $xml['header'];
+
+        return response()->view('facebook', compact('header', 'content'))->header('Content-Type', 'text/xml');
         return $view;
     }
 }
