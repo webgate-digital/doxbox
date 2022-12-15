@@ -12,6 +12,7 @@ use App\Repositories\TranslationRepository;
 use Cache;
 use Exception;
 use Illuminate\Http\Request;
+use GoogleTagManager;
 
 const HOUR = 3600;
 
@@ -118,6 +119,39 @@ class PageController extends Controller
         session()->forget('order');
         session()->forget('packeta-selector-branch-name');
         $params = $request->all();
+
+        // Implement dataLayer for Google Tag Manager (ecommerce)
+        $dataLayer = GoogleTagManager::getDataLayer();
+        $dataLayer->set('event', 'eec.purchase');
+
+        $actionField = [
+            'id' => $order['code'],
+            'revenue' => number_format($order['vat_amount'], 2, '.', ''),
+            'tax' => number_format($order['vat_value'], 2, '.', ''),
+            'shipping' => number_format($order['shipping']['price'], 2, '.', ''),
+        ];
+
+        if (isset($order['voucher_code']) && $order['voucher_code']) {
+            $actionField['coupon'] = $order['voucher_code'];
+        }
+
+        $dataLayer->set('ecommerce', [
+            'currencyCode' => strtoupper($order['currency']),
+            'purchase' => [
+                'actionField' => $actionField,
+                'products' => array_map(function ($item) {
+                    $category = \App\Http\Controllers\ProductController::getCategoryBy('name', $item['product_category_name']);
+                    $categoryChainString = \App\Http\Controllers\ProductController::getCategoryChainString($category['slug']);
+                    return [
+                        'name' => $item['name'],
+                        'id' => $item['sku'],
+                        'price' => number_format($item['price'], 2, '.', ''),
+                        'category' => $categoryChainString,
+                        'quantity' => $item['quantity'],
+                    ];
+                }, $order['items']),
+            ],
+        ]);
 
         return view('pages.thank_you', compact('order', 'params'));
     }
