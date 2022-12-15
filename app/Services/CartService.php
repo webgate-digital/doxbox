@@ -129,16 +129,16 @@ class CartService
     /**
      * @return array
      */
-    public function update(string $locale, string $currency, array $cart, array $multipack, string $voucher = null, string $shippingCountry = null, string $shipping = null, string $payment = null, array $checkoutSupport = []): array
+    public function update(string $locale, string $currency, array $cart, array $multipack, string $voucher = null, string $shippingCountry = null, string $shipping = null, string $payment = null, array $checkoutSupport = [], array $variants = []): array
     {
-        if (!count($cart)) {
+        if (!count($cart) && !count($variants)) {
             return [
                 'count' => 0
             ];
         }
 
-        $cart = $this->_cartRepository->list($locale, $currency, $cart, $multipack, $voucher, $shippingCountry, $shipping, $payment, $checkoutSupport);
-        $cart['count'] = count(session()->get('cart', []));
+        $cart = $this->_cartRepository->list($locale, $currency, $cart, $multipack, $voucher, $shippingCountry, $shipping, $payment, $checkoutSupport, $variants);
+        $cart['count'] = count(session()->get('cart', [])) + count(session()->get('variants', []));
 
         return $cart;
     }
@@ -162,5 +162,53 @@ class CartService
 
         session()->put('cart', $cart);
         session()->forget('multipack.' . $uuid);
+    }
+
+    public function addVariant(string $uuid, int $quantity): bool
+    {
+        try {
+            $variant = $this->_productRepository->variantAvailability(locale(), session()->get('currency'), $uuid)['item'];
+        } catch (NotFoundException $e) {
+            return false;
+        }
+
+        // If variant doesn't have enough stock and it's not available for order, return false
+        if ($variant['count'] < ($this->getVariantCount($variant['uuid']) + $quantity) && !$variant['is_available_for_order']) {
+            return false;
+        }
+
+        for ($i = 0; $i < $quantity; $i++) {
+            session()->push('variants', $variant['uuid']);
+        }
+
+        return true;
+    }
+
+    public function getVariantCount($uuid)
+    {
+        $cart = session()->get('variants', []);
+        $cartCount = array_count_values($cart)[$uuid] ?? 0;
+
+        return $cartCount;
+    }
+
+    public function removeVariant($uuid)
+    {
+        $variants = session()->get('variants', []);
+
+        if (($key = array_search($uuid, $variants)) !== false) {
+            unset($variants[$key]);
+        }
+
+        session()->put('variants', $variants);
+    }
+
+    public function deleteVariant($uuid)
+    {
+        $variants = session()->get('variants', []);
+
+        $variants = array_values(array_diff($variants, [$uuid]));
+
+        session()->put('variants', $variants);
     }
 }

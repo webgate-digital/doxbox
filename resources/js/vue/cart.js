@@ -118,5 +118,30 @@ export default {
             .catch((err) => {
                 throw err;
             });
-    }
+    },
+    async addVariant(uuid, quantity) {
+        await axios.post('/cart/add-variant', {uuid: uuid, quantity: quantity})
+            .then(response => {
+
+            })
+            .catch((err) => {
+                throw err;
+            });
+    },
+    async removeVariantItem(uuid) {
+        await axios.delete('/cart/remove-variant/', {data: {uuid: uuid}})
+            .then(response => {
+            })
+            .catch((err) => {
+                throw err;
+            });
+    },
+    async deleteVariantItem(uuid) {
+        await axios.delete('/cart/delete-variant/', {data: {uuid: uuid}})
+            .then(response => {
+            })
+            .catch((err) => {
+                throw err;
+            });
+    },
 }

@@ -19,6 +19,7 @@ class ProductRepository
     private const BRANDS_URL = '/product-brands';
     private const CATEGORY_URL = '/product-categories/detail';
     private const ATTRIBUTES_URL = '/product-attributes';
+    protected const VARIANT_AVAILABILITY_URL = '/products/variant-availability';
     protected $client;
 
     private function headers()
@@ -201,5 +202,19 @@ class ProductRepository
         }
 
         return json_decode($response->getBody(), true);
+    }
+
+    public function variantAvailability(string $locale, string $currency, string $uuid): array
+    {
+        $response = $this->client->get(config('frontstore.api_endpoint') . self::VARIANT_AVAILABILITY_URL, [
+            'headers' => $this->headers(),
+            'query' => [
+                'locale' => $locale,
+                'currency' => $currency,
+                'uuid' => $uuid
+            ]
+        ]);
+
+        return $this->response($response);
     }
 }

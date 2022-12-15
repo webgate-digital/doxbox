@@ -135,14 +135,22 @@ export default {
         async removeFromCart(item) {
             this.loading = true;
             this.countError = null;
-            await this.cart.removeItem(item.meta.uuid);
+            if (item.meta.hasOwnProperty('is_variant') && item.meta.is_variant) {
+                await this.cart.removeVariantItem(item.meta.uuid);
+            } else {
+                await this.cart.removeItem(item.meta.uuid);
+            }
             await this.cart.update();
             this.loading = false;
         },
         async removeProduct(item) {
             this.loading = true;
             this.countError = null;
-            await this.cart.deleteItem(item.meta.uuid);
+            if (item.meta.hasOwnProperty('is_variant') && item.meta.is_variant) {
+                await this.cart.deleteVariantItem(item.meta.uuid);
+            } else {
+                await this.cart.deleteItem(item.meta.uuid);
+            }
             await this.cart.update();
             this.loading = false;
         },

@@ -28,7 +28,7 @@ class CartRepository
         $this->client = new Client(['http_errors' => false]);
     }
 
-    public function list(string $locale, string $currency, array $cart, array $multipack, string $voucher = null, string $shippingCountry = null, string $shipping = null, string $payment = null, array $checkoutSupport = []): array
+    public function list(string $locale, string $currency, array $cart, array $multipack, string $voucher = null, string $shippingCountry = null, string $shipping = null, string $payment = null, array $checkoutSupport = [], array $variants = []): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
             'headers' => $this->headers(),
@@ -41,6 +41,7 @@ class CartRepository
                 'shipping_country' => $shippingCountry,
                 'shipping_type' => $shipping,
                 'payment_type' => $payment,
+                'variants' => $variants,
                 'checkout_support' => $checkoutSupport
             ]
         ]);

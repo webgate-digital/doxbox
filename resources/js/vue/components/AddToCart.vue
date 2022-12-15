@@ -181,6 +181,9 @@ export default {
                 this.quantity--;
             }
         },
+        isProductAVariant(product) {
+            return product.uuid !== this.item.uuid;
+        },
         async addToCart() {
             if (this.isAddToCartDisabled) {
                 return;
@@ -189,7 +192,8 @@ export default {
                 this.loading = true;
                 this.error = false;
                 try {
-                    await cart.addItem(this.selectedProduct.uuid, this.quantity);
+                    const method = this.isVariableProduct ? 'addVariant' : 'addItem';
+                    await cart[method](this.selectedProduct.uuid, this.quantity);
                     this.error = false;
                 } catch (e) {
                     this.error = true;

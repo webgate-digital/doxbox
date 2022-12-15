@@ -51,7 +51,7 @@ class CartController extends Controller
         $checkoutSupportValue = session()->get('checkout_support_value', 0);
         $checkoutSupportName = session()->get('checkout_support_name', null);
 
-        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName]);
+        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName], session()->get('variants', []));
 
         $upsell = [];
 
@@ -363,7 +363,7 @@ class CartController extends Controller
         $checkoutSupportValue = session()->get('checkout_support_value', 0);
         $checkoutSupportName = session()->get('checkout_support_name', null);
 
-        return $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName]);
+        return $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName], session()->get('variants', []));
     }
 
     public function delete(RemoveFromCart $request)
@@ -374,5 +374,22 @@ class CartController extends Controller
     public function remove(RemoveFromCart $request)
     {
         $this->_cartService->remove($request->get('uuid'));
+    }
+
+    public function addVariant(AddToCart $request)
+    {
+        if (!$this->_cartService->addVariant($request->get('uuid'), $request->get('quantity'))) {
+            abort(400);
+        }
+    }
+
+    public function deleteVariant(RemoveFromCart $request)
+    {
+        $this->_cartService->deleteVariant($request->get('uuid'));
+    }
+
+    public function removeVariant(RemoveFromCart $request)
+    {
+        $this->_cartService->removeVariant($request->get('uuid'));
     }
 }

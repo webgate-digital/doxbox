@@ -109,3 +109,7 @@ Route::post('/reset-cache', [PageController::class, 'resetCache']);
 Route::post("/newsletter", [PageController::class, 'newsletter'])->name('newsletter.store');
 
 Route::get("/xml/facebook", [PageController::class, 'facebookXML'])->name('facebook.xml');
+
+Route::post('/cart/add-variant', [CartController::class, 'addVariant']);
+Route::delete('/cart/delete-variant', [CartController::class, 'deleteVariant']);
+Route::delete('/cart/remove-variant', [CartController::class, 'removeVariant']);
