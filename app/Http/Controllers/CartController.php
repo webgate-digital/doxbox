@@ -160,7 +160,7 @@ class CartController extends Controller
             return $this->_setupRepository->getShippingCountries(locale(), session()->get('currency'))['items'];
         });
 
-        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), session()->get('voucher', null)['code'] ?? null, $shippingCountries[session()->get('shipping_country')]['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => session()->get('checkout_support_value', 0), 'name' => session()->get('checkout_support_name', null)]);
+        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), session()->get('voucher', null)['code'] ?? null, $shippingCountries[session()->get('shipping_country')]['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => session()->get('checkout_support_value', 0), 'name' => session()->get('checkout_support_name', null)], session()->get('variants', []));
 
         $step = 2;
 
