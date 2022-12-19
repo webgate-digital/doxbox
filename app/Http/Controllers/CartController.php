@@ -259,7 +259,7 @@ class CartController extends Controller
         $checkoutSupportValue = session()->get('checkout_support_value', 0);
         $checkoutSupportName = session()->get('checkout_support_name', '');
 
-        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName], session()->get('variants', []);
+        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName], session()->get('variants', []));
         $user = session()->get('me', null);
 
         $checkoutSupportPage = Cache::rememberForever(locale() . '_page_' . 'prispevky-pre-utulky', function () {
@@ -285,7 +285,7 @@ class CartController extends Controller
         $checkoutSupportValue = session()->get('checkout_support_value', 0);
         $checkoutSupportName = session()->get('checkout_support_name', '');
 
-        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName], session()->get('variants', []);
+        $cart = $this->_cartService->update(locale(), session()->get('currency'), session()->get('cart', []), session()->get('multipack', []), $voucher['code'] ?? null, $shippingCountry['uuid'], session()->get('shipping_type', null), session()->get('payment_type', null), ['value' => $checkoutSupportValue, 'name' => $checkoutSupportName], session()->get('variants', []));
 
         $data = $request->validated();
         $data['currency'] = session()->get('currency');
