@@ -15,7 +15,7 @@ class EmptyCart
      */
     public function handle($request, Closure $next)
     {
-        if(count(session()->get('cart', []))) {
+        if(count(session()->get('cart', [])) !== 0 && count(session()->get('variants', [])) !== 0) {
             return $next($request);
         }
 
