@@ -138,8 +138,8 @@
             </div>
 
             
-            @if(count($item['related']['items']) > 0)
-                <div class="product-detail--separator"></div>
+            @if(isset($item['related']['items']) && count($item['related']['items']) > 0)
+            <div class="product-detail--separator"></div>
                 <div class="mt-16 product-detail--tabs">
                     <h3 class="text-subheading-xl mb-10">{{$translations['product.related_products']['text']}}</h3>
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
