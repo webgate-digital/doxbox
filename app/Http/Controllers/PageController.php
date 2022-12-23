@@ -21,12 +21,14 @@ class PageController extends Controller
     private $_productRepository;
     private $_pageRepository;
     private $_setupRepository;
+    private $_cartRepository;
 
-    public function __construct(ProductRepository $productRepository, PageRepository $pageRepository, SetupRepository $setupRepository)
+    public function __construct(ProductRepository $productRepository, PageRepository $pageRepository, SetupRepository $setupRepository, CartRepository $cartRepository)
     {
         $this->_productRepository = $productRepository;
         $this->_pageRepository = $pageRepository;
         $this->_setupRepository = new SetupRepository();
+        $this->_cartRepository = $cartRepository;
     }
 
     public function homepage()
@@ -119,6 +121,19 @@ class PageController extends Controller
         session()->forget('order');
         session()->forget('packeta-selector-branch-name');
         $params = $request->all();
+        $paymentUUID = $order['payment']['uuid'];
+
+        // Validate payment if PayPal
+        $isPayPal = strpos(strtolower($paymentUUID), 'paypal') !== false;
+        if ($isPayPal && $params['token'] && $params['PayerID']) {
+            $this->_cartRepository->validatePayPalPayment([
+                'TID' => $tid,
+                'TOKEN' => $params['token'],
+                'PAYERID' => $params['PayerID'],
+                'AMOUNT' => $order['vat_amount'],
+                'CURRENCY' => strtoupper($order['currency']),
+            ]);
+        }
 
         // Implement dataLayer for Google Tag Manager (ecommerce)
         $dataLayer = GoogleTagManager::getDataLayer();

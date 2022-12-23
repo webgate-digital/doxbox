@@ -12,6 +12,7 @@ class CartRepository
     protected const LIST_URL = '/cart';
     private const CHECKOUT_URL = '/checkout';
     private const VALIDATE_CARDPAY = '/validate-cardpay';
+    private const VALIDATE_PAYPAL = '/validate-paypal';
     protected $client;
 
     private function headers()
@@ -110,6 +111,24 @@ class CartRepository
         ]);
 
         return $this->response($response);
+    }
+
+    public function validatePayPal(array $data): array
+    {
+        try {
+            $response = $this->client->get(config('frontstore.api_endpoint') . self::VALIDATE_PAYPAL, [
+                'headers' => $this->headers,
+                'query' => [
+                    'TID' => $data['TID'],
+                    'TOKEN' => $data['TOKEN'],
+                    'AMOUNT' => $data['AMOUNT'],
+                    'PAYERID' => $data['PAYERID'],
+                    'CURRENCY' => $data['CURRENCY'],
+                ]
+            ]);   
+        } catch (Throwable) {
+            Log::info('PayPal validation failed (' . $e->getMessage() . '): ' . json_encode($data));
+        }
     }
 
     protected function response($response)
