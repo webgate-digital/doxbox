@@ -9,6 +9,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
 use App\Repositories\SetupRepository;
 use App\Repositories\TranslationRepository;
+use App\Repositories\CartRepository;
 use Cache;
 use Exception;
 use Illuminate\Http\Request;
