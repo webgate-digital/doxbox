@@ -113,7 +113,7 @@ class CartRepository
         return $this->response($response);
     }
 
-    public function validatePayPal(array $data): array
+    public function validatePayPalPayment(array $data): array
     {
         try {
             $response = $this->client->get(config('frontstore.api_endpoint') . self::VALIDATE_PAYPAL, [
