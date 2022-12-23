@@ -135,6 +135,10 @@ class PageController extends Controller
             $actionField['coupon'] = $order['voucher_code'];
         }
 
+        $products = array_filter($order['items'], function($item) {
+            return $item['type'] === 'PRODUCT';
+        });
+
         $dataLayer->set('ecommerce', [
             'currencyCode' => strtoupper($order['currency']),
             'purchase' => [
@@ -149,7 +153,7 @@ class PageController extends Controller
                         'category' => $categoryChainString,
                         'quantity' => $item['quantity'],
                     ];
-                }, $order['items']),
+                }, $products),
             ],
         ]);
 
