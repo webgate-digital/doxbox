@@ -117,7 +117,7 @@ class CartRepository
     {
         try {
             $response = $this->client->get(config('frontstore.api_endpoint') . self::VALIDATE_PAYPAL, [
-                'headers' => $this->headers,
+                'headers' => $this->headers(),
                 'query' => [
                     'TID' => $data['TID'],
                     'TOKEN' => $data['TOKEN'],
