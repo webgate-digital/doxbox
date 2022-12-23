@@ -128,7 +128,7 @@ class PageController extends Controller
         $isPayPal = strpos(strtolower($paymentUUID), 'paypal') !== false;
         if ($isPayPal && $params['token'] && $params['PayerID']) {
             $this->_cartRepository->validatePayPalPayment([
-                'TID' => $tid,
+                'TID' => $order['vs'],
                 'TOKEN' => $params['token'],
                 'PAYERID' => $params['PayerID'],
                 'AMOUNT' => $order['vat_amount'],
