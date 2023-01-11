@@ -50,7 +50,8 @@ class ProductRepository
                 'min_price' => $min_price,
                 'max_price' => $max_price,
                 'attributes' => $attributes,
-                'category' => $category
+                'category' => $category,
+                'show_sold_out' => true,
             ]
         ]);
 
