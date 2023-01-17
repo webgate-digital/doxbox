@@ -38,9 +38,9 @@
                 {{ translations['Resetovať'] }}
             </span>
         </div> -->
-        <template v-if="item.order_availability && item.order_availability !== ''">
+        <template v-if="!selectedProduct.count && selectedProduct.is_available_for_order && selectedProduct.order_availability && selectedProduct.order_availability !== ''">
             <div class="mt-8">
-                {{ item.order_availability }}
+                {{ selectedProduct.order_availability }}
             </div>
         </template>
         <div class="flex items-center mb-4 mt-8">
