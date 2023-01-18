@@ -32,6 +32,9 @@
             @endforeach
         </div>
         <div class="filter-form-footer">
+            @php
+                $isFilterActive = request()->has('attributes') || request()->has('min_price') || request()->has('max_price');
+            @endphp
             <p class="h5">{{ $translations['filter.price_title']['text'] }} (<span
                     id="filter_sidebar_min_price">{{ request()->get('min_price', $filterPrices['min_price']) }},00
                     {{ $setup['currencies'][session()->get('currency')]['symbol'] }}</span>
@@ -41,14 +44,14 @@
             </p>
             <input type="hidden" name="sort"
                 value="{{ request()->get('sort', $setup['api']['defaults']['sort']['products']) }}">
-            <price-range class="mx-4 mb-8"
+            <price-range class="mx-4 mb-8 price-change"
                 :price="{{ json_encode([(int) request()->get('min_price', $filterPrices['min_price']), (int) request()->get('max_price', $filterPrices['max_price'])]) }}"
                 :max-price="{{ $filterPrices['max_price'] }}"
                 :currency="{{ json_encode($setup['currencies'][session()->get('currency')]) }}"></price-range>
 
-            <button type="submit"
-                class="button button--primary rounded-xl">{{ $translations['filter.cta']['text'] }}</button>
-            <a href="{{ route(locale() . '.product.list') }}#list" class="mt-4 text-primary font-light text-center">
+            <button type="submit" style="display: none"
+                class="button button--secondary rounded-xl">{{ $translations['filter.cta']['text'] }}</button>
+            <a {{ $isFilterActive ? 'href=' . route(locale() . '.product.list') . '#list' : '' }} class="button border border-primary text-primary rounded-lg{{!$isFilterActive ? ' disabled' : ''}}">
                 {{ $translations['filter.cta_cancel']['text'] }}
             </a>
         </div>

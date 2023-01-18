@@ -1638,3 +1638,9 @@ table tfoot tr:not(:last-child) td {
 .container--narrow {
     max-width: 610px;
 }
+
+.button.disabled {
+    @apply cursor-not-allowed;
+    @apply text-gray-20;
+    @apply border-gray-10;
+}

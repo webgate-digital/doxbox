@@ -98,8 +98,8 @@ class ProductController extends Controller
 
         return $isAjax
             ? response()->json([
-                'hasMoreProducts' => $hasMoreProducts,
                 'html' => view('products.ajax.category', compact('products', 'category'))->render(),
+                'hasMoreProducts' => $hasMoreProducts,
             ])
             : view('products.category', compact('category', 'categorySlug', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
     }

@@ -1,6 +1,12 @@
 <template>
     <div>
-        <vue-slider :tooltip="'none'" :min="0" :max="maxPrice" v-model="sliderValue"></vue-slider>
+        <vue-slider
+            :tooltip="'none'"
+            :min="0"
+            :max="maxPrice"
+            v-model="sliderValue"
+            @drag-end="dragEnd"
+        ></vue-slider>
         <input type="hidden" name="min_price" :value="sliderValue[0]">
         <input type="hidden" name="max_price" :value="sliderValue[1]">
     </div>
@@ -33,6 +39,11 @@ export default {
             let price = ',' + decimals + ' ' + this.currency.symbol;
             document.getElementById('filter_sidebar_max_price').innerText = val[1].toString() + price;
             document.getElementById('filter_sidebar_min_price').innerText = val[0].toString() + price;
+        }
+    },
+    methods: {
+        dragEnd: function () {
+            document.getElementById('filter-form').submit();
         }
     }
 }
