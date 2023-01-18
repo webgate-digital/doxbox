@@ -1,6 +1,6 @@
 @extends('layout', [
 	'ogTitle' => $item['item']['seo_title'] ?: $item['item']['name'],
-	'ogDescription' => $item['item']['seo_description'] ?: $item['item']['perex'],
+	'ogDescription' => $item['item']['perex'] ?: $item['item']['seo_description'],
 	'robots' => 'index,follow',
     'ogImage' => $item['item']['image_url']
     ]
@@ -92,9 +92,9 @@
                         @endif
                     </p>
                     
-                    <p>
-                        {!!$item['item']['perex']!!}
-                    </p>
+                    <div class="product-detail--info">
+                        {!!$item['item']['info']!!}
+                    </div>
 
                     <div class="product-detail--labels">
                         <div class='product-detail--label'>

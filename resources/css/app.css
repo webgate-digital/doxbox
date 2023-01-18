@@ -866,6 +866,11 @@ iframe {
 
 /* product detail */
 
+.product-detail--info ul {
+    list-style: initial;
+    @apply pl-8;
+}
+
 .product-detail--price {
     @apply mb-8;
     @apply flex;
