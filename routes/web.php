@@ -46,6 +46,9 @@ Route::group(['middleware' => ['empty.cart']], function () {
     });
 });
 
+Route::multilingual('/categories', [PageController::class, 'categories'])->name('categories');
+Route::multilingual('/brands', [PageController::class, 'brands'])->name('brands');
+
 Route::multilingual('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::multilingual('/thank-you', [PageController::class, 'thankYou'])->name('thank_you');
@@ -55,6 +58,9 @@ Route::multilingual('/product-detail', [ProductController::class, 'detail'])
     ->name('product.detail');
 Route::multilingual('/product-category', [ProductController::class, 'category'])
     ->where('categorySlugs', '^[a-zA-Z0-9-_\/]+$')
+    ->name('product.category');
+Route::multilingual('/product-brand', [ProductController::class, 'brand'])
+    ->where('brandSlug', '^[a-zA-Z0-9-_\/]+$')
     ->name('product.category');
 Route::multilingual('/product-list', [ProductController::class, 'list'])->name('product.list');
 Route::multilingual('/search', [ProductController::class, 'search'])->name('search');

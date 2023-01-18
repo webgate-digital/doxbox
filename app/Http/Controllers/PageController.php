@@ -44,7 +44,7 @@ class PageController extends Controller
         });
 
         $brands = Cache::rememberForever(locale() . '_homepage_brands_list', function () {
-            return $this->_productRepository->brands(locale(), 8)['items'];
+            return $this->_productRepository->brands(locale(), 12)['items'];
         });
 
         return view('pages.homepage', compact('products', 'categories', 'brands'));
@@ -252,5 +252,35 @@ class PageController extends Controller
 
         return response()->view('facebook', compact('header', 'content'))->header('Content-Type', 'text/xml');
         return $view;
+    }
+
+    public function categories()
+    {
+        $categories = Cache::rememberForever(locale() . '_product_categories', function () {
+            $_productRepository = new ProductRepository();
+            return $_productRepository->categories(locale())['items'];
+        });
+
+        $translations = \Cache::rememberForever(locale() . '_translations_web', function () {
+            $_translationRepository = new TranslationRepository();
+            return $_translationRepository->default(locale())['items'];
+        });
+
+        return view('pages.categories', compact('categories', 'translations'));
+    }
+
+    public function brands()
+    {
+        $brands = Cache::rememberForever(locale() . '_brands', function () {
+            $_productRepository = new ProductRepository();
+            return $_productRepository->brands(locale())['items'];
+        });
+
+        $translations = \Cache::rememberForever(locale() . '_translations_web', function () {
+            $_translationRepository = new TranslationRepository();
+            return $_translationRepository->default(locale())['items'];
+        });
+
+        return view('pages.brands', compact('brands', 'translations'));
     }
 }

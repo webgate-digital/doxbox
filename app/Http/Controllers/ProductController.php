@@ -69,7 +69,8 @@ class ProductController extends Controller
             $max_price = $request->get('max_price', $filterPrices['max_price']);
             $attributes = $request->get('attributes', []);
             $categorySlug = $category ? $category['slug'] : null;
-            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug);
+            $brandSlug = $request->get('znacka', null);
+            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug, $brandSlug);
         });
 
         $total = $productList['total'];

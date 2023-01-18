@@ -20,5 +20,6 @@ return [
     'customer-profile' => 'zakaznik/profil',
     'customer-orders' => 'zakaznik/moje-objednavky',
     'page' => '{slug}',
-
+    'categories' => 'kategorie',
+    'brands' => 'znacky',
 ];

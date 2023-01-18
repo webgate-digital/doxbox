@@ -36,7 +36,7 @@ class ProductRepository
         $this->client = new Client(['http_errors' => false]);
     }
 
-    public function list(string $locale, string $currency, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'score', int $min_price = 0, int $max_price = PHP_INT_MAX, array $attributes = [], string $category = null): array
+    public function list(string $locale, string $currency, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'score', int $min_price = 0, int $max_price = PHP_INT_MAX, array $attributes = [], string $category = null, string $brand = null): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
             'headers' => $this->headers(),
@@ -51,6 +51,7 @@ class ProductRepository
                 'max_price' => $max_price,
                 'attributes' => $attributes,
                 'category' => $category,
+                'brand' => $brand,
                 'show_sold_out' => true,
             ]
         ]);

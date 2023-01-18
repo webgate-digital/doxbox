@@ -25,5 +25,6 @@ return [
     'customer-orders' => 'zakaznik/moje-objednavky',
     'customer-order' => 'zakaznik/moje-objednavky/{orderUuid}/{token}',
     'page' => '{slug}',
-
+    'categories' => 'kategorie',
+    'brands' => 'znacky',
 ];

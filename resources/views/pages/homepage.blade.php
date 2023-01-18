@@ -47,6 +47,31 @@
                         @include('components.category', ['item' => $category])
                     @endforeach
                 </div>
+
+                <div class="text-center mt-10 md:mt-20">
+                    <a href="{{route(locale() . '.categories')}}" class="button border border-primary text-primary rounded-lg button--inline">
+                        {{$translations['Všetky kategórie']['text']}}
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="text-heading-2xs md:mb-20 mb-6">
+                    {{$translations['brands.title']['text']}}
+                </h2>
+                <div class="category-container">
+                    @foreach(array_slice($brands, 0, 12) as $category)
+                        @include('components.brand', ['item' => $category])
+                    @endforeach
+                </div>
+
+                <div class="text-center mt-10 md:mt-20">
+                    <a href="{{route(locale() . '.brands')}}" class="button border border-primary text-primary rounded-lg button--inline">
+                        {{$translations['Všetky značky']['text']}}
+                    </a>
+                </div>
             </div>
         </section>
 
