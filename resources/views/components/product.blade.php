@@ -1,5 +1,5 @@
 
-<a href="{{\App\Http\Controllers\ProductController::buildProductRoute($item)}}" class="product-box">
+<a href="{{\App\Http\Controllers\ProductController::buildProductRoute($item)}}" class="product-box{{isset($item['is_sold_out']) && $item['is_sold_out'] ? ' product-box--sold-out' : ''}}">
     <div class="product-box--image">
         <img src="{{$item['image_url']}}" alt="{{$item['name']}}">
         <div class="product-box--cta button button--primary">
@@ -8,6 +8,11 @@
         @if($item['badge'])
             <div class="product-box--badge" style="--badge-font-color: {{$item['badge']['font_color']}}; --badge-background-color: {{$item['badge']['background_color']}};">
                 {{$item['badge']['name']}}
+            </div>
+        @endif
+        @if(isset($item['is_sold_out']) && $item['is_sold_out'])
+            <div class="product-box--badge">
+                Vypredané
             </div>
         @endif
     </div>

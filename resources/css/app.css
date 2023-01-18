@@ -810,6 +810,9 @@ iframe {
     @apply h-full;
     @apply object-contain;
 }
+.product-box--sold-out .product-box--image img {
+    @apply opacity-50;
+}
 
 .product-box--name {
     @apply mb-2;
@@ -851,15 +854,14 @@ iframe {
     @apply left-4;
     @apply z-10;
 
-    @apply font-bold;
-    @apply rounded-xl;
-    @apply text-subheading-xs;
+    @apply rounded-md;
+    @apply text-body-xs;
 
-    @apply px-4;
-    @apply py-2;
+    @apply px-3;
+    @apply py-1;
 
-    color: var(--badge-font-color);
-    background-color: var(--badge-background-color);
+    color: var(--badge-font-color, white);
+    background-color: var(--badge-background-color, #25282B);
 }
 
 /* product detail */

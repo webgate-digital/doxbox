@@ -79,6 +79,23 @@ class ProductController extends Controller
         $hasMoreProducts = count($products) < $total;
         $breadcrumbs = self::getBreadcrumbs($category);
 
+        $products = array_map(function ($product) {
+            $isSoldOut = $product['count'] <= 0 && $product['is_available_for_order'] == 0;
+
+            // If product is sold out, check if any of its variants is available
+            if ($isSoldOut) {
+                foreach ($product['variants'] as $variant) {
+                    if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
+                        $isSoldOut = false;
+                        break;
+                    }
+                }
+            }
+
+            $product['is_sold_out'] = $isSoldOut;
+            return $product;
+        }, $products);
+
         return $isAjax
             ? view('products.ajax.category', compact('products', 'category'))
             : view('products.category', compact('category', 'categorySlug', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
