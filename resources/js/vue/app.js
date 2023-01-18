@@ -26,8 +26,17 @@ const app = new Vue({
 
     const $loadMoreIcon = $loadMoreButton.querySelector('svg');
     const $productContainer = document.querySelector('.product-container');
+
+    document.addEventListener('scroll', () => {
+        const $loadMoreButtonRect = $loadMoreButton.getBoundingClientRect();
+        if ($loadMoreButtonRect.top < window.innerHeight && $productContainer.dataset.loading !== 'true' && $productContainer.dataset.lastPage !== 'true') {
+            $loadMoreButton.click();
+        }
+    });
+    
     $loadMoreButton.addEventListener("click", () => {
         $loadMoreIcon.classList.remove('hidden');
+        $productContainer.dataset.loading = true;
         const $currentPage = $loadMoreButton.getAttribute('data-page');
         const currentUrl = window.location.href;
 
@@ -44,6 +53,8 @@ const app = new Vue({
             $loadMoreButton.setAttribute('data-page', parseInt($currentPage) + 1);
             !response.hasMoreProducts && $loadMoreButton.remove();
             $loadMoreIcon.classList.add('hidden');
+            $productContainer.dataset.loading = false;
+            $productContainer.dataset.lastPage = !response.hasMoreProducts;
         };
 
         xhr.send();

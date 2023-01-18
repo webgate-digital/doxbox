@@ -1,4 +1,4 @@
-<form action="" class="flex flex-col mb-4 items-end gap-4">
+<form action="" class="flex flex-col mb-4 items-end gap-4 product-list">
     <select name="sort" onchange="this.form.submit()">
         <option @if(request()->get('sort', $setup['api']['defaults']['sort']['products']) === 'score_desc') selected
                 @endif value="score_desc">{{$translations['sort.score_desc']['text']}}</option>
