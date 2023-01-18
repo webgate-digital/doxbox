@@ -136,3 +136,17 @@ const app = new Vue({
     $arrowLeft.addEventListener('click', () => scroll(1));
     $arrowRight.addEventListener('click', () => scroll());
 })();
+
+// Search bar logic
+(() => {
+    document.addEventListener('DOMContentLoaded', () => {
+        const $openSearch = document.querySelectorAll('.open-search');
+        const $wrapper = document.querySelector('#search-wrapper');
+        $openSearch.forEach($element => {
+            $element.addEventListener('click', () => {
+                $wrapper.classList.add('opened');
+                $wrapper.querySelector('input').focus();
+            });
+        });
+    });
+})();

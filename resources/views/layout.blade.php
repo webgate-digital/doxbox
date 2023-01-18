@@ -139,8 +139,7 @@
                             <v-navigation :items="{{ json_encode($categories) }}"/>
                         </div>
                         <div class="flex items-center justify-end relative gap-8">
-                            <button type="button"
-                                onclick="document.getElementById('search-wrapper').classList.add('opened');">
+                            <button type="button" class="open-search">
                                 <img src="{{ asset('images/icons/search_white_24dp.svg') }}"
                                     alt="{{ $translations['search.title']['text'] }}">
                             </button>
