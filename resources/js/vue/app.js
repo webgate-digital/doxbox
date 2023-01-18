@@ -39,9 +39,10 @@ const app = new Vue({
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         xhr.onload = () => {
-            $productContainer.innerHTML += xhr.response;
+            const response = JSON.parse(xhr.response);
+            $productContainer.innerHTML += response.html
             $loadMoreButton.setAttribute('data-page', parseInt($currentPage) + 1);
-            xhr.response.length === 0 && $loadMoreButton.remove();
+            !response.hasMoreProducts && $loadMoreButton.remove();
             $loadMoreIcon.classList.add('hidden');
         };
 

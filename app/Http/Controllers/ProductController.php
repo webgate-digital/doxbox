@@ -72,11 +72,11 @@ class ProductController extends Controller
             return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug);
         });
 
+        $total = $productList['total'];
+        $hasMoreProducts = $offset + $limit < $total;
         $availableAttributes = $productList['availableAttributes'];
-
         $products = $productList['items'];
         $total = $productList['total'];
-        $hasMoreProducts = count($products) < $total;
         $breadcrumbs = self::getBreadcrumbs($category);
 
         $products = array_map(function ($product) {
@@ -97,7 +97,10 @@ class ProductController extends Controller
         }, $products);
 
         return $isAjax
-            ? view('products.ajax.category', compact('products', 'category'))
+            ? response()->json([
+                'hasMoreProducts' => $hasMoreProducts,
+                'html' => view('products.ajax.category', compact('products', 'category'))->render(),
+            ])
             : view('products.category', compact('category', 'categorySlug', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
     }
     
