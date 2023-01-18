@@ -106,6 +106,18 @@ class ProductController extends Controller
             'title' => $item['item']['name']
         ];
 
+        $isAvailable = $item['item']['count'] > 0 || $item['item']['is_available_for_order'] == 1;
+
+        // If product is not available, look for variants
+        if (!$isAvailable) {
+            foreach ($item['item']['variants'] as $variant) {
+                if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
+                    $isAvailable = true;
+                    break;
+                }
+            }
+        }
+
         // Implement dataLayer for Google Tag Manager (ecommerce)
         $categoryString = self::getCategoryChainString($item['item']['category']['slug']);
         $dataLayer = GoogleTagManager::getDataLayer();
@@ -124,7 +136,7 @@ class ProductController extends Controller
             ]
         ]);
 
-        return view('pages.product', compact('item', 'breadcrumbs'));
+        return view('pages.product', compact('item', 'breadcrumbs', 'isAvailable'));
     }
 
     public function search(Request $request)

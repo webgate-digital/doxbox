@@ -124,9 +124,7 @@ export default {
                 : this.item;
         },
         isAddToCartDisabled() {
-            const numberOfSelectedVariants = Object.values(this.variantSelection).filter(value => value !== null).length;
-            return (this.item.count == 0 && this.item.is_available_for_order == 0)
-                || (numberOfSelectedVariants > 0 && numberOfSelectedVariants !== Object.keys(this.item.variants_tree).length);
+            return this.loading || this.error || !this.isProductAvailable(this.selectedProduct);
         },
         products() {
             return [this.item, ...this.item.variants];

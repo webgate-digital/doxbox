@@ -37,7 +37,7 @@
 @endsection
 
 @section('add-to-cart')
-    @if(!$item['item']['count'] && !$item['item']['is_available_for_order'])
+    @if(!$isAvailable)
         <a href="{{route(locale() . '.contact', ['url' => url()->current()])}}" class="button button--primary button--inline">
             {{$translations['products.contact_us_cta']['text']}}
         </a>
