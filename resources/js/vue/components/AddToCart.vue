@@ -15,13 +15,13 @@
                                     disabled: isVariantDisabled(variantName, variantValueName),
                                     selected: variantSelection[variantName] === variantValueName
                                 }"
-                                class="select-none rounded-full h-16 w-16 cursor-pointer"
+                                class="select-none rounded-full h-16 w-16 cursor-pointer circle"
                                 :style="{
                                     backgroundColor: getHexColorByColorName(variantValueName),
                                 }" @click="setVariant(variantName, variantValueName)">
                             </div>
                             <div v-else :data-tippy-content="`${variantName}: ${variantValueName}`"
-                                class="select-none py-3 px-6 rounded-lg cursor-pointer" :class="{
+                                class="select-none py-3 px-6 rounded-lg cursor-pointer rectangle" :class="{
                                     variant: true,
                                     disabled: isVariantDisabled(variantName, variantValueName),
                                     selected: variantSelection[variantName] === variantValueName
@@ -270,48 +270,62 @@ export default {
 <style scoped>
 .variant {
     position: relative;
-    overflow: hidden;
-    border: 1px solid #7C7E80;
 }
 
-.variant.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.variant.circle {
+    width: 44px;
+    height: 44px;
 }
 
-.variant.selected {
-    cursor: pointer;
-    border-color: black;
+.variant.circle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: solid 1px #131416;
+    border-radius: inherit;
+    background-color: white;
+    z-index: 1;
+}
+
+.variant.circle::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    z-index: 2;
+    background: inherit;
+    border-radius: inherit;
+}
+
+.variant.circle.selected::before {
+    border-width: 3px;
+}
+
+.variant.circle:not(.disabled, .selected):hover::before {
     border-width: 2px;
+}
+
+.variant.rectangle.selected {
+    color: white;
+    background-color: #131416;
 }
 
 .variant.selected:not(.rounded-full) {
     margin: -1px;
 }
 
-.variant::before,
-.variant::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-    background-color: #FB4E4E;
-    opacity: 0;
+.variant.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.variant::before {
-    left: 0;
-    transform: rotate(45deg);
+.variant.rectangle {
+    text-align: center;
+    border: solid 1px #131416;
+    padding: 8px;
 }
 
-.variant::after {
-    right: 0;
-    transform: rotate(-45deg);
-}
-
-.variant.disabled::before,
-.variant.disabled::after {
-    opacity: 1;
+.variant.rectangle:not(.disabled):hover {
+    border-width: 2px;
+    padding: 7px;
 }
 </style>

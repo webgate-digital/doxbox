@@ -1664,3 +1664,8 @@ table tfoot tr:not(:last-child) td {
 .attribute-block__title {
     @apply cursor-pointer;
 }
+
+.variant {
+    flex-shrink: 0;
+    @apply text-body-l;
+}
