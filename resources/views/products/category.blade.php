@@ -43,8 +43,11 @@
                         {{$translations['filter.cta']['text']}}
                     </button>
 
-                    <a href="{{request()->route()->getActionName()}}#list" class="mt-4 text-primary font-light text-center block">
-                        {{$translations['filter.cta_cancel']['text']}}
+                    @php
+                        $isFilterActive = request()->has('attributes') || request()->has('min_price') || request()->has('max_price');
+                    @endphp
+                    <a {{ $isFilterActive ? 'href=' . route(locale() . '.product.list') . '#list' : '' }} class="btn mt-4 text-primary font-light text-center block{{!$isFilterActive ? ' disabled' : ''}}">
+                        {{ $translations['filter.cta_cancel']['text'] }}
                     </a>
                 </div>
 

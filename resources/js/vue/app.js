@@ -162,3 +162,34 @@ const app = new Vue({
         });
     });
 })();
+
+// Attribute block accordion logic
+(() => {
+    document.addEventListener('DOMContentLoaded', () => {
+        const $attributeBlocks = document.querySelectorAll('.attribute-block');
+
+        $attributeBlocks.forEach($block => {
+            const $valuesBlock = $block.querySelector('.attribute-block__values');
+            const $showMore = $block.querySelector('.filter-bar--show-more');
+            const $title = $block.querySelector('.attribute-block__title');
+            const maxHeight = $valuesBlock.clientHeight + 20;
+
+            const updateHeight = () => {
+                $valuesBlock.style.height = $block.classList.contains('opened') ? `${maxHeight}px` : `0`;
+            };
+
+            $title.addEventListener('click', () => {
+                $block.classList.toggle('opened');
+                updateHeight();
+            });
+
+            $showMore?.addEventListener('click', () => {
+                $showMore.classList.contains('active')
+                    ? $valuesBlock.style.height = `auto`
+                    : $valuesBlock.style.height = `${maxHeight}px`;
+            });
+
+            updateHeight();
+        });
+    });
+})();

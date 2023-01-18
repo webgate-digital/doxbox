@@ -1639,8 +1639,28 @@ table tfoot tr:not(:last-child) td {
     max-width: 610px;
 }
 
-.button.disabled {
+.button.disabled, .btn.disabled {
     @apply cursor-not-allowed;
     @apply text-gray-20;
     @apply border-gray-10;
+}
+
+.attribute-block__values {
+    @apply overflow-hidden;
+    @apply transition-all;
+}
+.attribute-block.opened .attribute-block__values {
+    @apply overflow-y-auto;
+}
+
+.attribute-block .attribute-block__title svg {
+    transition: transform 0.3s ease;
+}
+
+.attribute-block.opened .attribute-block__title svg {
+    transform: rotate(180deg);
+}
+
+.attribute-block__title {
+    @apply cursor-pointer;
 }
