@@ -322,6 +322,17 @@ export default {
     text-align: center;
     border: solid 1px #131416;
     padding: 8px;
+    height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.variant.rectangle.disabled {
+    opacity: 1;
+    color: #D3D4D5;
+    border-color: #D3D4D5;
 }
 
 .variant.rectangle:not(.disabled):hover {
