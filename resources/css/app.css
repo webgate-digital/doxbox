@@ -867,6 +867,10 @@ iframe {
 
 /* product detail */
 
+.product-detail--info {
+    @apply mb-8;
+}
+
 .product-detail--info ul {
     list-style: initial;
     @apply pl-8;
