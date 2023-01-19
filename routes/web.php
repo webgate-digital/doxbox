@@ -61,7 +61,7 @@ Route::multilingual('/product-category', [ProductController::class, 'category'])
     ->name('product.category');
 Route::multilingual('/product-brand', [ProductController::class, 'brand'])
     ->where('brandSlug', '^[a-zA-Z0-9-_\/]+$')
-    ->name('product.category');
+    ->name('product.brand');
 Route::multilingual('/product-list', [ProductController::class, 'list'])->name('product.list');
 Route::multilingual('/search', [ProductController::class, 'search'])->name('search');
 
