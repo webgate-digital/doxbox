@@ -1398,7 +1398,7 @@ input[type="checkbox"]:checked {
 }
 
 .active.filter-bar--show-more~.filter-bar--attribute {
-    @apply block;
+    @apply flex;
 }
 
 .mobile-navigation__header {
