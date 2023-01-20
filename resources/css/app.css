@@ -451,11 +451,11 @@ iframe {
 .main-nav__flyout {
     @apply absolute;
     @apply bottom-0;
-    transform: translateY(100%);
     @apply bg-white;
     @apply p-10;
     @apply shadow-md;
     @apply z-10;
+    transform: translateY(100%) translateX(-2.5rem);
 }
 
 .main-nav__flyout--big {
