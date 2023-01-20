@@ -164,7 +164,7 @@ class CartService
         session()->forget('multipack.' . $uuid);
     }
 
-    public function addVariant(string $uuid, int $quantity): bool
+    public function addVariant(string $uuid, int $quantity): mixed
     {
         try {
             $variant = $this->_productRepository->variantAvailability(locale(), session()->get('currency'), $uuid)['item'];
@@ -181,7 +181,7 @@ class CartService
             session()->push('variants', $variant['uuid']);
         }
 
-        return true;
+        return $variant;
     }
 
     public function getVariantCount($uuid)

@@ -378,9 +378,29 @@ class CartController extends Controller
 
     public function addVariant(AddToCart $request)
     {
-        if (!$this->_cartService->addVariant($request->get('uuid'), $request->get('quantity'))) {
+        $uuid = $request->get('uuid');
+        $quantity = $request->get('quantity', 1);
+        $product = $this->_cartService->addVariant($uuid, $quantity);
+        
+        if ($product === false) {
             abort(400);
         }
+
+        $categoryString = \App\Http\Controllers\ProductController::getCategoryChainString($product['category']['slug']);
+        $response = [
+            'quantity' => $quantity,
+            'sku' => $product['sku'],
+            'currency' => $product['currency'],
+            'name' => $product['name'],
+            'retail_price' => $product['retail_price'],
+            'category' => [
+                'name' => $product['category']['name'],
+                'slug' => $product['category']['slug'],
+            ],
+            'category_path' => $categoryString,
+        ];
+
+        return response()->json($response);
     }
 
     public function deleteVariant(RemoveFromCart $request)
