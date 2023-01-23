@@ -172,6 +172,24 @@ class ProductController extends Controller
             return $this->_productRepository->search(locale(), session()->get('currency'), $keyword)['items'];
         });
 
+        // Handle sold out products
+        $products = array_map(function ($product) {
+            $isSoldOut = $product['count'] <= 0 && $product['is_available_for_order'] == 0;
+
+            // If product is sold out, check if any of its variants is available
+            if ($isSoldOut) {
+                foreach ($product['variants'] as $variant) {
+                    if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
+                        $isSoldOut = false;
+                        break;
+                    }
+                }
+            }
+
+            $product['is_sold_out'] = $isSoldOut;
+            return $product;
+        }, $products);
+
         return view('products.search', compact('products'));
     }
 
