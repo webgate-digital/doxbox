@@ -66,7 +66,8 @@ class ProductRepository
             'query' => [
                 'locale' => $locale,
                 'currency' => $currency,
-                'keyword' => $keyword
+                'keyword' => $keyword,
+                'show_sold_out' => true,
             ]
         ]);
 
