@@ -8,6 +8,7 @@ use App\Http\Middleware\EmptyCart;
 use App\Http\Middleware\EmptyShipping;
 use App\Http\Middleware\ShippingCountry;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\Defaults;
 
 class Kernel extends HttpKernel
 {
@@ -28,6 +29,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // \ChinLeung\MultilingualRoutes\DetectRequestLocale::class,
         \Spatie\CookieConsent\CookieConsentMiddleware::class,
+        Defaults::class,
     ];
 
     /**
