@@ -72,7 +72,7 @@
                         <h4 class="h4 mt-16 lg:mt-0">{{$translations['cart.total']['text']}}: <span
                                 id="total-price-cart-formatted">{{$cart['price_formatted']}}</span></h4>
                         <a href="{{route(locale() . '.cart.shipping')}}"
-                           class="button button--primary button--inline">
+                           class="button button--primary button--inline proceed-to-shipping-button">
                             <span>{{$translations['cart.shipping_and_payment_title']['text']}}</span></a>
                     </div>
                 </div>

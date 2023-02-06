@@ -2,7 +2,7 @@
     <div class="text-center my-4" v-if="loading">
         <img src="/images/icons/sync_black_24dp.svg" class="animate-spin mx-auto">
     </div>
-    <div class="flex flex-wrap -mx-4" v-else>
+    <div class="flex flex-wrap -mx-4 shipping-page" v-else>
         <div class="w-full lg:w-1/2 px-4">
             <!--            Shipping country-->
             <h2 class="h2">{{ translations['cart.shipping_country_title'] }}
@@ -127,7 +127,7 @@
                 </div>
                 <div class="text-right" v-if="shippingType && paymentType">
                     <button type="button" @click="checkout"
-                            class="button button--primary button--inline mt-4">
+                            class="button button--primary button--inline mt-4 proceed-to-checkout-button">
                         <span>{{ translations['cart.cta_continue_to_checkout'] }}</span>
                     </button>
                 </div>
