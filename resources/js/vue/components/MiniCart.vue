@@ -72,7 +72,7 @@
                 </div>
                 <div>
                     <a :href="proceedToCartUrl"
-                       class="button button--primary mt-4">{{ translations['Zobraziť košík'] }}</a>
+                       class="button button--primary mt-4 proceed-to-cart-button">{{ translations['Zobraziť košík'] }}</a>
                 </div>
                 <div>
                     <a href="javascript:;" @click="close"

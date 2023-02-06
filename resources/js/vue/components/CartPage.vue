@@ -1,8 +1,8 @@
 <template>
     <div>
         <template v-if="!loading">
-            <div class="flex flex-wrap flex-row items-center border-grey border-b pb-8" v-for="item in items">
-                <div class="w-full lg:w-1/3 flex flex-row items-center my-8">
+            <div class="flex flex-wrap flex-row items-center border-grey border-b pb-8 cart-page" v-for="item in items">
+                <div class="w-full lg:w-1/3 flex flex-row items-center my-8 product-row">
                     <a :href="productUrl.replace('CATEGORY', item.meta.category_slug).replace('SLUG', item.meta.slug)"
                     >
                         <img :src="item.meta.image" width="50" class="mr-8" :alt="item.meta.name">

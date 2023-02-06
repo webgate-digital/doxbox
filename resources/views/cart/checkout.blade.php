@@ -456,7 +456,7 @@
                             </div>
                             <div class="text-right">
                                 <button type="submit"
-                                        class="button button--primary button--inline button--lg"
+                                        class="button button--primary button--inline button--lg place-order-button"
                                         onclick="document.getElementById('order-loading-wrapper').style.display = 'flex';">
                                     {{$translations['cart.cta_order']['text']}}
                                 </button>
