@@ -80,7 +80,7 @@ class CartController extends Controller
                         'category' => $categoryString,
                         'quantity' => $item['count'],
                     ];
-                }), $cart['items'] ?? []),
+                }, $cart['items'] ?? [])),
             ],
         ]);
 
