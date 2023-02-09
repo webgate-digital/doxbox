@@ -71,7 +71,7 @@ class CartController extends Controller
                     'step' => $step,
                     'option' => $shippingCountry['name'],
                 ],
-                'products' => array_map(function ($item) {
+                'products' => array_values(array_map(function ($item) {
                     $categoryString = \App\Http\Controllers\ProductController::getCategoryChainString($item['meta']['category_slug']);
                     return [
                         'id' => $item['meta']['sku'],
@@ -80,7 +80,7 @@ class CartController extends Controller
                         'category' => $categoryString,
                         'quantity' => $item['count'],
                     ];
-                }, $cart['items'] ?? []),
+                }), $cart['items'] ?? []),
             ],
         ]);
 
