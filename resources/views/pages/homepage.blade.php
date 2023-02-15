@@ -85,7 +85,7 @@
             </div>
         </section>
 
-        <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-1
+        <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-1.webp)">
             <div>
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
