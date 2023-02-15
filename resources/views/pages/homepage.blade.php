@@ -8,7 +8,7 @@
             </a>
         @endif
 
-        <section class="big-banner" style="--bg-image: url({{asset('images/slide-1.webp')}})">
+        <section class="big-banner" style="--bg-image: url('https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-0.webp')">
             <div class="container">
                 <h1 class="text-heading-xl mb-10">
                     {!! $translations['slider.sale']['text'] !!}
@@ -85,7 +85,7 @@
             </div>
         </section>
 
-        <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(/images/promo-1.webp)">
+        <div class="promo-section promo-section--big bg-gray-5" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-1
             <div>
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
@@ -102,7 +102,7 @@
         </div>
         
         <div class="promo-section">
-            <div class="bg-gray-5" style="--bg-image: url(/images/promo-2.webp)">
+            <div class="bg-gray-5" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-2.webp)">
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.2.title']['text']!!}
@@ -115,7 +115,7 @@
                     </a>
                 </div>
             </div>
-            <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-3.webp)">
+            <div class="bg-secondary text-white" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-3.webp)">
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.3.title']['text']!!}
@@ -129,7 +129,7 @@
                 </div>
             </div>
             
-            <div class="bg-secondary text-white" style="--bg-image: url(/images/promo-4.webp)">
+            <div class="bg-secondary text-white" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-4.webp)">
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.4.title']['text']!!}
@@ -143,7 +143,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-5" style="--bg-image: url(/images/promo-5.webp)">
+            <div class="bg-gray-5" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-5.webp)">
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.5.title']['text']!!}
@@ -158,7 +158,7 @@
             </div>
         </div>
 
-        <div class="promo-section promo-section--big bg-secondary text-white mb-32" style="--bg-image: url(/images/promo-6.webp)">
+        <div class="promo-section promo-section--big bg-secondary text-white mb-32" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-6.webp)">
             <div>
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
