@@ -189,6 +189,7 @@ export default {
     },
     methods: {
         async init() {
+            await this.cart.update();
             await axios.get(this.initUrl).then(response => {
                 this.shippingCountries = response.data.shippingCountries;
                 this.shippingCountry = response.data.shippingCountry;
