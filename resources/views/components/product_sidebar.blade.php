@@ -58,7 +58,7 @@
 
             <button type="submit" style="display: none"
                 class="button button--secondary rounded-xl">{{ $translations['filter.cta']['text'] }}</button>
-            <a {{ $isFilterActive ? 'href=' . request()->path() : '' }} class="button border border-primary text-primary rounded-lg{{!$isFilterActive ? ' disabled' : ''}}">
+            <a {{ $isFilterActive ? 'href=' . request()->url() : '' }} class="button border border-primary text-primary rounded-lg{{!$isFilterActive ? ' disabled' : ''}}">
                 {{ $translations['filter.cta_cancel']['text'] }}
             </a>
         </div>
