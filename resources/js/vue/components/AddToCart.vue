@@ -7,7 +7,7 @@
                         {{ variantName }}
                     </div>
                     <div class="flex gap-4">
-                        <div v-for="([variantValueName]) in Object.entries(variantTree).reverse()"
+                        <div v-for="([variantValueName]) in Object.entries(variantTree)"
                             :key="variantValueName">
                             <div v-if="variantName === 'Farba'"
                                 :data-tippy-content="`${variantName}: ${variantValueName}`" :class="{
