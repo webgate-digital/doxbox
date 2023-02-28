@@ -97,6 +97,12 @@ class ProductController extends Controller
             return $product;
         }, $products);
 
+        if (isset($category['children'])) {
+            usort($category["children"], function ($a, $b) {
+                return $b['score'] <=> $a['score'];
+            });
+        }
+
         return $isAjax
             ? response()->json([
                 'html' => view('products.ajax.category', compact('products', 'category'))->render(),
