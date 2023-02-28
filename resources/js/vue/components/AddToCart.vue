@@ -33,11 +33,11 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="mt-4" :style="{ visibility: isCleared ? 'hidden' : 'visible' }">
+        <div class="mt-4" :style="{ visibility: isCleared ? 'hidden' : 'visible' }">
             <span class="text-primary cursor-pointer" @click="resetVariants">
                 {{ translations['Resetovať'] }}
             </span>
-        </div> -->
+        </div>
         <template v-if="!selectedProduct.count && selectedProduct.is_available_for_order && selectedProduct.order_availability && selectedProduct.order_availability !== ''">
             <div class="mt-8">
                 {{ selectedProduct.order_availability }}
@@ -106,7 +106,7 @@ export default {
                     return accumulator;
                 }
 
-                const isCurrentProductCheaper = Number(currentProduct.retail_price_discounted) < Number(accumulatorProduct.retail_price_discounted);
+                const isCurrentProductCheaper = !accumulatorProduct || (Number(currentProduct.retail_price_discounted) < Number(accumulatorProduct.retail_price_discounted));
                 return isCurrentProductCheaper ? current : accumulator;
             }, combinations[0]);
 
@@ -147,22 +147,20 @@ export default {
     },
     methods: {
         isVariantDisabled(variantName, variantValueName) {
-
             // If this is a variant that is already selected, it is not disabled (so it can be deselected)
             if (this.variantSelection[variantName] === variantValueName) {
                 return false;
             }
 
-            // Check if after selecting this variant, there is still a product available
-            const selection = {
-                ...this.variantSelection,
-                [variantName]: variantValueName
-            };
+            const selectionToBe = { ...this.variantSelection, [variantName]: variantValueName };
+            const variantValueCombinations = this.variantValueCombinations.filter(variantValueCombination => {
+                const product = this.getProductByCombination(variantValueCombination);
+                return product && this.isProductAvailable(product);
+            });
 
-            const product = this.hasSelectedAllVariants
-                ? this.getProductByCombination(Object.values(selection))
-                : this.item;
-            return product ? !this.isProductAvailable(product) : true;
+            return !variantValueCombinations.some(variantValueCombination => {
+                return Object.values(selectionToBe).every((value, index) => value === variantValueCombination[index] || value === null);
+            });
         },
         isProductAvailable(product) {
             return product.count > 0 || product.is_available_for_order == 1;
@@ -230,10 +228,7 @@ export default {
                 return;
             }
 
-            let newVariantSelection = {
-                ...this.variantSelection,
-                [variantName]: variantValueName
-            };
+            let newVariantSelection = this.variantSelection[variantName] === variantValueName ? { ...this.variantSelection, [variantName]: null } : { ...this.variantSelection, [variantName]: variantValueName };
 
             this.variantSelection = newVariantSelection;
         },
