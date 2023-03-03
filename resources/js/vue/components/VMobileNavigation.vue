@@ -10,6 +10,13 @@
             <span>Zavrieť</span>
         </div>
         <div class="mobile-navigation__body">
+            <div>
+                <div class="mobile-navigation__item">
+                    <div class="mobile-navigation__item__header">
+                        <a href="/">{{ translations["breadcrumbs.home"].text }}</a>
+                    </div>
+                </div>
+            </div>
             <template v-for="(item, index) in rootItems">
                 <div class="mobile-navigation__item" :class="{active: activeItemIndex === index}">
                     <div class="mobile-navigation__item__header" @click="toggleItem(index)">
@@ -58,6 +65,10 @@ export default {
     props: {
         items: {
             type: Array,
+            required: true,
+        },
+        translations: {
+            type: Object,
             required: true,
         },
     },

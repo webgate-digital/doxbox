@@ -154,7 +154,7 @@
                                 </div>
                             </a>
                             <ul class="main-nav--mobile" id="main-nav--mobile">
-                                <v-mobile-navigation :items="{{ json_encode($categories) }}">
+                                <v-mobile-navigation :items="{{ json_encode($categories) }}" :translations="{{ json_encode(["breadcrumbs.home" => $translations['breadcrumbs.home']]) }}"/>
                                     <ul>
                                         <li>
                                             <a href="{{ route(locale() . '.contact') }}">
