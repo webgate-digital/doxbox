@@ -76,7 +76,11 @@
                     <h1 class="text-heading-2xs !mb-4">{{$item['item']['name']}}</h1>
                     
                     @if($item['item']['brand'])
-                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">{!!$item['item']['brand']['name']!!}</h2>
+                        <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">
+                            <a href="{{route(locale() . '.product.list')}}?znacka={{$item['item']['brand']['slug']}}" class="text-gray-40 hover:text-gray-60">
+                                {{$item['item']['brand']['name']}}
+                            </a>
+                        </h2>
                     @endif
                     
                     <p class="product-detail--price text-subheading-xl">
