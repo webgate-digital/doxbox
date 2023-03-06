@@ -7,7 +7,10 @@
         </div>
         <div class="filter-form-body">
             @foreach ($availableAttributes as $attribute)
-                <div class="mb-10 flex flex-col attribute-block{{ $loop->index < 2 ? ' opened' : '' }}">
+                @php
+                    $hasCheckedItem = isset(request()->get('attributes')[$attribute['uuid']]) && is_array(request()->get('attributes')[$attribute['uuid']]) && count(request()->get('attributes')[$attribute['uuid']]);
+                @endphp
+                <div class="mb-10 flex flex-col attribute-block{{ $loop->index < 2 || $hasCheckedItem ? ' opened' : '' }}">
                     <div class="text-subheading-l mb-8 flex justify-between align-center attribute-block__title">
                         <div>{{ $attribute['name'] }}</div>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
