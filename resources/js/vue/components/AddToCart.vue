@@ -6,7 +6,7 @@
                     <div class="text-subheading-m">
                         {{ variantName }}
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 flex-wrap">
                         <div v-for="([variantValueName]) in Object.entries(variantTree)"
                             :key="variantValueName">
                             <div v-if="variantName === 'Farba'"
