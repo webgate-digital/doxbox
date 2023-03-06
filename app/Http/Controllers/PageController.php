@@ -273,7 +273,7 @@ class PageController extends Controller
     {
         $brands = Cache::rememberForever(locale() . '_brands', function () {
             $_productRepository = new ProductRepository();
-            return $_productRepository->brands(locale())['items'];
+            return $_productRepository->brands(locale(), 0, 0, 'asc')['items'];
         });
 
         $translations = \Cache::rememberForever(locale() . '_translations_web', function () {
