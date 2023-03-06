@@ -106,7 +106,7 @@ class ProductRepository
         return $this->response($response);
     }
 
-    public function brands(string $locale, int $limit = 0, int $offset = 0, string $order = 'desc', string $sort = 'name'): array
+    public function brands(string $locale, int $limit = 0, int $offset = 0, string $order = 'asc', string $sort = 'name'): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::BRANDS_URL, [
             'headers' => $this->headers(),
