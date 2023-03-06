@@ -1211,6 +1211,22 @@ input[type="checkbox"]:checked {
     @apply rounded-lg;
 }
 
+.fotorama__arr--next {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj4KICA8cGF0aCBmaWxsPSIjMTMxNDE2IiBkPSJNMCAwIEwxNSAxMCBMMCAyMCBaIiAvPgo8L3N2Zz4=);
+    background-position: center;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 16px;
+}
+
+.fotorama__arr--prev {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB0cmFuc2Zvcm09InNjYWxlKC0xLCAxKSI+CiAgPHBhdGggZmlsbD0iIzEzMTQxNiIgZD0iTTAgMCBMMTUgMTAgTDAgMjAgWiIgLz4KPC9zdmc+);
+    background-position: center;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 16px;
+}
+
 .text-heading-2xl,
 .text-heading-xl,
 .text-heading-l,
