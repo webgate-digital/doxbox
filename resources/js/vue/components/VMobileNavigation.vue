@@ -12,28 +12,28 @@
         <div class="mobile-navigation__body">
             <div>
                 <div class="mobile-navigation__item">
-                    <div class="mobile-navigation__item__header">
-                        <a href="/">{{ translations["breadcrumbs.home"].text }}</a>
-                    </div>
+                    <a href="/" class="mobile-navigation__item__header">
+                        {{ translations["breadcrumbs.home"].text }}
+                    </a>
                 </div>
             </div>
             <template v-for="(item, index) in rootItems">
-                <div class="mobile-navigation__item" :class="{active: activeItemIndex === index}">
-                    <div class="mobile-navigation__item__header" @click="toggleItem(index)">
+                <div class="mobile-navigation__item" :class="{ active: activeItemIndex === index }">
+                    <a class="mobile-navigation__item__header" :href="getCategoryUrl(item.slug)">
+                        <span>{{ item.name }}</span>
                         <template v-if="item.children && item.children.length > 0">
-                            <span>{{ item.name }}</span>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12.7199 15.78C12.5793 15.9207 12.3887 15.9998 12.1899 16H11.8099C11.6114 15.9977 11.4216 15.9189 11.2799 15.78L6.14985 10.64C6.0552 10.5461 6.00195 10.4183 6.00195 10.285C6.00195 10.1517 6.0552 10.0239 6.14985 9.93001L6.85985 9.22001C6.95202 9.12595 7.07816 9.07294 7.20985 9.07294C7.34154 9.07294 7.46769 9.12595 7.55985 9.22001L11.9999 13.67L16.4399 9.22001C16.5337 9.12536 16.6615 9.07211 16.7949 9.07211C16.9282 9.07211 17.056 9.12536 17.1499 9.22001L17.8499 9.93001C17.9445 10.0239 17.9978 10.1517 17.9978 10.285C17.9978 10.4183 17.9445 10.5461 17.8499 10.64L12.7199 15.78Z"
-                                    fill="#131416" />
-                            </svg>
+                            <a href="#" @click="$event => toggleItem($event, index)" class="mobile-navigation__item__header__icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12.7199 15.78C12.5793 15.9207 12.3887 15.9998 12.1899 16H11.8099C11.6114 15.9977 11.4216 15.9189 11.2799 15.78L6.14985 10.64C6.0552 10.5461 6.00195 10.4183 6.00195 10.285C6.00195 10.1517 6.0552 10.0239 6.14985 9.93001L6.85985 9.22001C6.95202 9.12595 7.07816 9.07294 7.20985 9.07294C7.34154 9.07294 7.46769 9.12595 7.55985 9.22001L11.9999 13.67L16.4399 9.22001C16.5337 9.12536 16.6615 9.07211 16.7949 9.07211C16.9282 9.07211 17.056 9.12536 17.1499 9.22001L17.8499 9.93001C17.9445 10.0239 17.9978 10.1517 17.9978 10.285C17.9978 10.4183 17.9445 10.5461 17.8499 10.64L12.7199 15.78Z"
+                                        fill="#131416" />
+                                </svg>
+                            </a>
                         </template>
-                        <template v-else>
-                            <a :href="getCategoryUrl(item.slug)">{{ item.name }}</a>
-                        </template>
-                    </div>
+                    </a>
                     <div class="mobile-navigation__item__content" :ref="'item-' + index"
-                        :style="{height: index === activeItemIndex ? $refs['item-' + index][0].scrollHeight + 'px' : '0px'}">
+                        :style="{ height: index === activeItemIndex ? $refs['item-' + index][0].scrollHeight + 'px' : '0px' }">
                         <template v-if="item.children">
                             <template v-for="item in getChildren(item)">
                                 <div class="mobile-navigation__item__content__item" :key="item.uuid">
@@ -41,7 +41,7 @@
                                         class="mobile-navigation__item__content__item__link">
                                         {{ item.name }}
                                     </a>
-                                    <template v-if="item.children && item.children.length > 0">
+                                    <template v-if="item.children && getChildren(item).length > 0">
                                         <ul class="mobile-navigation__item__content__item__sublist">
                                             <li v-for="child in getChildren(item)" :key="child.uuid">
                                                 <a :href="getCategoryUrl(child.slug)"
@@ -99,13 +99,14 @@ export default {
         getCategoryUrl(slug) {
             return this.items.find((item) => item.slug === slug)?.url;
         },
-        toggleItem(index) {
+        toggleItem(event, index) {
+            event.preventDefault();
             this.activeItemIndex = this.activeItemIndex === index ? null : index;
         },
         resetActiveItem() {
             this.activeItemIndex = null;
         },
-        getChildren(category){
+        getChildren(category) {
             const childrenIDs = category.children.map(item => item.uuid);
             const childrenCategories = this.items.filter(item => childrenIDs.includes(item.uuid));
             return childrenCategories

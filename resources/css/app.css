@@ -1458,18 +1458,24 @@ input[type="checkbox"]:checked {
     @apply font-bold;
 }
 
+.mobile-navigation__item__header__icon {
+    @apply relative;
+}
+
+.mobile-navigation__item__header__icon::after {
+    content: '';
+    @apply block;
+    @apply absolute;
+    right: -1.5rem;
+    top: -1.5rem;
+    left: -1.5rem;
+    bottom: -1.5rem;
+}
+
 .mobile-navigation__item__content {
     @apply ml-6;
     @apply overflow-hidden;
     @apply transition-all;
-}
-
-.mobile-navigation__item__content__item {
-    @apply mt-16;
-}
-
-.mobile-navigation__item__content__item:first-child {
-    @apply mt-8;
 }
 
 .mobile-navigation__item__content__item:last-child {
@@ -1477,12 +1483,10 @@ input[type="checkbox"]:checked {
 }
 
 .mobile-navigation__item__content__item__link {
+    @apply block;
+    @apply py-6;
     @apply text-subheading-xl;
     @apply font-bold;
-}
-
-.mobile-navigation__item__content__item__sublist li {
-    @apply mt-10;
 }
 
 .mobile-navigation__item__content__item__sublist a {
