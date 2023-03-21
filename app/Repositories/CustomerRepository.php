@@ -28,7 +28,8 @@ class CustomerRepository
         return [
             'Accept' => 'application/json',
             'Catalog' => config('frontstore.catalog'),
-            'Token' => config('frontstore.api_key')
+            'Token' => config('frontstore.api_key'),
+            'Shipping-Country' => session()->get('shipping_country'),
         ];
     }
 
