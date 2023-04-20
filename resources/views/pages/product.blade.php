@@ -60,7 +60,7 @@
         <div class="container">
             <div class="flex flex-wrap -mx-4 flex flex-col-reverse md:flex-row">
                 <div class="w-full lg:w-1/2 px-4 order-2 lg:order-1">
-                    <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true" data-thumbmargin="8" data-ratio="1">
+                    <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true" data-thumbmargin="8" data-ratio="1" data-width="100%">
                         <a href="{{$item['item']['image_url']}}">
                             <img alt="{{$item['item']['name']}}" src="{{$item['item']['image_url']}}">
                         </a>
