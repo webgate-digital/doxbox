@@ -1706,5 +1706,9 @@ table tfoot tr:not(:last-child) td {
 @screen md {
     .navigation--cart-count {
         @apply relative;
+        @apply top-0;
+        @apply right-0;
+        @apply w-[20px];
+        @apply h-[20px];
     }
 }
