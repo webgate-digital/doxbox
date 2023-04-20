@@ -146,7 +146,7 @@
                             <a href="{{route(locale() . '.customer.profile')}}" class="flex items-center">
                                 <img src="{{ asset('images/icons/account.svg') }}">
                             </a>
-                            <a href="{{ route(locale() . '.cart') }}" class="flex items-center">
+                            <a href="{{ route(locale() . '.cart') }}" class="flex items-center relative">
                                 <img src="{{ asset('images/icons/shopping_cart_white_24dp.svg') }}"
                                     alt="{{ $translations['cart.title']['text'] }}">
                                 <div class="text-small text-white">

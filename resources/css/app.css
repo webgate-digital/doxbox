@@ -1694,3 +1694,17 @@ table tfoot tr:not(:last-child) td {
     flex-shrink: 0;
     @apply text-body-l;
 }
+
+.navigation--cart-count {
+    @apply w-6;
+    @apply h-6;
+    @apply absolute;
+    @apply top-[-0.5rem];
+    @apply right-[-0.5rem];
+}
+
+@screen md {
+    .navigation--cart-count {
+        @apply relative;
+    }
+}
