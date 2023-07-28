@@ -85,6 +85,7 @@ iframe {
 
 .section--newsletter {
     @apply bg-gray-5;
+    @apply py-20;
 }
 
 .section--newsletter h2 {
@@ -765,7 +766,7 @@ iframe {
     @apply w-full;
     @apply grid;
 
-    @apply grid-cols-2;
+    grid-template-columns: 1fr 1fr;
     @apply gap-x-4;
     @apply gap-y-8;
 }
@@ -785,7 +786,6 @@ iframe {
 .product-box {
     @apply flex;
     @apply flex-col;
-    @apply h-full;
 }
 
 .product-box:hover .product-box--cta {
@@ -826,7 +826,6 @@ iframe {
     @apply items-center;
     @apply flex-row;
     @apply mb-0;
-    @apply mt-auto;
 }
 
 .product-box--price-old {
