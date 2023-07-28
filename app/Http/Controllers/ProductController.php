@@ -110,7 +110,7 @@ class ProductController extends Controller
             ])
             : view('products.category', compact('category', 'categorySlug', 'filterPrices', 'attributes', 'products', 'hasMoreProducts', 'availableAttributes', 'breadcrumbs', 'ogTitle', 'ogDescription'));
     }
-    
+
     public function category(Filter $request, string $categorySlugs)
     {
         return $this->handleList($request, $categorySlugs);
@@ -250,7 +250,7 @@ class ProductController extends Controller
             $_productRepository = new ProductRepository();
             return $_productRepository->categories(locale())['items'];
         });
-        
+
         $translations = Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];

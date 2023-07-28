@@ -484,6 +484,11 @@ iframe {
     @apply mb-6;
 }
 
+.filter-form-body {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
 @screen -sm {
     #filter-bar {
         @apply bg-secondary;
