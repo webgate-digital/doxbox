@@ -272,7 +272,7 @@ class CartController extends Controller
 
         $step = 3;
 
-        return view('cart.checkout', compact('cart', 'user', 'voucher', 'shippingCountry', 'checkoutSupportPage', 'step'));
+        return view('cart.checkout', compact('cart', 'user', 'voucher', 'shippingCountries', 'shippingCountry', 'checkoutSupportPage', 'step'));
     }
 
     public function order(Checkout $request)
@@ -291,6 +291,7 @@ class CartController extends Controller
         $data['currency'] = session()->get('currency');
         $data['locale'] = locale();
         $data['shipping_country'] = session()->get('shipping_country');
+        $data['shipping_country_code'] = $shippingCountry['uuid'];
         $data['shipping_type'] = session()->get('shipping_type');
         $data['meta']['packeta-selector-branch-name'] = session()->get('packeta-selector-branch-name', null);
         $data['meta']['packeta-selector-branch-id'] = session()->get('packeta-selector-branch-id', null);
@@ -299,6 +300,17 @@ class CartController extends Controller
         $data['success_url'] = route(locale() . '.thank_you');
         $data['error_url'] = route(locale() . '.cart.checkout') . '?error=true';
         $data['cart'] = $cart;
+
+        $data['company_country_code'] = null;
+        $companyCountryName = $data['company_country'];
+
+        if ($companyCountryName) {
+            $companyCountry = array_values(array_filter($shippingCountries, function ($country) use ($companyCountryName) {
+                return $country['name'] === $companyCountryName;
+            }))[0];
+
+            $data['company_country_code'] = $companyCountry['uuid'];
+        }
 
         $agreedToNewsletter = $request->get('newsletter', false);
         if ($agreedToNewsletter) {
@@ -381,7 +393,7 @@ class CartController extends Controller
         $uuid = $request->get('uuid');
         $quantity = $request->get('quantity', 1);
         $product = $this->_cartService->addVariant($uuid, $quantity);
-        
+
         if ($product === false) {
             abort(400);
         }

@@ -35,6 +35,7 @@ class Checkout extends FormRequest
             'zip' => 'required',
             'state' => 'nullable',
             'country' => 'required',
+            'country_code' => 'required',
 
             'shipping_name' => 'nullable|required_with:shipping_street,shipping_house_number,shipping_city,shipping_zip,shipping_state',
             'shipping_street' => 'nullable|required_with:shipping_name,shipping_house_number,shipping_city,shipping_zip,shipping_state',

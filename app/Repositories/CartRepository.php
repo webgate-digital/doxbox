@@ -54,6 +54,10 @@ class CartRepository
     public function checkout(array $data): array
     {
         $query = [
+            'country_code' => $data['country_code'],
+            'shipping_country_code' => $data['shipping_country'],
+            'company_country_code' => $data['company_country_code'],
+
             'currency' => $data['currency'],
             'locale' => $data['locale'],
             'shipping_country' => $data['shipping_country'],
@@ -126,7 +130,7 @@ class CartRepository
                     'PAYERID' => $data['PAYERID'],
                     'CURRENCY' => $data['CURRENCY'],
                 ]
-            ]);   
+            ]);
         } catch (Throwable) {
             Log::info('PayPal validation failed (' . $e->getMessage() . '): ' . json_encode($data));
         }

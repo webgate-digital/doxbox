@@ -125,8 +125,10 @@
                         <div>
                             <label class="checkout-form--label" for="country">{{$translations['cart.country']['text']}}
                                 *</label>
-                            <input type="hidden" name="country"
+                            <input type="hidden" name="country" id="country"
                                    value="{{old('country', $shippingCountry['name'])}}">
+                            <input type="hidden" name="country_code" id="country_code"
+                                   value="{{old('country_code', $shippingCountry['uuid'])}}">
                             <input type="text" id="country" name=""
                                    class="checkout-form--input"
 
@@ -234,10 +236,12 @@
                             <div>
                                 <label class="checkout-form--label"
                                        for="company_country">{{$translations['cart.country']['text']}}</label>
-                                <input type="text" id="company_country" name="company_country"
-                                       class="checkout-form--input"
-
-                                       value="{{old('company_country', $user ? $user['company_country'] : null)}}">
+                                <select id="company_country" name="company_country" class="checkout-form--input">
+                                    <option value="">Vyberte krajinu</option>
+                                    @foreach($shippingCountries as $country)
+                                        <option value="{{$country['name']}}" @if (old('company_country') == $country['name']) selected @endif>{{$country['name']}}</option>
+                                    @endforeach
+                                </select>
                                 @error('company_country')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
