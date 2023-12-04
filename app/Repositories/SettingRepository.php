@@ -31,28 +31,37 @@ class SettingRepository
         $this->client = new Client(['http_errors' => false]);
     }
 
-    public function catalog(): array
+    public function catalog(string $locale): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::CATALOG_URL, [
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
+            'query' => [
+                'locale' => $locale
+            ],
         ]);
 
         return $this->response($response);
     }
 
-    public function documents(): array
+    public function documents(string $locale): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::DOCUMENTS_URL, [
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
+            'query' => [
+                'locale' => $locale
+            ],
         ]);
 
         return $this->response($response);
     }
 
-    public function supplier(): array
+    public function supplier(string $locale): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SUPPLIER_URL, [
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
+            'query' => [
+                'locale' => $locale
+            ],
         ]);
 
         return $this->response($response);

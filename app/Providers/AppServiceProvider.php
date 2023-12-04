@@ -37,17 +37,17 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $catalogSettings = Cache::rememberForever(locale() . '_catalog_settings', function () {
                 $_settingRepository = new SettingRepository();
-                return $_settingRepository->catalog()['items'];
+                return $_settingRepository->catalog(locale())['items'];
             });
 
             $documentSettings = Cache::rememberForever(locale() . '_document_settings', function () {
                 $_settingRepository = new SettingRepository();
-                return $_settingRepository->documents()['items'];
+                return $_settingRepository->documents(locale())['items'];
             });
 
             $supplierSettings = Cache::rememberForever(locale() . '_supplier_settings', function () {
                 $_settingRepository = new SettingRepository();
-                return $_settingRepository->supplier()['items'];
+                return $_settingRepository->supplier(locale())['items'];
             });
 
             $translations = Cache::rememberForever(locale() . '_translations_web', function () {
