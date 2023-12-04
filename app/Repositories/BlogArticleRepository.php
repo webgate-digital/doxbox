@@ -28,7 +28,7 @@ class BlogArticleRepository
             'Token' => config('frontstore.api_key'),
             'Shipping-Country' => session()->get('shipping_country'),
             'Locale' => locale(),
-            'Currency' => session()->get('currency'),
+            'Currency' => strtolower(session()->get('currency')),
         ];
     }
 
@@ -37,7 +37,7 @@ class BlogArticleRepository
         $response = $this->client->get(config('frontstore.api_endpoint') . self::LIST_URL, [
             'headers' => $this->headers(),
             'query' => [
-                'currency' => session()->get('currency'),
+                'Currency' => strtolower(session()->get('currency')),
                 'limit' => $limit,
                 'offset' => $offset,
                 'order' => $order,
