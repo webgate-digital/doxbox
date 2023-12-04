@@ -22,7 +22,7 @@ class CustomerRepository
     private const REQUEST_PASSWORD_RESET = '/auth/request-password-reset';
     private const PASSWORD_RESET = '/auth/password-reset';
     private $client;
-    
+
     private function headers()
     {
         return [
@@ -30,6 +30,8 @@ class CustomerRepository
             'Catalog' => config('frontstore.catalog'),
             'Token' => config('frontstore.api_key'),
             'Shipping-Country' => session()->get('shipping_country'),
+            'Locale' => locale(),
+            'Currency' => session()->get('currency'),
         ];
     }
 

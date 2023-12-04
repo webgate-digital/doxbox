@@ -14,7 +14,7 @@ class OrderRepository
     private const ORDER_SHOW = '/auth/order';
 
     private $client;
-    
+
     private function headers()
     {
         return [
@@ -22,6 +22,8 @@ class OrderRepository
             'Catalog' => config('frontstore.catalog'),
             'Token' => config('frontstore.api_key'),
             'Shipping-Country' => session()->get('shipping_country'),
+            'Locale' => locale(),
+            'Currency' => session()->get('currency'),
         ];
     }
 

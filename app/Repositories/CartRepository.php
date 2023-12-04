@@ -22,6 +22,8 @@ class CartRepository
             'Catalog' => config('frontstore.catalog'),
             'Token' => config('frontstore.api_key'),
             'Shipping-Country' => session()->get('shipping_country'),
+            'Locale' => locale(),
+            'Currency' => session()->get('currency'),
         ];
     }
 
@@ -126,7 +128,7 @@ class CartRepository
                     'PAYERID' => $data['PAYERID'],
                     'CURRENCY' => $data['CURRENCY'],
                 ]
-            ]);   
+            ]);
         } catch (Throwable) {
             Log::info('PayPal validation failed (' . $e->getMessage() . '): ' . json_encode($data));
         }

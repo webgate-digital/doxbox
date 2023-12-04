@@ -23,6 +23,8 @@ class SettingRepository
             'Catalog' => config('frontstore.catalog'),
             'Token' => config('frontstore.api_key'),
             'Shipping-Country' => session()->get('shipping_country'),
+            'Locale' => locale(),
+            'Currency' => session()->get('currency'),
         ];
     }
 
