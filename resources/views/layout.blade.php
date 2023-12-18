@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     @include('googletagmanager::head')
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -60,7 +60,7 @@
     fbq('track', 'PageView');
   </script>
   <noscript>
-    <img height="1" width="1" style="display:none" 
+    <img height="1" width="1" style="display:none"
          src="https://www.facebook.com/tr?id=855881804786331&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Facebook Pixel Code -->
@@ -127,7 +127,7 @@
                                 alt="{{ $translations['cart.title']['text'] }}">
                         </button>
                     @endif
-                    
+
                     <a href="{{ route(locale() . '.homepage') }}" class="main-nav--logo">
                         <img class="hidden md:inline" src="{{ asset('images/logo.svg') }}" width="120"
                             alt="{{ config('app.name') }}">
