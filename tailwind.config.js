@@ -17,8 +17,8 @@ module.exports = {
         },
         fontSize: {
             'lg': '10px',
-            'md': '9px',
-            'default': '9px',
+            'md': '10px',
+            'default': '12px',
         },
         colors: {
             'white': '#ffffff',
@@ -65,7 +65,7 @@ module.exports = {
                 'body-m': ['1.4rem', {lineHeight: '2.2rem'}],
                 'body-s': '1.3rem',
                 'body-xs': '1.2rem',
-                
+
                 'md-heading-2xl': ['12rem', {lineHeight: '14.063rem'}],
                 'md-heading-xl': ['9.6rem', {lineHeight: '11.25rem'}],
                 'md-heading-l': ['8.4rem', {lineHeight: '9.844rem'}],
