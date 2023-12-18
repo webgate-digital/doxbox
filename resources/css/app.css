@@ -1716,3 +1716,8 @@ table tfoot tr:not(:last-child) td {
         @apply h-[20px];
     }
 }
+
+#list.loading {
+    @apply opacity-[.32];
+    @apply pointer-events-none;
+}
