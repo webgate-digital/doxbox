@@ -85,7 +85,7 @@ iframe {
 
 .section--newsletter {
     @apply bg-gray-5;
-    @apply py-20;
+    @apply py-[48px];
 }
 
 .section--newsletter h2 {
