@@ -496,7 +496,7 @@ iframe {
         @apply top-0;
         @apply left-[-250px];
         @apply w-[250px];
-        height: 100vh;
+        height: 100%;
         @apply invisible;
         @apply overflow-y-auto;
         @apply opacity-0;
