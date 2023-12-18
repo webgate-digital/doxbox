@@ -72,9 +72,9 @@
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 px-4 order-1 lg:order-2">
-                    
+
                     <h1 class="text-heading-2xs !mb-4">{{$item['item']['name']}}</h1>
-                    
+
                     @if($item['item']['brand'])
                         <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">
                             <a href="{{route(locale() . '.product.list')}}?znacka={{$item['item']['brand']['slug']}}" class="text-gray-40 hover:text-gray-60">
@@ -82,9 +82,13 @@
                             </a>
                         </h2>
                     @endif
-                    
+
+                    <div class="product-detail--info">
+                        {!!$item['item']['info']!!}
+                    </div>
+
                     <p class="product-detail--price text-subheading-xl">
-                        
+
                         <span @if($item['item']['retail_discount']) class="text-success leading-none" @endif>
                             {{$item['item']['retail_price_discounted_formatted']}}
                         </span>
@@ -95,10 +99,6 @@
                             </span>
                         @endif
                     </p>
-                    
-                    <div class="product-detail--info">
-                        {!!$item['item']['info']!!}
-                    </div>
 
                     <div class="product-detail--labels">
                         <div class='product-detail--label'>
@@ -141,7 +141,7 @@
                 </div>
             </div>
 
-            
+
             @if(isset($item['related']['items']) && count($item['related']['items']) > 0)
             <div class="product-detail--separator"></div>
                 <div class="mt-16 product-detail--tabs">
