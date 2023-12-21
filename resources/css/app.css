@@ -956,6 +956,10 @@ iframe {
 
 .breadcrumbs--item:last-child {
     @apply mr-0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .breadcrumbs--item a:hover {

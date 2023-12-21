@@ -33,7 +33,7 @@ const app = new Vue({
             $loadMoreButton.click();
         }
     });
-    
+
     $loadMoreButton.addEventListener("click", () => {
         $loadMoreIcon.classList.remove('hidden');
         $productContainer.dataset.loading = true;
@@ -193,3 +193,19 @@ const app = new Vue({
         });
     });
 })();
+
+// Bread crumbs logic
+document.addEventListener('DOMContentLoaded', () => {
+    const isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
+    if (isMobile) {
+        const navigationBar = document.querySelector('#navigationBar');
+        const breadcrumbs = navigationBar.querySelectorAll('.breadcrumbs--item');
+        if (breadcrumbs.length > 7) {
+            document.querySelector('#ellipsis').style.display = "block";
+            document.querySelector('#ellipsisSeparator').style.display = "block";
+            for (let i = 1; i < breadcrumbs.length - 6; ++i) {
+                breadcrumbs[i].style.display = 'none';
+            }
+        }
+    }
+});
