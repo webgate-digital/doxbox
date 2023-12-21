@@ -118,7 +118,7 @@ const app = new Vue({
 })();
 
 // Category slider logic
-(() => {
+/* (() => {
     const $slider = document.querySelector('.category-list--container');
     const $arrowLeft = document.querySelector('.category-list--arrow-left');
     const $arrowRight = document.querySelector('.category-list--arrow-right');
@@ -147,7 +147,7 @@ const app = new Vue({
     updateArrows();
     $arrowLeft.addEventListener('click', () => scroll(1));
     $arrowRight.addEventListener('click', () => scroll());
-})();
+})(); */
 
 // Search bar logic
 (() => {

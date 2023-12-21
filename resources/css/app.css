@@ -653,6 +653,7 @@ iframe {
     @apply flex;
     @apply gap-4;
     @apply transition-all;
+    overflow-x: auto;
 }
 
 @screen md {
