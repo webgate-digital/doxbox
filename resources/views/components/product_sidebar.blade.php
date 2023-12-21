@@ -22,6 +22,9 @@
                             const $list = document.querySelector('#list');
                             $list?.classList.add('loading');
                             document.getElementById('filter-form').submit();
+
+                            // If user returns, remove loading class
+                            setTimeout(() => $list?.classList.remove('loading'), 1000);
                         }
                     </script>
                     <div class="attribute-block__values flex flex-col">
