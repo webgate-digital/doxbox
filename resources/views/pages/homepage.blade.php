@@ -56,7 +56,7 @@
                         <h4 class="category-box--name">
                             {{$translations['Všetky kategórie']['text']}}
                         </h4>
-                    </a>                    
+                    </a>
                 </div>
             </div>
         </section>
@@ -80,7 +80,7 @@
                         <h4 class="category-box--name">
                             {{$translations['Všetky značky']['text']}}
                         </h4>
-                    </a>                    
+                    </a>
                 </div>
             </div>
         </section>
@@ -91,7 +91,7 @@
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.1.title']['text']!!}
                     </h2>
-                    <p class="text-body-xl">
+                    <p>
                         {!!$translations['homepage.product.1.description']['text']!!}
                     </p>
                     <a href="{{$translations['homepage.product.1.link']['text']}}" class="button button--primary button--inline rounded-lg">
@@ -100,14 +100,14 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="promo-section">
             <div class="bg-gray-5" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-2.webp)">
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.2.title']['text']!!}
                     </h2>
-                    <p class="text-body-xl">
+                    <p>
                         {!!$translations['homepage.product.2.description']['text']!!}
                     </p>
                     <a href="{{$translations['homepage.product.2.link']['text']}}" class="button button--primary button--inline rounded-lg">
@@ -120,7 +120,7 @@
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.3.title']['text']!!}
                     </h2>
-                    <p class="text-body-xl">
+                    <p>
                         {!!$translations['homepage.product.3.description']['text']!!}
                     </p>
                     <a href="{{$translations['homepage.product.3.link']['text']}}" class="button button--primary button--inline rounded-lg">
@@ -128,13 +128,13 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="bg-secondary text-white" style="--bg-image: url(https://storage-doxbox.fra1.cdn.digitaloceanspaces.com/images/Banners/banner-4.webp)">
                 <div style="max-width:600px" class="mx-auto">
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.4.title']['text']!!}
                     </h2>
-                    <p class="text-body-xl">
+                    <p>
                         {!!$translations['homepage.product.4.description']['text']!!}
                     </p>
                     <a href="{{$translations['homepage.product.4.link']['text']}}" class="button button--primary button--inline rounded-lg">
@@ -148,7 +148,7 @@
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.5.title']['text']!!}
                     </h2>
-                    <p class="text-body-xl">
+                    <p>
                         {!!$translations['homepage.product.5.description']['text']!!}
                     </p>
                     <a href="{{$translations['homepage.product.5.link']['text']}}" class="button button--primary button--inline rounded-lg">
@@ -164,7 +164,7 @@
                     <h2 class="text-heading-xs leading-none">
                         {!!$translations['homepage.product.6.title']['text']!!}
                     </h2>
-                    <p class="text-body-xl">
+                    <p>
                         {!!$translations['homepage.product.6.description']['text']!!}
                     </p>
                     <a href="{{$translations['homepage.product.6.link']['text']}}" class="button button--primary button--inline rounded-lg">

@@ -10,7 +10,7 @@
                                 <img src="{{$categoryItem['image_url']}}" alt="{{$categoryItem['name']}}">
                             @endif
                         </div>
-                        <h3>{{ $categoryItem['name'] }}</h3>
+                        <h4>{{ $categoryItem['name'] }}</h4>
                     </a>
                 @endforeach
             </div>

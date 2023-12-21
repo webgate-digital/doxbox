@@ -55,7 +55,7 @@
                 @click="addQuantity">
                 +
             </button>
-            <button class="button button--primary rounded-xl ml-16 !w-auto !px-16 flex-grow md:flex-grow-0 add-to-cart-button"
+            <button class="button button--primary rounded-xl ml-12 !w-auto !px-16 flex-grow md:flex-grow-0 add-to-cart-button flex-shrink-0"
                 :class="{ disabled: isAddToCartDisabled }" @click="addToCart()">
                 <template v-if="!loading && !error">
                     {{ translations['Do košíka'] }}
