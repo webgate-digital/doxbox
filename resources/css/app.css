@@ -836,10 +836,15 @@ iframe {
     @apply mb-0;
 }
 
+.product-box--price:has(.product-box--price-old) {
+    @apply text-success;
+}
+
 .product-box--price-old {
     @apply font-light;
     @apply line-through;
     @apply mx-4;
+    color: initial;
 }
 
 .product-box--cta {

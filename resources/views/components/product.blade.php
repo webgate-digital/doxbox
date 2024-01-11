@@ -25,12 +25,24 @@
             $productWithMinPrice = collect($allProducts)->sortBy('retail_price_discounted')->first();
             $productWithMaxPrice = collect($allProducts)->sortBy('retail_price_discounted')->last();
             $priceString = '';
+            $oldPrice = null;
+
             if($productWithMinPrice['retail_price_discounted'] == $productWithMaxPrice['retail_price_discounted']) {
                 $priceString = $productWithMinPrice['retail_price_discounted_formatted'];
+
+                if($productWithMinPrice['retail_price'] != $productWithMinPrice['retail_price_discounted']) {
+                    $oldPrice = $productWithMinPrice['retail_price'];
+                    $oldPriceFormatted = $productWithMinPrice['retail_price_formatted'];
+                }
             } else {
                 $priceString = $productWithMinPrice['retail_price_discounted_formatted'] . ' - ' . $productWithMaxPrice['retail_price_discounted_formatted'];
             }
         @endphp
         {{$priceString}}
+        @if($oldPrice != null)
+            <span class="product-box--price-old">
+                {{$oldPriceFormatted}}
+            </span>
+        @endif
     </p>
 </a>
