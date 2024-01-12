@@ -62,6 +62,18 @@ class ProductRepository
         return $this->response($response);
     }
 
+    public function variantsTreeV2(string $uuid): array
+    {
+        $response = $this->client->get(config('frontstore.api_endpoint_v2') . '/products/variants-tree', [
+            'headers' => $this->headers(),
+            'query' => [
+                'uuid' => $uuid
+            ]
+        ]);
+
+        return $this->response($response);
+    }
+
     public function search(string $locale, string $currency, string $keyword): array
     {
         $response = $this->client->get(config('frontstore.api_endpoint') . self::SEARCH_URL, [

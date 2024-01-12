@@ -7,18 +7,15 @@
                         {{ variantName }}
                     </div>
                     <div class="flex gap-4 flex-wrap">
-                        <div v-for="([variantValueName]) in Object.entries(variantTree)"
-                            :key="variantValueName">
-                            <div v-if="variantName === 'Farba'"
-                                :data-tippy-content="`${variantName}: ${variantValueName}`" :class="{
+                        <div v-for="([variantValueName]) in sortVariants(variantName, variantTree)" :key="variantValueName">
+                            <div v-if="variantName === 'Farba'" :data-tippy-content="`${variantName}: ${variantValueName}`"
+                                :class="{
                                     variant: true,
                                     disabled: isVariantDisabled(variantName, variantValueName),
                                     selected: variantSelection[variantName] === variantValueName
-                                }"
-                                class="select-none rounded-full h-16 w-16 cursor-pointer circle"
-                                :style="{
-                                    backgroundColor: getHexColorByColorName(variantValueName),
-                                }" @click="setVariant(variantName, variantValueName)">
+                                }" class="select-none rounded-full h-16 w-16 cursor-pointer circle" :style="{
+    backgroundColor: getHexColorByColorName(variantValueName),
+}" @click="setVariant(variantName, variantValueName)">
                             </div>
                             <div v-else :data-tippy-content="`${variantName}: ${variantValueName}`"
                                 class="select-none py-3 px-6 rounded-lg cursor-pointer rectangle" :class="{
@@ -38,7 +35,8 @@
                 {{ translations['Resetovať'] }}
             </span>
         </div>
-        <template v-if="!selectedProduct.count && selectedProduct.is_available_for_order && selectedProduct.order_availability && selectedProduct.order_availability !== ''">
+        <template
+            v-if="!selectedProduct.count && selectedProduct.is_available_for_order && selectedProduct.order_availability && selectedProduct.order_availability !== ''">
             <div class="mt-8">
                 {{ selectedProduct.order_availability }}
             </div>
@@ -55,7 +53,8 @@
                 @click="addQuantity">
                 +
             </button>
-            <button class="button button--primary rounded-xl ml-12 !w-auto !px-16 flex-grow md:flex-grow-0 add-to-cart-button flex-shrink-0"
+            <button
+                class="button button--primary rounded-xl ml-12 !w-auto !px-16 flex-grow md:flex-grow-0 add-to-cart-button flex-shrink-0"
                 :class="{ disabled: isAddToCartDisabled }" @click="addToCart()">
                 <template v-if="!loading && !error">
                     {{ translations['Do košíka'] }}
@@ -82,6 +81,7 @@ export default {
     props: {
         translations: Object,
         item: Object,
+        variantsTree: Object,
     },
     data: () => {
         return {
@@ -161,6 +161,18 @@ export default {
             return !variantValueCombinations.some(variantValueCombination => {
                 return Object.values(selectionToBe).every((value, index) => value === variantValueCombination[index] || value === null);
             });
+        },
+        sortVariants(variantName, variantTree) {
+            const order = this.variantsTree.attributes.find(attr => attr.name === variantName)?.values.map(v => v.name);
+            if (!order) return Object.entries(variantTree);
+
+            const sortedEntries = Object.entries(variantTree).sort((a, b) => {
+                const aIndex = order.indexOf(a[0]);
+                const bIndex = order.indexOf(b[0]);
+                return bIndex - aIndex;
+            });
+
+            return sortedEntries;
         },
         isProductAvailable(product) {
             return product.count > 0 || product.is_available_for_order == 1;

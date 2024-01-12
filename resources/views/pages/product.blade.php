@@ -49,6 +49,7 @@
                 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text'],
                 'Resetovať' => $translations['cart.reset']['text'],
             ])}}"
+        :variants-tree="{{json_encode($variantsTree)}}"
         ></add-to-cart>
     @endif
 @endsection

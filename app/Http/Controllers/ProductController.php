@@ -128,6 +128,13 @@ class ProductController extends Controller
         } catch (NotFoundException $e) {
             abort(404);
         }
+
+        try {
+            $variantsTree = $this->_productRepository->variantsTreeV2($item['item']['uuid']);
+        } catch (NotFoundException $e) {
+            abort(404);
+        }
+
         $breadcrumbs = self::getBreadcrumbs($item['item']['category']);
         $breadcrumbs[] = [
             'title' => $item['item']['name']
@@ -163,7 +170,7 @@ class ProductController extends Controller
             ]
         ]);
 
-        return view('pages.product', compact('item', 'breadcrumbs', 'isAvailable'));
+        return view('pages.product', compact('item', 'breadcrumbs', 'isAvailable', 'variantsTree'));
     }
 
     public function search(Request $request)
