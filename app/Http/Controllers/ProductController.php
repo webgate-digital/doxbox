@@ -45,10 +45,6 @@ class ProductController extends Controller
             return $this->_productRepository->getFilterPrices(session()->get('currency'))['items'];
         });
 
-        $attributes = Cache::rememberForever(locale() . '_product_attributes', function () {
-            return $this->_productRepository->attributes(locale())['items'];
-        });
-
         $translations = Cache::rememberForever(locale() . '_translations_web', function () {
             $_translationRepository = new TranslationRepository();
             return $_translationRepository->default(locale())['items'];
@@ -58,10 +54,12 @@ class ProductController extends Controller
         $limit = config('frontstore.defaults.limit.products');
         $page = $isAjax ? $request->get('page', 1) : 0;
         $offset = $isAjax ? ($page - 1) * $limit : 0;
-        $productList = Cache::rememberForever(locale() . '_products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices, $category, $limit, $offset) {
-            $setup = Cache::rememberForever(locale() . '_setup', function () {
-                return $this->_setupRepository->list()['items'];
-            });
+
+        $setup = Cache::rememberForever(locale() . '_setup', function () {
+            return $this->_setupRepository->list()['items'];
+        });
+
+        $productList = Cache::rememberForever(locale() . '_products_list_' . base64_encode($request->getRequestUri()), function () use ($request, $filterPrices, $category, $limit, $offset, $setup) {
             $sortAndOrder = $request->get('sort', $setup['api']['defaults']['sort']['products']);
             $sort = implode('_', explode('_', $sortAndOrder, -1));
             $order = Str::replaceFirst($sort . '_', '', $sortAndOrder);
@@ -70,12 +68,19 @@ class ProductController extends Controller
             $attributes = $request->get('attributes', []);
             $categorySlug = $category ? $category['slug'] : null;
             $brandSlug = $request->get('znacka', null);
-            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug, $brandSlug);
+            $flags = ['available_attributes'];
+            return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug, $brandSlug, $flags);
         });
+
+        /* $attributes = Cache::rememberForever(locale() . '_product_attributes', function () {
+            return $this->_productRepository->attributes(locale())['items'];
+        }); */
+
+        $attributes = $productList['flags']['available_attributes'];
 
         $total = $productList['total'];
         $hasMoreProducts = $offset + $limit < $total;
-        $availableAttributes = $productList['availableAttributes'];
+        $availableAttributes = $productList['flags']['available_attributes'];
         $products = $productList['items'];
         $total = $productList['total'];
         $breadcrumbs = self::getBreadcrumbs($category);
@@ -130,21 +135,47 @@ class ProductController extends Controller
         }
 
         try {
-            $variantsTree = $this->_productRepository->variantsTreeV2($item['item']['uuid']);
+            $variantsTree = $this->_productRepository->variantsTreeV2($item['uuid']);
         } catch (NotFoundException $e) {
-            abort(404);
+            $variantsTree = [];
         }
 
-        $breadcrumbs = self::getBreadcrumbs($item['item']['category']);
+        $relatedProducts = $item['related_products'] ?? [];
+
+        // If there is less than 4 related products, add random products from the same category
+        if (count($relatedProducts) < 4) {
+            $relatedProducts = array_merge($relatedProducts, $this->_productRepository->list(locale(), session()->get('currency'), 4, 0, 'desc', 'score', 0, PHP_INT_MAX, [], $item['category']['slug'])['items']);
+
+            // Remove current product from related products
+            $relatedProducts = array_filter($relatedProducts, function ($product) use ($item) {
+                return $product['uuid'] != $item['uuid'];
+            });
+
+            // Remove duplicates (compare by uuid)
+            foreach ($relatedProducts as $key => $product) {
+                $uuids = array_map(function ($product) {
+                    return $product['uuid'];
+                }, $relatedProducts);
+                $uuids = array_count_values($uuids);
+                if ($uuids[$product['uuid']] > 1) {
+                    unset($relatedProducts[$key]);
+                }
+            }
+
+            // Limit to 4 products
+            $relatedProducts = array_slice($relatedProducts, 0, 4);
+        }
+
+        $breadcrumbs = self::getBreadcrumbs($item['category']);
         $breadcrumbs[] = [
-            'title' => $item['item']['name']
+            'title' => $item['name']
         ];
 
-        $isAvailable = $item['item']['count'] > 0 || $item['item']['is_available_for_order'] == 1;
+        $isAvailable = $item['count'] > 0 || $item['is_available_for_order'] == 1;
 
         // If product is not available, look for variants
         if (!$isAvailable) {
-            foreach ($item['item']['variants'] as $variant) {
+            foreach ($item['variants'] as $variant) {
                 if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
                     $isAvailable = true;
                     break;
@@ -153,24 +184,24 @@ class ProductController extends Controller
         }
 
         // Implement dataLayer for Google Tag Manager (ecommerce)
-        $categoryString = self::getCategoryChainString($item['item']['category']['slug']);
+        $categoryString = self::getCategoryChainString($item['category']['slug']);
         $dataLayer = GoogleTagManager::getDataLayer();
         $dataLayer->set('event', 'eec.detail');
         $dataLayer->set('ecommerce', [
             'detail' => [
-                'currency' => strtoupper($item['item']['currency']),
+                'currency' => strtoupper($item['currency']),
                 'products' => [
                     [
-                        'id' => $item['item']['sku'],
-                        'name' => $item['item']['name'],
-                        'price' => $item['item']['retail_price'],
+                        'id' => $item['sku'],
+                        'name' => $item['name'],
+                        'price' => $item['retail_price'],
                         'category' => $categoryString,
                     ]
                 ]
             ]
         ]);
 
-        return view('pages.product', compact('item', 'breadcrumbs', 'isAvailable', 'variantsTree'));
+        return view('pages.product', compact('item', 'breadcrumbs', 'isAvailable', 'variantsTree', 'relatedProducts'));
     }
 
     public function search(Request $request)

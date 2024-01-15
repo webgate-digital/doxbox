@@ -21,25 +21,26 @@
     </h4>
     <p class="product-box--price">
         @php
-            $allProducts = array_merge($item['variants'], [$item]);
-            $productWithMinPrice = collect($allProducts)->sortBy('retail_price_discounted')->first();
-            $productWithMaxPrice = collect($allProducts)->sortBy('retail_price_discounted')->last();
-            $priceString = '';
-            $oldPrice = null;
+            $hasVariants = (isset($item['variants']) && count($item['variants'])) > 0;
+            if ($hasVariants) {
+                $minPrice = $item['variants_min_price_with_vat_formatted'];
+                $maxPrice = $item['variants_max_price_with_vat_formatted'];
 
-            if($productWithMinPrice['retail_price_discounted'] == $productWithMaxPrice['retail_price_discounted']) {
-                $priceString = $productWithMinPrice['retail_price_discounted_formatted'];
-
-                if($productWithMinPrice['retail_price'] != $productWithMinPrice['retail_price_discounted']) {
-                    $oldPrice = $productWithMinPrice['retail_price'];
-                    $oldPriceFormatted = $productWithMinPrice['retail_price_formatted'];
+                if ($minPrice === $maxPrice) {
+                    $priceString = $minPrice;
+                } else {
+                    $priceString = $minPrice . ' - ' . $maxPrice;
                 }
             } else {
-                $priceString = $productWithMinPrice['retail_price_discounted_formatted'] . ' - ' . $productWithMaxPrice['retail_price_discounted_formatted'];
+                $priceString = $item['retail_price_discounted_formatted'];
+                if ($item['retail_price'] != $item['retail_price_discounted']) {
+                    $oldPrice = $item['retail_price'];
+                    $oldPriceFormatted = $item['retail_price_formatted'];
+                }
             }
         @endphp
         {{$priceString}}
-        @if($oldPrice != null)
+        @if(isset($oldPrice))
             <span class="product-box--price-old">
                 {{$oldPriceFormatted}}
             </span>
