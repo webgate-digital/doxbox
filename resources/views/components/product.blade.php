@@ -5,7 +5,7 @@
         <div class="product-box--cta button button--primary">
             {{$translations['product.show_cta']['text']}}
         </div>
-        @if($item['badge'])
+        @if(isset($item['badge']) && $item['badge'])
             <div class="product-box--badge" style="--badge-font-color: {{$item['badge']['font_color']}}; --badge-background-color: {{$item['badge']['background_color']}};">
                 {{$item['badge']['name']}}
             </div>
@@ -21,10 +21,28 @@
     </h4>
     <p class="product-box--price">
         @php
+            $isV3 = isset($item['_highlightResult']);
             $hasVariants = (isset($item['variants']) && count($item['variants'])) > 0;
+
             if ($hasVariants) {
-                $minPrice = $item['variants_min_price_with_vat_formatted'];
-                $maxPrice = $item['variants_max_price_with_vat_formatted'];
+                if ($isV3) {
+                    $minPrice = null;
+                    $maxPrice = null;
+                    foreach ($item['variants'] as $variant) {
+                        $price = floatval(str_replace(',', '.', str_replace(' €', '', $variant['sale_price_eur_with_vat_formatted'])));
+                        if ($minPrice === null || $price < $minPrice) {
+                            $minPrice = $price;
+                        }
+                        if ($maxPrice === null || $price > $maxPrice) {
+                            $maxPrice = $price;
+                        }
+                    }
+                    $minPrice = number_format($minPrice, 2, ',', '') . ' €';
+                    $maxPrice = number_format($maxPrice, 2, ',', '') . ' €';
+                } else {
+                    $minPrice = $item['variants_min_price_with_vat_formatted'];
+                    $maxPrice = $item['variants_max_price_with_vat_formatted'];
+                }
 
                 if ($minPrice === $maxPrice) {
                     $priceString = $minPrice;
@@ -32,10 +50,20 @@
                     $priceString = $minPrice . ' - ' . $maxPrice;
                 }
             } else {
-                $priceString = $item['retail_price_discounted_formatted'];
-                if ($item['retail_price'] != $item['retail_price_discounted']) {
-                    $oldPrice = $item['retail_price'];
-                    $oldPriceFormatted = $item['retail_price_formatted'];
+                if ($isV3) {
+                    $priceString = $item['sale_price_eur_with_vat_formatted'];
+                    $salePrice = floatval(str_replace(',', '.', str_replace(' €', '', $item['sale_price_eur_with_vat_formatted'])));
+                    $retailPrice = floatval(str_replace(',', '.', str_replace(' €', '', $item['retail_price_eur_with_vat_formatted'])));
+                    if ($salePrice != $retailPrice) {
+                        $oldPrice = $retailPrice;
+                        $oldPriceFormatted = number_format($oldPrice, 2, ',', '') . ' €';
+                    }
+                } else {
+                    $priceString = $item['retail_price_discounted_formatted'];
+                    if ($item['retail_price'] != $item['retail_price_discounted']) {
+                        $oldPrice = $item['retail_price'];
+                        $oldPriceFormatted = $item['retail_price_formatted'];
+                    }
                 }
             }
         @endphp

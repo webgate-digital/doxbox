@@ -72,10 +72,6 @@ class ProductController extends Controller
             return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug, $brandSlug, $flags);
         });
 
-        /* $attributes = Cache::rememberForever(locale() . '_product_attributes', function () {
-            return $this->_productRepository->attributes(locale())['items'];
-        }); */
-
         $attributes = $productList['flags']['available_attributes'];
 
         $total = $productList['total'];
@@ -91,7 +87,7 @@ class ProductController extends Controller
             // If product is sold out, check if any of its variants is available
             if ($isSoldOut) {
                 foreach ($product['variants'] as $variant) {
-                    if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
+                    if ($variant['count'] > 0 || $variant['stock_status'] != 'out_of_stock') {
                         $isSoldOut = false;
                         break;
                     }
@@ -213,15 +209,15 @@ class ProductController extends Controller
         $keyword = $request->get('kw');
 
         $products = Cache::rememberForever(locale() . '_products_search_' . $keyword, function () use ($keyword) {
-            return $this->_productRepository->search(locale(), session()->get('currency'), $keyword)['items'];
+            return $this->_productRepository->search(locale(), session()->get('currency'), $keyword)['products'];
         });
 
         // Handle sold out products
         $products = array_map(function ($product) {
-            $isSoldOut = $product['count'] <= 0 && $product['is_available_for_order'] == 0;
+            $isSoldOut = (isset($product['count']) ? $product['count'] : $product['actual_stock_count']) <= 0 && $product['is_available_for_order'] == 0;
 
             // If product is sold out, check if any of its variants is available
-            if ($isSoldOut) {
+            if ($isSoldOut && isset($product['variants'])) {
                 foreach ($product['variants'] as $variant) {
                     if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
                         $isSoldOut = false;
@@ -230,6 +226,7 @@ class ProductController extends Controller
                 }
             }
 
+            $product['name'] = isset($product['name']) ? $product['name'] : $product['name_' . locale()];
             $product['is_sold_out'] = $isSoldOut;
             return $product;
         }, $products);
@@ -321,8 +318,8 @@ class ProductController extends Controller
         if (!$category) {
             return "#";
         }
-        $categorySlug = $item['category']['slug'];
-        $slug = $item['slug'];
+        $categorySlug = isset($item['category']['slug']) ? $item['category']['slug'] : $item['category']['slug_' . locale()];
+        $slug = isset($item['slug']) ? $item['slug'] : $item['slug_' . locale()];
         $categorySlugs = self::getCategoriesChainString($categorySlug);
         if (!$categorySlugs) {
             return "#";

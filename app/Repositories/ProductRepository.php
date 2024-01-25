@@ -31,6 +31,7 @@ class ProductRepository
             'Shipping-Country' => session()->get('shipping_country'),
             'Locale' => locale(),
             'Currency' => strtolower(session()->get('currency')),
+            'Billing-Country' => config('frontstore.billing_country'),
         ];
     }
 
@@ -77,13 +78,19 @@ class ProductRepository
 
     public function search(string $locale, string $currency, string $keyword): array
     {
-        $response = $this->client->get(config('frontstore.api_endpoint') . self::SEARCH_URL, [
-            'headers' => $this->headers(),
+        $response = $this->client->get(config('frontstore.api_endpoint_v3') . self::SEARCH_URL, [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Catalog' => config('frontstore.catalog'),
+                'Token' => config('frontstore.api_key'),
+                'Locale' => locale(),
+                'Currency' => strtolower(session()->get('currency')),
+                'Billing-Country' => config('frontstore.billing_country'),
+            ],
             'query' => [
-                'locale' => $locale,
-                'currency' => $currency,
-                'keyword' => $keyword,
-                'show_sold_out' => true,
+                'limit' => 10,
+                'offset' => 0,
+                'query' => $keyword,
             ]
         ]);
 
