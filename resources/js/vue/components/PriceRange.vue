@@ -3,7 +3,7 @@
         <vue-slider
             :tooltip="'none'"
             :min="0"
-            :max="maxPrice"
+            :max="Math.ceil(maxPrice)"
             v-model="sliderValue"
             @drag-end="dragEnd"
         ></vue-slider>
