@@ -130,6 +130,8 @@ class ProductController extends Controller
             abort(404);
         }
 
+        $variantsTree = '{}';
+
         try {
             $variantsTree = $this->_productRepository->variantsTreeV2($item['uuid']);
         } catch (NotFoundException $e) {
