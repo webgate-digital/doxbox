@@ -841,7 +841,7 @@ iframe {
 }
 
 .product-box--price-old {
-    @apply font-light;
+    font-weight: 400;
     @apply line-through;
     @apply mx-4;
     color: initial;
@@ -875,6 +875,11 @@ iframe {
 
     color: var(--badge-font-color, white);
     background-color: var(--badge-background-color, #25282B);
+}
+
+.product-box--badge-discount {
+    font-weight: 800;
+    background-color: #E93C3C;
 }
 
 /* product detail */
