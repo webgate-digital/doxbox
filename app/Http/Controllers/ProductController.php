@@ -72,11 +72,11 @@ class ProductController extends Controller
             return $this->_productRepository->list(locale(), session()->get('currency'), $limit, $offset, $order, $sort, $min_price, $max_price, $attributes, $categorySlug, $brandSlug, $flags);
         });
 
-        $attributes = $productList['flags']['available_attributes'];
+        $attributes = isset($productList['flags']) ? $productList['flags']['available_attributes'] : [];
 
         $total = $productList['total'];
         $hasMoreProducts = $offset + $limit < $total;
-        $availableAttributes = $productList['flags']['available_attributes'];
+        $availableAttributes = isset($productList['flags']) ? $productList['flags']['available_attributes'] : [];
         $products = $productList['items'];
         $total = $productList['total'];
         $breadcrumbs = self::getBreadcrumbs($category);
