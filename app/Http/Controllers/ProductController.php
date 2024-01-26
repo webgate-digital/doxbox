@@ -221,7 +221,7 @@ class ProductController extends Controller
             // If product is sold out, check if any of its variants is available
             if ($isSoldOut && isset($product['variants'])) {
                 foreach ($product['variants'] as $variant) {
-                    if ($variant['count'] > 0 || $variant['is_available_for_order'] == 1) {
+                    if ($variant['actual_stock_count'] > 0 || $variant['is_available_for_order'] == 1) {
                         $isSoldOut = false;
                         break;
                     }
