@@ -2,6 +2,8 @@
     // Calculate discount percentage for V3
     $isV3 = isset($item['_highlightResult']);
     if($isV3) {
+        $salePrice = floatval(str_replace(',', '.', str_replace(' €', '', $item['sale_price_eur_with_vat_formatted'])));
+        $retailPrice = floatval(str_replace(',', '.', str_replace(' €', '', $item['retail_price_eur_with_vat_formatted'])));
         if ($salePrice != $retailPrice && $retailPrice > 0) {
             $discountPercentage = round(100 - ($salePrice / $retailPrice * 100));
         }
