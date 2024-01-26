@@ -1,8 +1,8 @@
 @extends('layout', [
-	'ogTitle' => $item['item']['seo_title'] ?: $item['item']['name'],
-	'ogDescription' => $item['item']['perex'] ?: $item['item']['seo_description'],
+	'ogTitle' => $item['seo_title'] ?: $item['name'],
+	'ogDescription' => $item['perex'] ?: $item['seo_description'],
 	'robots' => 'index,follow',
-    'ogImage' => $item['item']['image_url']
+    'ogImage' => $item['image_url']
     ]
 )
 
@@ -15,18 +15,18 @@
     {
       "@context": "https://schema.org/",
       "@type": "Product",
-      "name": "{{$item['item']['seo_title'] ?: $item['item']['name']}}",
-      "image": "{{asset($item['item']['image_url'])}}",
-       "description": "{{ $item['item']['seo_description'] ?: $item['item']['perex'] }}",
-       "sku": "{{$item['item']['sku'] ?: $item['item']['uuid']}}",
+      "name": "{{$item['seo_title'] ?: $item['name']}}",
+      "image": "{{asset($item['image_url'])}}",
+       "description": "{{ $item['seo_description'] ?: $item['perex'] }}",
+       "sku": "{{$item['sku'] ?: $item['uuid']}}",
        "brand": {
          "@type": "Brand",
-         "name": "{{$item['item']['brand']['name']}}"
+         "name": "{{$item['brand']['name']}}"
        },
        "offers": {
          "@type": "Offer",
-         "priceCurrency": "{{\Illuminate\Support\Str::upper($item['item']['currency'])}}",
-         "price": "{{$item['item']['retail_price_discounted']}}"
+         "priceCurrency": "{{\Illuminate\Support\Str::upper($item['currency'])}}",
+         "price": "{{$item['retail_price_discounted']}}"
        }
      }
 
@@ -43,7 +43,7 @@
         </a>
     @else
         <add-to-cart
-        :item="{{json_encode($item['item'])}}"
+        :item="{{json_encode($item)}}"
             :translations="{{json_encode([
                 'Do košíka' => $translations['cart.cta_add']['text'],
                 'Na sklade nie je dostatočný počet kusov' => $translations['cart.count_error']['text'],
@@ -62,41 +62,41 @@
             <div class="flex flex-wrap -mx-4 flex flex-col-reverse md:flex-row">
                 <div class="w-full lg:w-1/2 px-4 order-2 lg:order-1">
                     <div class="fotorama mb-16 lg:mb-0" data-nav="thumbs" data-allowfullscreen="true" data-thumbmargin="8" data-ratio="1" data-width="100%">
-                        <a href="{{$item['item']['image_url']}}">
-                            <img alt="{{$item['item']['name']}}" src="{{$item['item']['image_url']}}">
+                        <a href="{{$item['image_url']}}">
+                            <img alt="{{$item['name']}}" src="{{$item['image_url']}}">
                         </a>
-                        @foreach($item['item']['gallery'] as $itemImage)
+                        @foreach($item['gallery'] as $itemImage)
                             <a href="{{$itemImage}}"><img
-                                    alt="{{$item['item']['name']}}"
+                                    alt="{{$item['name']}}"
                                     src="{{$itemImage}}"></a>
                         @endforeach
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 px-4 order-1 lg:order-2">
 
-                    <h1 class="text-heading-2xs !mb-4">{{$item['item']['name']}}</h1>
+                    <h1 class="text-heading-2xs !mb-4">{{$item['name']}}</h1>
 
-                    @if($item['item']['brand'])
+                    @if($item['brand'])
                         <h2 class="text-subheading-l text-gray-40 leading-none !mb-6">
-                            <a href="{{route(locale() . '.product.list')}}?znacka={{$item['item']['brand']['slug']}}" class="text-gray-40 hover:text-gray-60">
-                                {{$item['item']['brand']['name']}}
+                            <a href="{{route(locale() . '.product.list')}}?znacka={{$item['brand']['slug']}}" class="text-gray-40 hover:text-gray-60">
+                                {{$item['brand']['name']}}
                             </a>
                         </h2>
                     @endif
 
                     <div class="product-detail--info">
-                        {!!$item['item']['info']!!}
+                        {!!$item['info']!!}
                     </div>
 
                     <p class="product-detail--price text-subheading-xl">
 
-                        <span @if($item['item']['retail_discount']) class="text-success leading-none" @endif>
-                            {{$item['item']['retail_price_discounted_formatted']}}
+                        <span @if($item['retail_discount']) class="text-success leading-none" @endif>
+                            {{$item['retail_price_discounted_formatted']}}
                         </span>
 
-                        @if($item['item']['badge'])
-                            <span class="product-detail--badge" style="--badge-font-color: {{$item['item']['badge']['font_color']}}; --badge-background-color: {{$item['item']['badge']['background_color']}};">
-                                {{$item['item']['badge']['name']}}
+                        @if($item['badge'])
+                            <span class="product-detail--badge" style="--badge-font-color: {{$item['badge']['font_color']}}; --badge-background-color: {{$item['badge']['background_color']}};">
+                                {{$item['badge']['name']}}
                             </span>
                         @endif
                     </p>
@@ -138,17 +138,17 @@
             <div class="mt-16 product-detail--tabs">
                 <h3 class="text-subheading-xl mb-10">{{$translations['products.description_title']['text']}}</h3>
                 <div class="wysiwyg-content">
-                    {!! $item['item']['description'] !!}
+                    {!! $item['description'] !!}
                 </div>
             </div>
 
 
-            @if(isset($item['related']['items']) && count($item['related']['items']) > 0)
+            @if(isset($relatedProducts) && count($relatedProducts) > 0)
             <div class="product-detail--separator"></div>
                 <div class="mt-16 product-detail--tabs">
                     <h3 class="text-subheading-xl mb-10">{{$translations['product.related_products']['text']}}</h3>
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                        @foreach(array_slice($item['related']['items'], 0, 4) as $product)
+                        @foreach(array_slice($relatedProducts, 0, 4) as $product)
                             @include('components.product', ['item' => $product])
                         @endforeach
                     </div>
